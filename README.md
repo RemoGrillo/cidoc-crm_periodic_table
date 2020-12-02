@@ -22,3 +22,8 @@ All the data processing is done on the client side, entirely with javascript.
 * Show all relations recursively
 * Copy to clipboard of the selected class/property
 * Switch between Class/Properties/Inverse
+
+### Future releases 
+
+* Fullscreen Hierarchy visualization on hover
+* 
