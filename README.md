@@ -9,7 +9,7 @@ The difference is in the way this information is presented to the user, namely, 
 
 ### How
 
-The interface content is dinamically generated from the Cidoc-CRM RDFS file (in JSON format).
+The interface content is dinamically generated from the Cidoc-CRM RDFS file (v6.2.1) (in JSON format).
 All the data processing is done on the client side, entirely with javascript.
 
 ### Functions
@@ -26,4 +26,5 @@ All the data processing is done on the client side, entirely with javascript.
 ### Future releases 
 
 * Fullscreen Hierarchy visualization on hover
-* 
+* Permalinks for Classes and Properties
+* A sandbox with a reasoner to test consistency of triplets 
