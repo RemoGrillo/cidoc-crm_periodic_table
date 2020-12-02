@@ -1,9 +1,9 @@
-# Ontological Periodic Table
-An infographical generated documentation of ontologies - CIDOC in particular - in a periodic table fashion.
+# CIDOC-crm Periodic Table
+An infographical, interactive, dinamically generated documentation of CIDOC in a periodic table fashion.
 
 ### Scope
 
-Its goal would be attained if it afforded an improved accessibility of information or even a pleasure of consultation to one who used it during modeling.
+The goal of this interface would be attained if it afforded an improved accessibility of information or even a pleasure of consultation to one who used it during modeling.
 The same information is present, for instance, in the Cidoc-CRM official documentation and website.
 The difference is in the way this information is presented to the user, namely, in a single page (instead of a big hypertext documentation) together with the interactivity and the little utilities available.
 
