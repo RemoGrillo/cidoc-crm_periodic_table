@@ -1,4 +1,4 @@
-# CIDOC-crm Periodic Table
+# The CIDOC-crm Periodic Table (alpha)
 An infographical, interactive, dinamically generated documentation of CIDOC in a periodic table fashion.
 
 ### Scope

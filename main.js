@@ -502,7 +502,7 @@ function createSubclassesList(code){
     const sample = treeList();
     d3.select("#treelist").datum(tree).call(sample);
 
-    document.getElementById('treelist').scrollIntoView();
+    //document.getElementById('treelist').scrollIntoView();
 }
 
 function generateTreeGraph(treeData){
