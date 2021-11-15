@@ -29,4 +29,4 @@ There is no server-side computation, all the data processing and reasoning is do
 
 * Higher level grouping of classes (in a real periodic table fashion)
 * Permalinks for Classes and Properties
-* A reasoner-powered to test consistency of triples
+* A reasoner-powered sandbox, useful to test consistency of triples
