@@ -1,6 +1,8 @@
 # The CIDOC-crm Periodic Table (alpha)
 An interactive, dinamically generated interface for the documentation of the CIDOC-CRM.
 
+You can try it [here](https://remogrillo.github.io/cidoc-crm_periodic_table/).
+
 ### Scope
 
 The goal of this interface would be attained if it afforded an improved accessibility of information of the conceptual model. 
