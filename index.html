@@ -44,6 +44,9 @@
             <div id="addtoclipboard">
                 <img src="assets/copy-regular.svg" alt="clipboard" width="20px" >
             </div>
+            <div id="showHierarchyTree">
+                <i class="fas fa-project-diagram"></i>
+            </div>
         </div>
         <h3 id="descTitle">Describer</h3>
         <hr>
@@ -79,15 +82,34 @@
         </div>
         <hr class="belongsToClasses">
         <div class="row belongsToClasses">
-            <div class="col-12" id="deschierarchy">
-                <h5>Hierarchy visualization</h5>
-                <div id="d3container"></div>
-            </div>
+            <h5 id="descClassesProperties" class="col-12">Properties</h5>
+            <div id="classPropertiesContainer"></div>
         </div>
+    </div>
+    <div id="sandbox">
+        <h3>Sandbox</h3>
     </div>
 </div>
 <input id="clipboardInput" value="">
 <div id="clipboardMessage"></div>
+
+<div class="modal fade" id="hierarchyModal" tabindex="-1" role="dialog" aria-labelledby="hierarchyModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hierarchyModalTitle">Hierarchy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="deschierarchy">
+                    <div id="d3container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--<div id="footer" class="row">
 
 

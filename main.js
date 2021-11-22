@@ -2,12 +2,44 @@ var cidoc = {};
 var treegraph = {};
 var showinverse = false;
 
+const cidoc_colorcodes = {
+    "E2":{
+        color: "azure",
+        label: "Temporal Entity"
+    },
+    "E18":{
+        color: "brown",
+        label: "Physical Things"
+    },
+    "E39":{
+        color: "pink",
+        label: "Actors"
+    },
+    "E28":{
+        color: "yellow",
+        label: "Conceptual Objects"
+    },
+    "E41":{
+        color: "lightgrey",
+        label: "Appellations"
+    },
+    "E53":{
+        color: "green",
+        label: "Places"
+    },
+    "E55":{
+        color: "grey",
+        label: "Types"
+    }
+}
+
 $(document).ready(function(){
     $.getJSON("cidoc.json", function(data){
         generateJson(data);
-        generateLayout(data);
+        generateLayout();
         createTree();
-        addPropertiesAndReferences();
+        addPropertiesAndReferencesToJson();
+        addColorcodesToJson();
         //generateTreeGraph(treegraph);
         $('#propertiesContainer').hide();
         $('#classesbtn').hide();
@@ -18,6 +50,10 @@ $(document).ready(function(){
 
         $('.cidoccell').click(function(){cellClick($(this))});
         $('#E1').click();
+    });
+
+    $('#showHierarchyTree').click(function(){
+        $('#hierarchyModal').modal('show');
     });
 
     $('#classesbtn').click(function(){
@@ -124,6 +160,7 @@ function cellClick(elem){
         createSubclassesList(keycode);
 
         centerCharts();
+        addPropertiesAndReferencesToLayout(keycode);
     }
 }
 
@@ -160,7 +197,6 @@ function filterBySearch(){
     }
 }
 
-
 function getAllSuperclassesWrapper(code){
     var superclasses = [];
     getAllSuperclasses(code, superclasses);
@@ -194,34 +230,90 @@ function getAllSuperclasses(code, superclasses){
     }
 }
 
+function hasSuperclass(code, superclass){
+    return cidoc[code].recursiveSuperclasses.includes(superclass);
+}
 
 function getAllPropertiesAndReferences(code){
     let props = {"properties": [], "references":[]};
     $.each(cidoc, function(k,v){
        if(k.startsWith("P")){
            if(getCode(v.domain) === code){
-               props.properties.push(getCode(v.domain));
+               props.properties.push(k);
            }
            if(getCode(v.range) === code){
-               props.references.push(getCode(v.range));
+               props.references.push(k);
            }
        }
     });
     return props;
 }
 
-function addPropertiesAndReferences(){
+function addPropertiesAndReferencesToJson(){
     $.each(cidoc, function(k,v){
         if(k.startsWith("E")){
             let superclasses = getAllSuperclassesWrapper(k);
             cidoc[k]["recursiveSuperclasses"] = superclasses;
             cidoc[k]["props"] = [];
+            cidoc[k]["inheritedProps"] = [];
+
+            let props = getAllPropertiesAndReferences(k);
+            cidoc[k]["props"].push({"code":k, "props": props});
+
             $.each(cidoc[k]["recursiveSuperclasses"], function(key,value){
-                let props = getAllPropertiesAndReferences(value);
-                cidoc[k]["props"].push({"code":value, "props": props});
+                let inheritedProps = getAllPropertiesAndReferences(value);
+                cidoc[k]["inheritedProps"].push({"code":value, "props": inheritedProps});
             });
         }
     });
+}
+
+function addColorcodesToJson(){
+    $.each(cidoc, function(k,v){
+        let colorcodes = [];
+        if(k.startsWith("E")){
+            $.each(cidoc_colorcodes, function(superclass, value){
+                if(hasSuperclass(k, superclass)){
+                    colorcodes.push(value)
+                }
+            })
+            cidoc[k]["colorcodes"] = colorcodes;
+        }
+    });
+
+    $.each(cidoc, function(k,v){
+        if(k.startsWith("E")){
+            if(cidoc[k].colorcodes.length > 1){
+                console.log("Found: " + k + " length: " + cidoc[k].colorcodes.length)
+                console.log(cidoc[k])
+            }
+        }
+    });
+}
+
+function addPropertiesAndReferencesToLayout(code){
+    //Direct Properties
+    let properties = cidoc[code].props[0]["props"]["properties"];
+    console.log(properties)
+    //let htmlstring = "<table class='classPropertiesTable'><thead><tr><th class='thDomain'>Domain</th><th class='thProperty'>Property</th><th class='thRange'>Range</th></thead><tbody><div class='directClassProperties'>" 
+    let htmlstring = "<table class='classPropertiesTable'><tbody><div class='directClassProperties'>" 
+    $.each(properties, function(index, value){
+        htmlstring += "<tr class='classPropertyRow'><td class='tdDomain'>" + code + "</td><td class='tdProperty'><span class='directPropertySpan'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
+    })
+
+    //Inherited Properties
+    let inheritedProperties = cidoc[code].inheritedProps;
+    console.log(inheritedProperties)
+    htmlstring += "<div class='inheritedClassProperties'>" 
+    $.each(inheritedProperties, function(index, value){
+        $.each(value.props.properties, function(i,ipcode){
+            htmlstring += "<tr class='classPropertyRow'><td>" + value.code + "</td><td><span class='inheritedPropertySpan'>" + cidoc[ipcode].about + "</span></td><td>" + cidoc[ipcode].range + "</td></tr>";
+        });
+    })
+    htmlstring += "</div>"
+    htmlstring += "</tbody></table>"
+
+    $('#classPropertiesContainer').html(htmlstring)
 }
 
 function centerCharts(){
@@ -252,18 +344,6 @@ function getAllSubclasses(code){
     });
     return subclasses;
 }
-
-var gianni = {
-    "pranco" : {
-        "figlio": "gennibello"
-    },
-    "gennibello": {
-        "figlio":"ginelli"
-    },
-    "ginelli":{
-        "label":"ciao"
-    }
-};
 
 function createTree(){
     /* CLASSES */
@@ -313,49 +393,15 @@ function createTree(){
 
 }
 
-let ginelli = {
-    "name": "flare",
-    "children": [
-        {
-            "name": "analytics",
-            "children": [
-                {
-                    "name": "cluster",
-                    "children": [
-                        {"name": "AgglomerativeCluster", "size": 3938},
-                        {"name": "CommunityStructure", "size": 3812},
-                        {"name": "HierarchicalCluster", "size": 6714},
-                        {"name": "MergeEdge", "size": 743}
-                    ]
-                },
-                {
-                    "name": "graph",
-                    "children": [
-                        {"name": "BetweennessCentrality", "size": 3534},
-                        {"name": "LinkDistance", "size": 5731},
-                        {"name": "MaxFlowMinCut", "size": 7840},
-                        {"name": "ShortestPaths", "size": 5914},
-                        {"name": "SpanningTree", "size": 3416}
-                    ]
-                },
-                {
-                    "name": "optimization",
-                    "children": [
-                        {"name": "AspectRatioBanker", "size": 7074}
-                    ]
-                }
-            ]
-        }]};
-
 function getTreeFromCode(code){
-    return tree = treegraph.first(function (node) {
+    return treegraph.first(function (node) {
         return node.model.code === code;
     });
 }
 
 function createSubclassesList(code){
     let tree = getTreeFromCode(code);
-    albero = new TreeModel();
+    let albero = new TreeModel();
 
     function treeList() {
         let margin = {top: 0, right: 20, bottom: 30, left: 0};
@@ -505,11 +551,12 @@ function createSubclassesList(code){
     //document.getElementById('treelist').scrollIntoView();
 }
 
+//Generate the general tree graph visualization
 function generateTreeGraph(treeData){
     // set the dimensions and margins of the diagram
-    var margin = {top: 40, right: 90, bottom: 50, left: 90},
-        width = 850 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+    var margin = {top: 50, right: 10, bottom: 50, left: 10},
+        width = 1500,
+        height = 400;
 
 // declares a tree layout and assigns the size
     var treemap = d3.tree()
@@ -673,17 +720,6 @@ function getCode(string){
     return string.split("_")[0];
 }
 
-function layout(){
-    $.each(cidoc, function(k,v){
-        //If entry is a class (starting with E)
-       if(k.startsWith("E")){
-           classesLayout(k,v);
-       } else {
-           propertiesLayout(k,v);
-       }
-    });
-}
-
 function classesLayout(code, aclass){
         var html = "<div id='"+ code +"' class='cidoccell classcell' title='"+ aclass.comment +"' about='"+ aclass.about +"'>";
         html += "<div class='classsuperclasses'> " + aclass.superclasses.join() + "</div>";
@@ -712,7 +748,14 @@ function propertiesLayout(code, aproperty){
             $('#propertiesContainer').append(html);
 }
 
-function generateLayout(data){
-    layout(data);
+function generateLayout(){
+    $.each(cidoc, function(k,v){
+        //If entry is a class (starting with E)
+       if(k.startsWith("E")){
+           classesLayout(k,v);
+       } else {
+           propertiesLayout(k,v);
+       }
+    });
 }
 

@@ -39,7 +39,19 @@ body {
     border: 1px solid rgba(19, 19, 19, 0.8);
     padding: 20px;
     width: 39%;
-    height: 86vh;
+    height: 85vh;
+}
+
+#sandbox {
+    display: none;
+    border: 1px solid rgba(19, 19, 19, 0.8);
+    padding: 20px;
+    width: 39%;
+    height: 20vh;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    z-index: 10;
 }
 
 #classesbtn, #propertiesbtn {
@@ -195,13 +207,13 @@ body {
 
 #descComment {
     font-size: 10pt;
-    height:142px;
+    height:170px;
     overflow-y: auto;
     position:relative;
 }
 
 .selectedCell.classcell {
-    background-color: rgba(19, 19, 19, 0.8); !important;
+    background-color: rgba(19, 19, 19, 0.8) !important;
     color: white;
 }
 
@@ -220,13 +232,70 @@ body {
     font-weight: 500;
 }
 
-#descsubclassescol h5, #descsuperclassescol h5, #deschierarchy h5 {
-    font-family: "Sorts Mill Goudy";
+#descsubclassescol h5, #descsuperclassescol h5, #deschierarchy h5, #descClassesProperties {
+    font-family: "Sorts Mill Goudy" !important;
 }
 
 #descsubclasses {
-    height: 150px;
+    height: 100px;
     overflow: auto;
+}
+
+.inheritedClassProperties{
+    margin-top: 10px;
+}
+
+.classPropertyRow > td {
+    font-size: 9pt;
+}
+
+
+
+
+
+
+
+.classPropertiesTable {
+    width: 100%;
+}
+
+.classPropertiesTable th,
+    .classPropertiesTable  {
+      padding: 5px 10px;
+      width: 200px;
+ }
+
+.classPropertiesTable tbody {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    height: 200px;
+}
+
+.tdProperty {
+    width: 40%;
+} 
+.tdDomain {
+    width: 10%;
+}
+.tdRange {
+    width: 50%;
+}
+
+
+
+
+
+
+
+
+
+.inheritedPropertySpan {
+    font-weight: 800;
+}
+
+.directPropertySpan {
+    font-weight: 800;
 }
 
 /*
@@ -238,6 +307,11 @@ D3.js
     fill: #fff;
     stroke: rgba(19, 19, 19, 0.58);
     stroke-width: 1px;
+}
+
+#deschierarchy {
+    width: 90%;
+    background: white;
 }
 
 #deschierarchy .node text {
@@ -262,6 +336,24 @@ D3.js
     cursor:pointer;
 }
 
+#showHierarchyTree {
+    position: absolute !important;
+    right: 60px;
+    top: 5px;
+    cursor:pointer;
+}
+
+#hierarchyModal .modal-dialog {
+    max-width: 90% !Important;
+    margin-left: 5%; 
+    margin-right: 5%; 
+}
+
+.modal-content {
+    border-radius: 0;
+    border: 1px solid black;
+}
+
 #clipboardInput {
     display: none;
 }
@@ -275,15 +367,6 @@ D3.js
     background-color: black;
     color: white;
     display: none;
-}
-
-#deschierarchy:before {
-    content: "";
-    margin-left: -100%;
-}
-#deschierarchy:after {
-    content: "";
-    margin-right: -100%;
 }
 
 #treelist {
