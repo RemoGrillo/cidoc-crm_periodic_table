@@ -80,6 +80,7 @@ body {
 
 #classesContainer {
     margin-left: 30px;
+    display: block;
 }
 
 #propertiesContainer {
@@ -100,9 +101,9 @@ body {
 }
 
 .classcell {
-    display: inline-block;
-    width: 100px;
-    height:100px;
+    display: inline-grid;
+    width: 90px;
+    height:90px;
     outline: 1px solid rgba(19, 19, 19, 0.8);
     color: rgba(19, 19, 19, 0.8);
     position: relative;
@@ -127,7 +128,7 @@ body {
 }
 
 .classtitle {
-    font-size:8pt;
+    font-size:6.5pt;
     text-align: center;
     height: 10px;
 }
@@ -142,6 +143,7 @@ body {
     text-align:center;
     font-weight: bolder;
     font-size: 20pt;
+    height: 20pt;
     padding-top: 15px;
 }
 
@@ -213,8 +215,9 @@ body {
 }
 
 .selectedCell.classcell {
-    background-color: rgba(19, 19, 19, 0.8) !important;
-    color: white;
+    box-shadow:inset 0px 0px 5px 1px black;
+    box-shadow:0px 0px 8px 5px white;
+    z-index: 10000;
 }
 
 .selectedCell.propertycell {
@@ -250,20 +253,78 @@ body {
 }
 
 
+.ccdot {
+    position: absolute;
+    width: 96%;
+    height: 96%;
+    border-radius: 1px;
+    opacity: 1;
+    z-index:-100;
+}
 
+.cidoccell {
+    color: white;
+}
 
+.cidoccell.TemporalEntity {
+    background-color: #3783a8;
+}
+.cidoccell.Actors {
+    background-color: #72005f;
+}
+.cidoccell.ConceptualObjects {
+    background-color: #c78f15;
+}
+.cidoccell.PhysicalThings {
+    background-color: rgb(126, 61, 5);
+}
+.cidoccell.Appellations {
+    background-color: rgb(104, 129, 12);
+}
+.cidoccell.Places {
+    background-color: rgb(32, 109, 51);
+}
+.cidoccell.Types {
+    background-color: rgb(104, 129, 12);
+}
 
+.cidoccell.none {
+    background-color: rgb(216, 216, 216);
+    color: rgb(27, 27, 27);
+}
 
+#descCode[color_code^="TemporalEntity"]{
+    text-decoration-color: #49addf;
+}
+#descCode[color_code^="Actors"]{
+    text-decoration-color: #72005f;
+}
+#descCode[color_code^="ConceptualObjects"]{
+    text-decoration-color: #c78f15;;
+}
+#descCode[color_code^="PhysicalThings"]{
+    text-decoration-color: rgb(126, 61, 5);
+}
+#descCode[color_code^="Appellations"]{
+    text-decoration-color: rgb(104, 129, 12);
+}
+#descCode[color_code^="Places"]{
+    text-decoration-color: rgb(32, 109, 51);
+}
+#descCode[color_code^="Types"]{
+    text-decoration-color: rgb(104, 129, 12);
+}
+
+#descCode {
+    text-decoration: underline;
+    text-decoration-thickness: 5px;
+    text-decoration-style: solid
+}
 
 .classPropertiesTable {
     width: 100%;
 }
 
-.classPropertiesTable th,
-    .classPropertiesTable  {
-      padding: 5px 10px;
-      width: 200px;
- }
 
 .classPropertiesTable tbody {
     display: block;

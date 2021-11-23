@@ -2,33 +2,40 @@ var cidoc = {};
 var treegraph = {};
 var showinverse = false;
 
+
+var palette = ["48aadb","003d5b","bf531d","cba415","657153"];
+
+//Higher-level-colors
 const cidoc_colorcodes = {
-    "E2":{
-        color: "azure",
-        label: "Temporal Entity"
+    //Azure
+    "E4":{
+        color: "#48aadb",
+        label: "TemporalEntity"
     },
+    //Brown
     "E18":{
-        color: "brown",
-        label: "Physical Things"
+        color: "#003d5b",
+        label: "PhysicalThings"
     },
     "E39":{
-        color: "pink",
+        color: "#bf531d",
         label: "Actors"
     },
+    //Yellow
     "E28":{
-        color: "yellow",
-        label: "Conceptual Objects"
+        color: "#ffe200",
+        label: "ConceptualObjects"
     },
     "E41":{
-        color: "lightgrey",
+        color: "green",
         label: "Appellations"
     },
     "E53":{
-        color: "green",
+        color: "#cba415",
         label: "Places"
     },
     "E55":{
-        color: "grey",
+        color: "#657153",
         label: "Types"
     }
 }
@@ -36,10 +43,10 @@ const cidoc_colorcodes = {
 $(document).ready(function(){
     $.getJSON("cidoc.json", function(data){
         generateJson(data);
-        generateLayout();
-        createTree();
         addPropertiesAndReferencesToJson();
         addColorcodesToJson();
+        generateLayout();
+        createTree();
         //generateTreeGraph(treegraph);
         $('#propertiesContainer').hide();
         $('#classesbtn').hide();
@@ -132,6 +139,7 @@ function cellClick(elem){
     $(elem).addClass("selectedCell");
     $('#descComment').text(cidoc[keycode]["comment"]);
     $('#descCode').text(keycode);
+    $('#descCode').attr("color_code", getColorCode(keycode))
     $('#descTitle').text(cidoc[keycode]["label"]);
     
     if(keycode.startsWith("P")){
@@ -230,8 +238,9 @@ function getAllSuperclasses(code, superclasses){
     }
 }
 
+//HasSuperclass or is ITSELF that code (TODO: move it elsewhere, where hassuperclass is called)
 function hasSuperclass(code, superclass){
-    return cidoc[code].recursiveSuperclasses.includes(superclass);
+    return cidoc[code].recursiveSuperclasses.includes(superclass) || code == superclass;
 }
 
 function getAllPropertiesAndReferences(code){
@@ -720,8 +729,22 @@ function getCode(string){
     return string.split("_")[0];
 }
 
+function getColorCode(code){
+    let color_code = "none"
+        if(cidoc[code].colorcodes.length == 1){
+            color_code = cidoc[code].colorcodes[0].label;
+        }
+        if(cidoc[code].colorcodes.length == 2){
+            color_code = cidoc[code].colorcodes[1].label;
+        }
+    return color_code
+}
+
 function classesLayout(code, aclass){
-        var html = "<div id='"+ code +"' class='cidoccell classcell' title='"+ aclass.comment +"' about='"+ aclass.about +"'>";
+        let color_code = getColorCode(code);
+
+        var html = "<div id='"+ code +"' class='cidoccell classcell " + color_code + "' title='"+ aclass.comment +"' about='"+ aclass.about +"'>";
+        //html += "<div class='ccdot' style='background-color:" + color_code + ";'></div>";
         html += "<div class='classsuperclasses'> " + aclass.superclasses.join() + "</div>";
         html += "<div class='classcodes'>" + code + "</div>";
         html += "<div class='classtitle'>" + aclass.label + "</div>";
