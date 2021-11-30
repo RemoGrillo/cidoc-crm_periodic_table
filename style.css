@@ -89,15 +89,18 @@ body {
 
 
 @keyframes flickerAnimation {
-    0%   { background-color: rgba(19, 19, 19, 0.5); }
-    50%  { background-color: rgba(19, 19, 19, 0.3); }
-    100% { background-color: rgba(19, 19, 19, 0.5); }
+    0%   { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
+    50%  { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
 }
 
 .highlighted {
-
-    color:white !important;
     animation: flickerAnimation 3.5s infinite;
+}
+
+
+.classcell:not(.highlighted):not(.selectedCell) {
+    opacity: 0.5 !important;
 }
 
 .classcell {
@@ -175,15 +178,23 @@ body {
 .propertydomain {
     font-size: 5pt;
     position: absolute;
-    left:3px;
+    left:0;
     bottom:0;
+    border-radius: 0px 3px 0px 0px;
 }
 
 .propertyrange {
     font-size: 5pt;
     position: absolute;
-    right:3px;
+    right:0;
     bottom:0;
+    border-radius: 3px 0px 0px 0px;
+}
+
+.propertydomain, .propertyrange {
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .classsubclasses {
@@ -215,9 +226,8 @@ body {
 }
 
 .selectedCell.classcell {
-    box-shadow:inset 0px 0px 5px 1px black;
-    box-shadow:0px 0px 8px 5px white;
-    z-index: 10000;
+    box-shadow:0px 0px 5px 1px black;
+    z-index: 50;
 }
 
 .selectedCell.propertycell {
@@ -266,59 +276,50 @@ body {
     color: white;
 }
 
-.cidoccell.TemporalEntity {
-    background-color: #3783a8;
+#descCodeColor {
+    display: block;
+    position: absolute;
+    width: 80%;
+    height: 10px;
+    top: -20px;
 }
-.cidoccell.Actors {
-    background-color: #72005f;
+
+:root {
+    --TemporalEntity: #3783a8;
+    --Actors: #72005f;
+    --ConceptualObjects: #c78f15;
+    --PhysicalThings: rgb(126, 61, 5);
+    --Appellations: rgb(104, 129, 12);
+    --Places: rgb(32, 109, 51);
+    --Types: rgb(104, 129, 12);
+  }
+  
+
+.cidoccell.TemporalEntity,#descCodeColor.TemporalEntity,.propertydomain.TemporalEntity,.propertyrange.TemporalEntity {
+    background-color: var(--TemporalEntity);
 }
-.cidoccell.ConceptualObjects {
-    background-color: #c78f15;
+.cidoccell.Actors,#descCodeColor.Actors,.propertydomain.Actors,.propertyrange.Actors {
+    background-color: var(--Actors);
 }
-.cidoccell.PhysicalThings {
-    background-color: rgb(126, 61, 5);
+.cidoccell.ConceptualObjects,#descCodeColor.ConceptualObjects,.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects {
+    background-color: var(--ConceptualObjects);
 }
-.cidoccell.Appellations {
-    background-color: rgb(104, 129, 12);
+.cidoccell.PhysicalThings,#descCodeColor.PhysicalThings,.propertydomain.PhysicalThings,.propertyrange.PhysicalThings {
+    background-color: var(--PhysicalThings);
 }
-.cidoccell.Places {
-    background-color: rgb(32, 109, 51);
+.cidoccell.Appellations,#descCodeColor.Appellations,.propertydomain.Appellations,.propertyrange.Appellations {
+    background-color: var(--Appellations);
 }
-.cidoccell.Types {
-    background-color: rgb(104, 129, 12);
+.cidoccell.Places,#descCodeColor.Places,.propertydomain.Places,.propertyrange.Places {
+    background-color: var(--Places);
+}
+.cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types {
+    background-color: var(--Types);
 }
 
 .cidoccell.none {
     background-color: rgb(216, 216, 216);
     color: rgb(27, 27, 27);
-}
-
-#descCode[color_code^="TemporalEntity"]{
-    text-decoration-color: #49addf;
-}
-#descCode[color_code^="Actors"]{
-    text-decoration-color: #72005f;
-}
-#descCode[color_code^="ConceptualObjects"]{
-    text-decoration-color: #c78f15;;
-}
-#descCode[color_code^="PhysicalThings"]{
-    text-decoration-color: rgb(126, 61, 5);
-}
-#descCode[color_code^="Appellations"]{
-    text-decoration-color: rgb(104, 129, 12);
-}
-#descCode[color_code^="Places"]{
-    text-decoration-color: rgb(32, 109, 51);
-}
-#descCode[color_code^="Types"]{
-    text-decoration-color: rgb(104, 129, 12);
-}
-
-#descCode {
-    text-decoration: underline;
-    text-decoration-thickness: 5px;
-    text-decoration-style: solid
 }
 
 .classPropertiesTable {
@@ -555,3 +556,6 @@ html {
     box-sizing: inherit;
 }
 
+.classcell.cidoccell:hover {
+    opacity: 1 !important;
+}

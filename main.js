@@ -139,17 +139,19 @@ function cellClick(elem){
     $(elem).addClass("selectedCell");
     $('#descComment').text(cidoc[keycode]["comment"]);
     $('#descCode').text(keycode);
-    $('#descCode').attr("color_code", getColorCode(keycode))
     $('#descTitle').text(cidoc[keycode]["label"]);
     
     if(keycode.startsWith("P")){
         $('#descDomainRange').show();
+        $('#descCodeColor').attr('class', "");
         $('#descDomain').text(cidoc[keycode]["domain"]);
         $('#descProperty').text(cidoc[keycode]["label"]);
         $('#descRange').text(cidoc[keycode]["range"]);
     } else {
         /* CLASSES */
 
+        $('#descCodeColor').attr('class', "");
+        $('#descCodeColor').addClass(getColorCode(keycode))
         /* Superclasses */
         let superclasses = cidoc[keycode]["superclasses"];
 
@@ -293,8 +295,8 @@ function addColorcodesToJson(){
     $.each(cidoc, function(k,v){
         if(k.startsWith("E")){
             if(cidoc[k].colorcodes.length > 1){
-                console.log("Found: " + k + " length: " + cidoc[k].colorcodes.length)
-                console.log(cidoc[k])
+                //console.log("Found: " + k + " length: " + cidoc[k].colorcodes.length)
+                //console.log(cidoc[k])
             }
         }
     });
@@ -303,7 +305,7 @@ function addColorcodesToJson(){
 function addPropertiesAndReferencesToLayout(code){
     //Direct Properties
     let properties = cidoc[code].props[0]["props"]["properties"];
-    console.log(properties)
+    //console.log(properties)
     //let htmlstring = "<table class='classPropertiesTable'><thead><tr><th class='thDomain'>Domain</th><th class='thProperty'>Property</th><th class='thRange'>Range</th></thead><tbody><div class='directClassProperties'>" 
     let htmlstring = "<table class='classPropertiesTable'><tbody><div class='directClassProperties'>" 
     $.each(properties, function(index, value){
@@ -312,7 +314,7 @@ function addPropertiesAndReferencesToLayout(code){
 
     //Inherited Properties
     let inheritedProperties = cidoc[code].inheritedProps;
-    console.log(inheritedProperties)
+    //console.log(inheritedProperties)
     htmlstring += "<div class='inheritedClassProperties'>" 
     $.each(inheritedProperties, function(index, value){
         $.each(value.props.properties, function(i,ipcode){
@@ -726,11 +728,18 @@ function generateJson(data){
 }
 
 function getCode(string){
-    return string.split("_")[0];
+    if(string.startsWith("E") || string.startsWith("P")){
+        return string.split("_")[0];
+    }
+    //If it's a link (assuming it's rdf) return the last part 
+    if(string.startsWith("http://")){
+        return string.split("#")[1];
+    }
 }
 
 function getColorCode(code){
-    let color_code = "none"
+    if(code.startsWith("E") || code.startsWith("P")){
+        let color_code = "none"
         if(cidoc[code].colorcodes.length == 1){
             color_code = cidoc[code].colorcodes[0].label;
         }
@@ -738,6 +747,8 @@ function getColorCode(code){
             color_code = cidoc[code].colorcodes[1].label;
         }
     return color_code
+    }
+    return null;
 }
 
 function classesLayout(code, aclass){
@@ -765,8 +776,8 @@ function propertiesLayout(code, aproperty){
             html += "<div class='propertysuperproperties'> " + aproperty.superproperties.join() + "</div>";
             html += "<div class='propertycodes'>" + code + "</div>";
             html += "<div class='propertytitle'>" + aproperty.label + "</div>";
-            html += "<div class='propertydomain'>" + getCode(aproperty.domain) + "</div>";
-            html += "<div class='propertyrange'>" + getCode(aproperty.range) + "</div>";
+            html += "<div class='propertydomain "+ getColorCode(getCode(aproperty.domain)) +"'>" + getCode(aproperty.domain) + "</div>";
+            html += "<div class='propertyrange "+ getColorCode(getCode(aproperty.range)) +"'>" + getCode(aproperty.range) + "</div>";
             html += "</div>";
             $('#propertiesContainer').append(html);
 }
