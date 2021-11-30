@@ -87,12 +87,13 @@ body {
     margin-left: 30px;
 }
 
-
+/*
 @keyframes flickerAnimation {
     0%   { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
     50%  { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.5); }
     100% { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
 }
+*/
 
 .highlighted {
     animation: flickerAnimation 3.5s infinite;
@@ -226,7 +227,7 @@ body {
 }
 
 .selectedCell.classcell {
-    box-shadow:0px 0px 5px 1px black;
+    box-shadow:0px 0px 5px 2px black;
     z-index: 50;
 }
 
