@@ -56,7 +56,7 @@ $(document).ready(function(){
         checkInversePropertiesStatus();
 
         $('.cidoccell').click(function(){cellClick($(this))});
-        $('#E1').click();
+        $('[code="E1"]').click();
     });
 
     $('#showHierarchyTree').click(function(){
@@ -74,7 +74,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.descsubclass, .descsuperclass', function(){
         let code = $(this).attr("code");
-        $('#'+code).click();
+        $('[code="'+code+'"]').click();
     });
 
     $('#addtoclipboard').click(function(){
@@ -123,8 +123,24 @@ function toggleInversePropertiesStatus(){
     checkInversePropertiesStatus();
 }
 
-function cellClick(elem){
-    const keycode = $(elem).attr("id");
+function toggleViewFromCode(code){
+    if(code.startsWith("P")){
+        $('.belongsToClasses').hide();
+        $('.belongsToProperties').show();
+    } else if (code.startsWith("E")){
+        $('.belongsToClasses').show();
+        $('.belongsToProperties').hide();
+    }
+}
+
+function cellClick(elem, simulated=false){
+    let keycode;
+    if(simulated){
+        keycode = elem;
+    } else {
+        keycode = $(elem).attr("code");
+    }
+    toggleViewFromCode(keycode);
 
     $('#clipboardInput').val($(elem).attr("about"));
 
@@ -142,14 +158,17 @@ function cellClick(elem){
     $('#descTitle').text(cidoc[keycode]["label"]);
     
     if(keycode.startsWith("P")){
+        /* PROPERTIES */
         $('#descDomainRange').show();
         $('#descCodeColor').attr('class', "");
-        $('#descDomain').text(cidoc[keycode]["domain"]);
+        $('#descDomain').html(classesLayout(getCode(cidoc[keycode]["domain"])));
         $('#descProperty').text(cidoc[keycode]["label"]);
-        $('#descRange').text(cidoc[keycode]["range"]);
+        $('#descRange').html(classesLayout(getCode(cidoc[keycode]["range"])));
+        $('.cidoccell').unbind("click");
+        $('.cidoccell').click(function(){cellClick($(this))});
+
     } else {
         /* CLASSES */
-
         $('#descCodeColor').attr('class', "");
         $('#descCodeColor').addClass(getColorCode(keycode))
         /* Superclasses */
@@ -170,6 +189,7 @@ function cellClick(elem){
         createSubclassesList(keycode);
 
         centerCharts();
+        //TODO: tabella con orizzontali i livelli di profondità, verticale le famiglie o viceversa ()
         addPropertiesAndReferencesToLayout(keycode);
     }
 }
@@ -204,6 +224,17 @@ function filterBySearch(){
                 $(this).hide();
             }
         });
+    }
+}
+
+function getClassLevel(code, level){
+    if(cidoc[code]["superclasses"].length > 0){
+        for (const v of cidoc[code]["superclasses"]) {
+            level = level + 1;
+            return getClassLevel(v, level);
+        }
+    } else {
+        return level;
     }
 }
 
@@ -305,26 +336,44 @@ function addColorcodesToJson(){
 function addPropertiesAndReferencesToLayout(code){
     //Direct Properties
     let properties = cidoc[code].props[0]["props"]["properties"];
-    //console.log(properties)
-    //let htmlstring = "<table class='classPropertiesTable'><thead><tr><th class='thDomain'>Domain</th><th class='thProperty'>Property</th><th class='thRange'>Range</th></thead><tbody><div class='directClassProperties'>" 
     let htmlstring = "<table class='classPropertiesTable'><tbody><div class='directClassProperties'>" 
     $.each(properties, function(index, value){
-        htmlstring += "<tr class='classPropertyRow'><td class='tdDomain'>" + code + "</td><td class='tdProperty'><span class='directPropertySpan'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
+        htmlstring += "<tr class='classPropertyRow'><td class='tdDomain'>" + code + "</td><td class='tdProperty'><span class='directPropertySpan' onclick='cellClick(\""+ value +"\", true)'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
     })
-
     //Inherited Properties
     let inheritedProperties = cidoc[code].inheritedProps;
-    //console.log(inheritedProperties)
     htmlstring += "<div class='inheritedClassProperties'>" 
     $.each(inheritedProperties, function(index, value){
         $.each(value.props.properties, function(i,ipcode){
-            htmlstring += "<tr class='classPropertyRow'><td>" + value.code + "</td><td><span class='inheritedPropertySpan'>" + cidoc[ipcode].about + "</span></td><td>" + cidoc[ipcode].range + "</td></tr>";
+            htmlstring += "<tr class='classPropertyRow'><td>" + value.code + "</td><td><span class='inheritedPropertySpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + cidoc[ipcode].about + "</span></td><td>" + cidoc[ipcode].range + "</td></tr>";
         });
     })
     htmlstring += "</div>"
     htmlstring += "</tbody></table>"
 
+    let htmlstring2 = "";
+    //References
+    let references = cidoc[code].props[0].props.references;
+    htmlstring2 += "<table class='classReferencesTable'><tbody><div class='directClassReferences'>" 
+    $.each(references, function(index, value){
+        htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + cidoc[value].domain + "</td><td class='tdProperty'><span class='directReferenceSpan' onclick='cellClick(\""+ value +"\", true)'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
+    })
+
+    //Inherited References
+    if(cidoc[code].inheritedProps[0]){
+        let inheritedReferences = cidoc[code].inheritedProps;
+        htmlstring2 += "<div class='inheritedClassReferences'>" 
+        $.each(inheritedReferences, function(index, value){
+            $.each(value.props.references, function(i,ipcode){
+                htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + getCode(cidoc[ipcode].domain)  + "</td><td class='tdProperty'><span class='inheritedReferenceSpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + cidoc[ipcode].about + "</span></td><td class='tdRange'>" + value.code + "</td></tr>";
+            });
+        })
+        htmlstring2 += "</div>"
+        htmlstring2 += "</tbody></table>"
+    }
+
     $('#classPropertiesContainer').html(htmlstring)
+    $('#classReferencesContainer').html(htmlstring2)
 }
 
 function centerCharts(){
@@ -532,7 +581,7 @@ function createSubclassesList(code){
 
             // Toggle children on click.
             function click(d) {
-                $('#'+d.data.model.code).click()
+                $('[code="'+d.data.model.code+'"]').click()
                 /*
                 if (d.children) {
                     d._children = d.children;
@@ -634,9 +683,9 @@ function calculateSubclasses(){
 function highlightSubclassesByClass(code){
     $('.cidoccell').removeClass("highlighted");
     let subclasses = getAllSubclasses(code);
+    console.log(subclasses);
     $.each(subclasses, function(i, subclass){
-        //console.log("#"+subclass);
-        $('#'+subclass).addClass('highlighted');
+        $('[code="'+subclass+'"]').addClass('highlighted');
     });
 }
 
@@ -751,28 +800,30 @@ function getColorCode(code){
     return null;
 }
 
-function classesLayout(code, aclass){
+function classesLayout(code){
         let color_code = getColorCode(code);
+        let classObject = cidoc[code]
 
-        var html = "<div id='"+ code +"' class='cidoccell classcell " + color_code + "' title='"+ aclass.comment +"' about='"+ aclass.about +"'>";
+        var html = "<div code='"+ code +"' class='cidoccell classcell " + color_code + "' title='"+ classObject.comment +"' about='"+ classObject.about +"'>";
         //html += "<div class='ccdot' style='background-color:" + color_code + ";'></div>";
-        html += "<div class='classsuperclasses'> " + aclass.superclasses.join() + "</div>";
+        html += "<div class='classsuperclasses'> " + classObject.superclasses.join() + "</div>";
         html += "<div class='classcodes'>" + code + "</div>";
-        html += "<div class='classtitle'>" + aclass.label + "</div>";
+        html += "<div class='classlevel level" + getClassLevel(code, 0) + "'></div>";
+        html += "<div class='classtitle'>" + classObject.label + "</div>";
         html += "<div class='classsubclasses'>" + getAllSubclasses(code) + "</div>";
         html += "</div>";
-        $('#classesContainer').append(html);
+        return html;
 }
 
 /* PROPERTIES */
-function propertiesLayout(code, aproperty){
+function propertiesLayout(code){
+        let aproperty = cidoc[code];
         let inverseproperty = "straightproperty";
-
         if(code.endsWith("i")) {
             inverseproperty = "inverseproperty";
         }
 
-        var html = "<div id='"+ code +"' class='cidoccell propertycell "+ inverseproperty + "' title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
+        var html = "<div code='"+ code +"' class='cidoccell propertycell "+ inverseproperty + "' title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
             html += "<div class='propertysuperproperties'> " + aproperty.superproperties.join() + "</div>";
             html += "<div class='propertycodes'>" + code + "</div>";
             html += "<div class='propertytitle'>" + aproperty.label + "</div>";
@@ -786,9 +837,9 @@ function generateLayout(){
     $.each(cidoc, function(k,v){
         //If entry is a class (starting with E)
        if(k.startsWith("E")){
-           classesLayout(k,v);
+        $('#classesContainer').append(classesLayout(k));
        } else {
-           propertiesLayout(k,v);
+        $('#classesContainer').append(propertiesLayout(k));
        }
     });
 }

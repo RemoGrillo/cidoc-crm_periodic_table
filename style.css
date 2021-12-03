@@ -177,7 +177,6 @@ body {
 }
 
 .propertydomain {
-    font-size: 5pt;
     position: absolute;
     left:0;
     bottom:0;
@@ -185,7 +184,6 @@ body {
 }
 
 .propertyrange {
-    font-size: 5pt;
     position: absolute;
     right:0;
     bottom:0;
@@ -193,9 +191,62 @@ body {
 }
 
 .propertydomain, .propertyrange {
-    font-weight: bold;
+    font-weight: bolder;
     padding-left: 5px;
     padding-right: 5px;
+    font-size: 6pt;
+}
+
+.classlevel {
+    position: absolute;
+    font-size: 5pt;
+    height: 5pt;
+    top: 2px;
+    left: 2px;
+    background-color: white;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 800;
+    font-family: Arial;
+}
+
+.level8 {
+    width: 3px;
+    height: 3px;
+}
+.level7 {
+    width: 4px;
+    height: 4px;
+}
+.level6 {
+    width: 5px;
+    height: 5px;
+}
+.level5 {
+    width: 6px;
+    height: 6px;
+}
+.level4 {
+    width: 7px;
+    height: 7px;
+}
+.level3 {
+    width: 8px;
+    height: 8px;
+}
+.level2 {
+    width: 9px;
+    height: 9px;
+}
+.level1 {
+    width: 10px;
+    height: 10px;
+}
+.level0 {
+    width: 11px;
+    height: 11px;
 }
 
 .classsubclasses {
@@ -246,8 +297,9 @@ body {
     font-weight: 500;
 }
 
-#descsubclassescol h5, #descsuperclassescol h5, #deschierarchy h5, #descClassesProperties {
+#descsubclassescol h5, #descsuperclassescol h5, #deschierarchy h5, #descClassesProperties, #descClassesReferences    {
     font-family: "Sorts Mill Goudy" !important;
+    font-size: 1.25rem;
 }
 
 #descsubclasses {
@@ -255,13 +307,7 @@ body {
     overflow: auto;
 }
 
-.inheritedClassProperties{
-    margin-top: 10px;
-}
 
-.classPropertyRow > td {
-    font-size: 9pt;
-}
 
 
 .ccdot {
@@ -280,19 +326,21 @@ body {
 #descCodeColor {
     display: block;
     position: absolute;
-    width: 80%;
+    width: 85%;
     height: 10px;
     top: -20px;
+    border-radius: 0px 0px 3px 3px;
+    z-index: -10;
 }
 
 :root {
     --TemporalEntity: #3783a8;
     --Actors: #72005f;
     --ConceptualObjects: #c78f15;
-    --PhysicalThings: rgb(126, 61, 5);
+    --PhysicalThings: rgb(128, 47, 1);
     --Appellations: rgb(104, 129, 12);
     --Places: rgb(32, 109, 51);
-    --Types: rgb(104, 129, 12);
+    --Types: rgb(248, 140, 52);
   }
   
 
@@ -323,16 +371,69 @@ body {
     color: rgb(27, 27, 27);
 }
 
-.classPropertiesTable {
+
+
+
+/* PROPERTIES AND REFERENCES */
+
+/* TABS */
+
+.nav-link {
+    color: rgb(95, 95, 95);
+}
+
+tbody {
+    padding-top: 10px;
+}
+
+.nav-link:hover {
+    color: black;
+    border-bottom: none;
+    background-color:rgb(247, 247, 247);
+}
+
+.nav-link.active {
+    color: black !important;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.classPropertiesTable, .classReferencesTable {
     width: 100%;
 }
 
-
-.classPropertiesTable tbody {
+.classReferencesTable tbody, .classPropertiesTable tbody {
     display: block;
     width: 100%;
     overflow: auto;
     height: 200px;
+}
+
+.classReferenceRow {
+    width: 100% !important;
+}
+
+.classReferenceRow > td , .classPropertyRow > td {
+    font-size: 9pt;
+}
+
+.inheritedReferenceSpan, .inheritedPropertySpan {
+    font-weight: 300;
+}
+
+.directReferenceSpan, .directPropertySpan {
+    font-weight: 800;
+}
+
+.inheritedPropertySpan,.inheritedReferenceSpan,.directPropertySpan,.directReferenceSpan {
+    cursor: pointer;
+}
+
+.inheritedPropertySpan:hover,.inheritedReferenceSpan:hover,.directPropertySpan:hover,.directReferenceSpan:hover {
+    background-color: rgb(238, 238, 238);
+    font-weight: bold;
 }
 
 .tdProperty {
@@ -345,21 +446,16 @@ body {
     width: 50%;
 }
 
-
-
-
-
-
-
-
-
-.inheritedPropertySpan {
-    font-weight: 800;
+#descDomain .cidoccell, #descRange .cidoccell {
+    opacity: 1 !important;
 }
 
-.directPropertySpan {
-    font-weight: 800;
-}
+
+
+
+
+
+
 
 /*
 D3.js

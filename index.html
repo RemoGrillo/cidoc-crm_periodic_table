@@ -84,9 +84,21 @@
         <hr class="belongsToClasses">
         <div class="row belongsToClasses">
             <div class="col-12">
-            <h5 id="descClassesProperties">Properties</h5>
-            <div id="classPropertiesContainer"></div>
-        </div>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-link active" id="descClassesProperties" data-toggle="tab" href="#nav-properties" role="tab" aria-controls="nav-home" aria-selected="true">Properties</a>
+                      <a class="nav-link" id="descClassesReferences" data-toggle="tab" href="#nav-references" role="tab" aria-controls="nav-profile" aria-selected="false">References</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-properties" role="tabpanel" aria-labelledby="descClassesProperties">
+                        <div id="classPropertiesContainer"></div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-references" role="tabpanel" aria-labelledby="descClassesReferences">
+                        <div id="classReferencesContainer"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="sandbox">
