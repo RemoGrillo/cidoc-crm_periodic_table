@@ -108,6 +108,7 @@ $(document).ready(function(){
 });
 
 function checkInversePropertiesStatus(){
+    console.log("Checkinverse property")
     if(showinverse){
         $('.inverseproperty').show();
         $('.straightproperty').hide();
@@ -127,6 +128,12 @@ function toggleViewFromCode(code){
     if(code.startsWith("P")){
         $('.belongsToClasses').hide();
         $('.belongsToProperties').show();
+        if(code.endsWith("i") && !showinverse){
+            showinverse = true;
+        } else {
+            showinverse = false;
+        }
+        checkInversePropertiesStatus();
     } else if (code.startsWith("E")){
         $('.belongsToClasses').show();
         $('.belongsToProperties').hide();
@@ -135,16 +142,19 @@ function toggleViewFromCode(code){
 
 function cellClick(elem, simulated=false){
     let keycode;
+    $('.cidoccell').removeClass("selectedCell");
+
     if(simulated){
+        console.log("Simulated")
         keycode = elem;
     } else {
         keycode = $(elem).attr("code");
     }
+    $('[code="' + keycode + '"]').addClass("selectedCell");
     toggleViewFromCode(keycode);
 
     $('#clipboardInput').val($(elem).attr("about"));
 
-    $('.cidoccell').removeClass("selectedCell");
 
     /* HIERARCHY */
     $('#d3container').html("");
