@@ -66,10 +66,12 @@ $(document).ready(function(){
     $('#classesbtn').click(function(){
         $('.belongsToClasses').show();
         $('.belongsToProperties').hide();
+        $('[code=E1]').click();
     });
     $('#propertiesbtn').click(function(){
         $('.belongsToClasses').hide();
         $('.belongsToProperties').show();
+        $('[code=P1]').click();
     });
 
     $(document).on('click', '.descsubclass, .descsuperclass', function(){
@@ -108,13 +110,15 @@ $(document).ready(function(){
 });
 
 function checkInversePropertiesStatus(){
-    console.log("Checkinverse property")
+    console.log("Checkinverse property status")
     if(showinverse){
         $('.inverseproperty').show();
         $('.straightproperty').hide();
+        $('#toggleInverseBtn').addClass('inversebtn');
     } else {
         $('.inverseproperty').hide();
         $('.straightproperty').show();
+        $('#toggleInverseBtn').removeClass('inversebtn');
     }
     //filterBySearch();
 }
@@ -141,6 +145,8 @@ function toggleViewFromCode(code){
 }
 
 function cellClick(elem, simulated=false){
+    $("#searchinput").val("");
+    filterBySearch("");
     let keycode;
     $('.cidoccell').removeClass("selectedCell");
 
@@ -162,7 +168,6 @@ function cellClick(elem, simulated=false){
         return node.model.code === keycode;
     });
 
-    $(elem).addClass("selectedCell");
     $('#descComment').text(cidoc[keycode]["comment"]);
     $('#descCode').text(keycode);
     $('#descTitle').text(cidoc[keycode]["label"]);
@@ -172,7 +177,7 @@ function cellClick(elem, simulated=false){
         $('#descDomainRange').show();
         $('#descCodeColor').attr('class', "");
         $('#descDomain').html(classesLayout(getCode(cidoc[keycode]["domain"])));
-        $('#descProperty').text(cidoc[keycode]["label"]);
+        $('#descProperty').html(propertiesLayout(keycode));
         $('#descRange').html(classesLayout(getCode(cidoc[keycode]["range"])));
         $('.cidoccell').unbind("click");
         $('.cidoccell').click(function(){cellClick($(this))});
@@ -219,22 +224,25 @@ function isEmptyOrSpaces(str){
 }
 
 function filterBySearch(){
+    $('.cidoccell').show();
     let query = $("#searchinput").val();
     if(isEmptyOrSpaces(query)){
         $('.cidoccell').show();
-        checkInversePropertiesStatus();
+        //checkInversePropertiesStatus();
     } else {
         let query_result = getFilteredCodes(query);
+        console.log(query_result);
         $('.cidoccell').each(function(){
-            if(query_result.includes($(this).attr("id"))){
-                if((showinverse && $(this).hasClass("inverseproperty")) || (!showinverse && $(this).hasClass("straightproperty"))){
+            if(query_result.includes($(this).attr("code"))){
+                //if((showinverse && $(this).hasClass("inverseproperty")) || (!showinverse && $(this).hasClass("straightproperty"))){
                     $(this).show();
-                }
+                //}
             } else {
                 $(this).hide();
             }
         });
     }
+    //$('.cidoccell:visible').first().click();
 }
 
 function getClassLevel(code, level){
@@ -259,20 +267,6 @@ function getAllSuperclassesWrapper(code){
 }
 
 function getAllSuperclasses(code, superclasses){
-    /* TREEMODEL.js sub-optimal solution (with a problem for classes with more than one superclass)
-    let superclasses = [];
-    let node = treegraph.first(function (node) {
-        return node.model.code === code;
-    });
-
-    let path = node.getPath();
-    $.each(path, function(k,v){
-        if ("code" in v.model){
-            superclasses.push(v.model.code)
-        }
-    });
-    return superclasses;
-     */
     if(cidoc[code]["superclasses"].length > 0){
         $.each(cidoc[code]["superclasses"], function(k,v){
             superclasses.push(v);
@@ -413,6 +407,25 @@ function getAllSubclasses(code){
         }
     });
     return subclasses;
+}
+
+function getAllRecursiveSubclassesWrapper(code){
+    var subclasses = [];
+    getAllRecursiveSubclasses(code, subclasses);
+    //Remove duplicates
+    let filtered = subclasses.filter(function(item, pos) {
+        return subclasses.indexOf(item) == pos;
+    });
+    return filtered;
+}
+
+function getAllRecursiveSubclasses(code, subclasses){
+    if(cidoc[code]["subclasses"].length > 0){
+        $.each(cidoc[code]["subclasses"], function(k,v){
+            subclasses.push(v);
+            getAllRecursiveSubclasses(v, subclasses);
+        })
+    }
 }
 
 function createTree(){
@@ -690,10 +703,14 @@ function calculateSubclasses(){
     })
 }
 
+function isCidocCode(code){
+    let regex = /^[E,P]\d{1,3}/gm
+    return(regex.test(code))
+}
+
 function highlightSubclassesByClass(code){
     $('.cidoccell').removeClass("highlighted");
-    let subclasses = getAllSubclasses(code);
-    console.log(subclasses);
+    let subclasses = getAllRecursiveSubclassesWrapper(code);
     $.each(subclasses, function(i, subclass){
         $('[code="'+subclass+'"]').addClass('highlighted');
     });
@@ -811,6 +828,7 @@ function getColorCode(code){
 }
 
 function classesLayout(code){
+    if(isCidocCode(code)){
         let color_code = getColorCode(code);
         let classObject = cidoc[code]
 
@@ -823,6 +841,9 @@ function classesLayout(code){
         html += "<div class='classsubclasses'>" + getAllSubclasses(code) + "</div>";
         html += "</div>";
         return html;
+    } else {
+        return "<div class='nonCidocCode'>" + code + "</div>";
+    }
 }
 
 /* PROPERTIES */
@@ -840,7 +861,7 @@ function propertiesLayout(code){
             html += "<div class='propertydomain "+ getColorCode(getCode(aproperty.domain)) +"'>" + getCode(aproperty.domain) + "</div>";
             html += "<div class='propertyrange "+ getColorCode(getCode(aproperty.range)) +"'>" + getCode(aproperty.range) + "</div>";
             html += "</div>";
-            $('#propertiesContainer').append(html);
+        return html;
 }
 
 function generateLayout(){
@@ -849,7 +870,7 @@ function generateLayout(){
        if(k.startsWith("E")){
         $('#classesContainer').append(classesLayout(k));
        } else {
-        $('#classesContainer').append(propertiesLayout(k));
+        $('#propertiesContainer').append(propertiesLayout(k));
        }
     });
 }

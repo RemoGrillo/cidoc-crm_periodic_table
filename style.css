@@ -13,9 +13,29 @@ body {
     font-weight: bolder;
 }
 
-#descPropertyCol {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+.arrowRightColumn i{
+    position: relative;
+    font-size: 20pt;
+    top: 50%;
+    transform:translate(0%, -50%);
+}
+
+#descProperty .cidoccell {
+    width: 120px;
+    height: 120px
+}
+
+#descProperty .propertytitle {
+    font-size: 10pt;
+}
+
+#descProperty .propertycodes {
+    font-size: 25pt
+}
+
+.nonCidocCode {
+    font-size: 10pt;
+    font-weight: bolder;
 }
 
 #descCode {
@@ -408,7 +428,7 @@ tbody {
     display: block;
     width: 100%;
     overflow: auto;
-    height: 200px;
+    height: 250px;
 }
 
 .classReferenceRow {
