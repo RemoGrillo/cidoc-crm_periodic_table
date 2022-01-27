@@ -212,7 +212,14 @@ function cellClick(elem, simulated=false){
 function getFilteredCodes(query){
     let corresponding_codes = [];
     $.each(cidoc, function(k,v){
-        if(v.label.toUpperCase().includes(query.toUpperCase()) || k.toUpperCase().includes(query.toUpperCase())){
+        console.log(k)
+        console.log(v)
+        //Inverse properties don't have comments (they are in the corresponding direct property)
+        if(k.endsWith("i")){
+            if (v.label.toUpperCase().includes(query.toUpperCase())|| cidoc[k.substring(0, k.length - 1)].comment.toUpperCase().includes(query.toUpperCase())){
+                corresponding_codes.push(k);
+            }
+        } else if (v.label.toUpperCase().includes(query.toUpperCase()) || v.comment.toUpperCase().includes(query.toUpperCase())){
             corresponding_codes.push(k);
         }
     });

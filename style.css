@@ -78,7 +78,7 @@ body {
     cursor:pointer;
     user-select: none;
     float: right;
-    margin:30px;
+    margin:20px;
     font-family: "Sorts Mill Goudy";
     padding:5px;
 }
@@ -87,15 +87,19 @@ body {
     width: 80px;
     display: inline-block;
     margin-left: 30px;
+    margin-top: -10px;
+    margin-right: 10px;
 }
 
 #title {
     display: inline-block;
     padding-bottom: 20px;
     margin-left: 0px;
-    margin-top: 20px;
-    font-family: "Poiret One";
+    margin-top: 10px;
     font-family: "Sorts Mill Goudy";
+    font-size: 25pt;
+    line-height: 25pt;
+    padding: 15px 0;
 }
 
 #classesContainer {
@@ -574,7 +578,7 @@ D3.js
 }
 
 #toggleInverseBtn {
-    margin: 30px;
+    margin: 20px;
     float: right;
     font-family: "Sorts Mill Goudy";
     cursor: pointer;
@@ -591,7 +595,7 @@ D3.js
 /* SEARCH ANIMATION */
 
 #searchcontainer {
-    margin: 30px;
+    margin: 20px;
     float: right;
 }
 
