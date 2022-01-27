@@ -20,18 +20,21 @@ body {
     transform:translate(0%, -50%);
 }
 
-#descProperty .cidoccell {
-    width: 120px;
-    height: 120px
-}
 
 #descProperty .propertytitle {
-    font-size: 10pt;
+    font-size: 12pt;
+    line-height: 12pt;
 }
 
 #descProperty .propertycodes {
-    font-size: 25pt
+    font-size: 17pt
 }
+
+#descProperty .propertycell {
+    width: 170px;
+    height: 80px;
+}
+
 
 .nonCidocCode {
     font-size: 10pt;
@@ -143,8 +146,8 @@ body {
 
 .propertycell {
     display: inline-block;
-    width: 100px;
-    height:100px;
+    width: 170px;
+    height:65px;
     outline: 1px solid rgba(255, 255, 255, 0);
     background-color: rgba(19, 19, 19, 0.8);
     color: white;
@@ -163,6 +166,7 @@ body {
 
 .propertytitle {
     font-size:8pt;
+    line-height:8pt;
     text-align: center;
     height: 10px;
 }
@@ -178,8 +182,8 @@ body {
 .propertycodes {
     text-align:center;
     font-weight: bolder;
-    font-size: 20pt;
-    padding-top: 15px;
+    font-size: 15pt;
+    padding-top: 10px;
 }
 
 .classsuperclasses {
@@ -203,15 +207,21 @@ body {
 .propertydomain {
     position: absolute;
     left:0;
-    bottom:0;
-    border-radius: 0px 3px 0px 0px;
+    /* border-radius: 0px 15px 15px 0px; */
+    text-align: left;
 }
 
 .propertyrange {
     position: absolute;
     right:0;
-    bottom:0;
-    border-radius: 3px 0px 0px 0px;
+    /* border-radius: 15px 0px 0px 15px; */
+    text-align: right;
+}
+
+.propertyDomainLabel, .propertyRangeLabel {
+    font-size: 3.5pt;
+    font-weight:800;
+    line-height: 3.7pt;
 }
 
 .propertydomain, .propertyrange {
@@ -219,6 +229,10 @@ body {
     padding-left: 5px;
     padding-right: 5px;
     font-size: 6pt;
+    width: 40px;
+    top:14px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 .classlevel {
@@ -365,6 +379,7 @@ body {
     --Appellations: rgb(104, 129, 12);
     --Places: rgb(32, 109, 51);
     --Types: rgb(248, 140, 52);
+    --None: rgb(114, 114, 114);
   }
   
 
@@ -389,6 +404,96 @@ body {
 .cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types {
     background-color: var(--Types);
 }
+
+
+/* DOMAIN AND RANGES IN PROPERTIES */
+
+.propertydomain.TemporalEntity,.propertyrange.TemporalEntity {
+    background-color: var(--TemporalEntity);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--TemporalEntity) 90%, var(--TemporalEntity) 100%);
+}
+.propertydomain.Actors,.propertyrange.Actors {
+    background-color: var(--Actors);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Actors) 90%, var(--Actors) 100%);
+}
+.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects {
+    background-color: var(--ConceptualObjects);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--ConceptualObjects) 90%, var(--ConceptualObjects) 100%);
+}
+.propertydomain.PhysicalThings,.propertyrange.PhysicalThings {
+    background-color: var(--PhysicalThings);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--PhysicalThings) 90%, var(--PhysicalThings) 100%);
+}
+.propertydomain.Appellations,.propertyrange.Appellations {
+    background-color: var(--Appellations);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Appellations) 90%, var(--Appellations) 100%);
+}
+.propertydomain.Places,.propertyrange.Places {
+    background-color: var(--Places);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Places) 90%, var(--Places) 100%);
+}
+.propertydomain.Types,.propertyrange.Types {
+    background-color: var(--Types);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Types) 90%, var(--Types) 100%);
+}
+.propertydomain.none {
+    background-color: var(--None);
+    background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--None) 90%, var(--None) 100%);
+}
+
+
+
+
+
+
+
+.propertyrange.TemporalEntity {
+    background-color: var(--TemporalEntity);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--TemporalEntity) 90%, var(--TemporalEntity) 100%);
+}
+.propertyrange.Actors {
+    background-color: var(--Actors);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Actors) 90%, var(--Actors) 100%);
+}
+.propertyrange.ConceptualObjects {
+    background-color: var(--ConceptualObjects);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--ConceptualObjects) 90%, var(--ConceptualObjects) 100%);
+}
+.propertyrange.PhysicalThings {
+    background-color: var(--PhysicalThings);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--PhysicalThings) 90%, var(--PhysicalThings) 100%);
+}
+.propertyrange.Appellations {
+    background-color: var(--Appellations);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Appellations) 90%, var(--Appellations) 100%);
+}
+.propertyrange.Places {
+    background-color: var(--Places);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Places) 90%, var(--Places) 100%);
+}
+.propertyrange.Types {
+    background-color: var(--Types);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Types) 90%, var(--Types) 100%);
+}
+.propertyrange.none {
+    background-color: var(--None);
+    background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--None) 90%, var(--None) 100%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .cidoccell.none {
     background-color: rgb(216, 216, 216);

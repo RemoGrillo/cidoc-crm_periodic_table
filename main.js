@@ -167,13 +167,17 @@ function cellClick(elem, simulated=false){
     let selectedTreeNode = treegraph.first(function (node) {
         return node.model.code === keycode;
     });
-
-    $('#descComment').text(cidoc[keycode]["comment"]);
+    let comment = "";
     $('#descCode').text(keycode);
     $('#descTitle').text(cidoc[keycode]["label"]);
     
     if(keycode.startsWith("P")){
         /* PROPERTIES */
+        if(keycode.endsWith("i")){
+            comment = cidoc[keycode.substring(0, keycode.length - 1)]["comment"];
+        } else {
+            comment = cidoc[keycode]["comment"];
+        }
         $('#descDomainRange').show();
         $('#descCodeColor').attr('class', "");
         $('#descDomain').html(classesLayout(getCode(cidoc[keycode]["domain"])));
@@ -182,7 +186,8 @@ function cellClick(elem, simulated=false){
         $('.cidoccell').unbind("click");
         $('.cidoccell').click(function(){cellClick($(this))});
 
-    } else {
+    } else if (keycode.startsWith("E")) {
+        comment = cidoc[keycode]["comment"];
         /* CLASSES */
         $('#descCodeColor').attr('class', "");
         $('#descCodeColor').addClass(getColorCode(keycode))
@@ -207,6 +212,8 @@ function cellClick(elem, simulated=false){
         //TODO: tabella con orizzontali i livelli di profondità, verticale le famiglie o viceversa ()
         addPropertiesAndReferencesToLayout(keycode);
     }
+
+    $('#descComment').text(comment);
 }
 
 function getFilteredCodes(query){
@@ -856,17 +863,31 @@ function classesLayout(code){
 /* PROPERTIES */
 function propertiesLayout(code){
         let aproperty = cidoc[code];
-        let inverseproperty = "straightproperty";
+        let propertyDirection = "straightproperty";
         if(code.endsWith("i")) {
-            inverseproperty = "inverseproperty";
+            propertyDirection = "inverseproperty";
         }
 
-        var html = "<div code='"+ code +"' class='cidoccell propertycell "+ inverseproperty + "' title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
+        propertyDomainCode = getCode(aproperty.domain)
+        propertyRangeCode = getCode(aproperty.range)
+        propertyDomainLabel = "";
+        propertyRangeLabel = "";
+
+        if(propertyDomainCode.startsWith("E") || propertyDomainCode.startsWith("P")){
+            propertyDomainLabel = cidoc[propertyDomainCode].label;
+        }
+        if(propertyRangeCode.startsWith("E") || propertyRangeCode.startsWith("P")){
+            propertyRangeLabel = cidoc[propertyRangeCode].label;
+        }
+
+
+
+        var html = "<div code='"+ code +"' class='cidoccell propertycell "+ propertyDirection + "' title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
             html += "<div class='propertysuperproperties'> " + aproperty.superproperties.join() + "</div>";
             html += "<div class='propertycodes'>" + code + "</div>";
             html += "<div class='propertytitle'>" + aproperty.label + "</div>";
-            html += "<div class='propertydomain "+ getColorCode(getCode(aproperty.domain)) +"'>" + getCode(aproperty.domain) + "</div>";
-            html += "<div class='propertyrange "+ getColorCode(getCode(aproperty.range)) +"'>" + getCode(aproperty.range) + "</div>";
+            html += "<div class='propertydomain "+ getColorCode(propertyDomainCode) +"'>" + "<div class='propertyDomainCode'>" + propertyDomainCode + "</div><div class='propertyDomainLabel'>" + propertyDomainLabel + "</div></div>";
+            html += "<div class='propertyrange "+ getColorCode(propertyRangeCode) +"'>" + "<div class='propertyDomainRange'>" + propertyRangeCode + "</div><div class='propertyRangeLabel'>" + propertyRangeLabel + "</div></div>";
             html += "</div>";
         return html;
 }
