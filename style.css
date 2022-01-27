@@ -17,7 +17,6 @@ body {
     position: relative;
     font-size: 20pt;
     top: 50%;
-    transform:translate(0%, -50%);
 }
 
 
@@ -32,7 +31,8 @@ body {
 
 #descProperty .propertycell {
     width: 170px;
-    height: 80px;
+    height: 90px;
+    border: 1px solid black;
 }
 
 
@@ -691,7 +691,7 @@ D3.js
     padding: 5px;
 }
 
-#toggleInverseBtn.inversebtn {
+#toggleInverseBtn.activatedInversion {
     background-color: black !important;
     color: white !important;
 }

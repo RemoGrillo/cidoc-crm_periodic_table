@@ -84,8 +84,16 @@ $(document).ready(function(){
     });
 
     $('#toggleInverseBtn').click(function(){
-        $(this).toggleClass("inversebtn");
-       toggleInversePropertiesStatus();
+        let previouslyDisplayedCode = currentlyShownCellCode();
+            if(previouslyDisplayedCode.endsWith("i")){
+                let straightcode = previouslyDisplayedCode.substring(0, previouslyDisplayedCode.length -1);
+                toggleInversePropertiesStatus();
+                cellClick(straightcode, true);
+            } else {
+                let inverse = previouslyDisplayedCode + "i";
+                toggleInversePropertiesStatus();
+                cellClick(inverse, true);
+            }
     });
 
     $("#searchinput").on('input', function(){
@@ -110,17 +118,20 @@ $(document).ready(function(){
 });
 
 function checkInversePropertiesStatus(){
-    console.log("Checkinverse property status")
     if(showinverse){
         $('.inverseproperty').show();
         $('.straightproperty').hide();
-        $('#toggleInverseBtn').addClass('inversebtn');
+        $('#toggleInverseBtn').addClass('activatedInversion');
     } else {
         $('.inverseproperty').hide();
         $('.straightproperty').show();
-        $('#toggleInverseBtn').removeClass('inversebtn');
+        $('#toggleInverseBtn').removeClass('activatedInversion');
     }
     //filterBySearch();
+}
+
+function currentlyShownCellCode(){
+    return $("#descCode").text();
 }
 
 function toggleInversePropertiesStatus(){
@@ -128,15 +139,21 @@ function toggleInversePropertiesStatus(){
     checkInversePropertiesStatus();
 }
 
+function setInversePropertiesStatus(boole){
+    if(boole){
+        $('#toggleInverseBtn').removeClass("activatedInversion");
+        $('#toggleInverseBtn').addClass("activatedInversion");
+    } else {
+        $('#toggleInverseBtn').removeClass("activatedInversion");
+    }
+    showinverse = boole;
+}
+
 function toggleViewFromCode(code){
     if(code.startsWith("P")){
         $('.belongsToClasses').hide();
         $('.belongsToProperties').show();
-        if(code.endsWith("i") && !showinverse){
-            showinverse = true;
-        } else {
-            showinverse = false;
-        }
+        setInversePropertiesStatus(code.endsWith("i"));
         checkInversePropertiesStatus();
     } else if (code.startsWith("E")){
         $('.belongsToClasses').show();
@@ -175,8 +192,10 @@ function cellClick(elem, simulated=false){
         /* PROPERTIES */
         if(keycode.endsWith("i")){
             comment = cidoc[keycode.substring(0, keycode.length - 1)]["comment"];
+            setInversePropertiesStatus(true);
         } else {
             comment = cidoc[keycode]["comment"];
+            setInversePropertiesStatus(false);
         }
         $('#descDomainRange').show();
         $('#descCodeColor').attr('class', "");
@@ -242,7 +261,7 @@ function filterBySearch(){
     let query = $("#searchinput").val();
     if(isEmptyOrSpaces(query)){
         $('.cidoccell').show();
-        //checkInversePropertiesStatus();
+        checkInversePropertiesStatus();
     } else {
         let query_result = getFilteredCodes(query);
         console.log(query_result);
