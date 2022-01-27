@@ -87,12 +87,18 @@ $(document).ready(function(){
         let previouslyDisplayedCode = currentlyShownCellCode();
             if(previouslyDisplayedCode.endsWith("i")){
                 let straightcode = previouslyDisplayedCode.substring(0, previouslyDisplayedCode.length -1);
-                toggleInversePropertiesStatus();
-                cellClick(straightcode, true);
+                if(cidoc[straightcode]){
+                    cellClick(straightcode, true);
+                } else {
+                    cellClick("[code='P1']");
+                }
             } else {
-                let inverse = previouslyDisplayedCode + "i";
-                toggleInversePropertiesStatus();
-                cellClick(inverse, true);
+                let inversecode = previouslyDisplayedCode + "i";
+                if(cidoc[inversecode]){
+                    cellClick(inversecode, true);
+                } else {
+                    cellClick("[code='P1i']");
+                }
             }
     });
 
