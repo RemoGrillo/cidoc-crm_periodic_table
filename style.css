@@ -383,56 +383,60 @@ body {
   }
   
 
-.cidoccell.TemporalEntity,#descCodeColor.TemporalEntity,.propertydomain.TemporalEntity,.propertyrange.TemporalEntity {
+.cidoccell.TemporalEntity,#descCodeColor.TemporalEntity,.propertydomain.TemporalEntity,.propertyrange.TemporalEntity,.cidocline.classline.TemporalEntity {
     background-color: var(--TemporalEntity);
 }
-.cidoccell.Actors,#descCodeColor.Actors,.propertydomain.Actors,.propertyrange.Actors {
+.cidoccell.Actors,#descCodeColor.Actors,.propertydomain.Actors,.propertyrange.Actors,.cidocline.classline.Actors {
     background-color: var(--Actors);
 }
-.cidoccell.ConceptualObjects,#descCodeColor.ConceptualObjects,.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects {
+.cidoccell.ConceptualObjects,#descCodeColor.ConceptualObjects,.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects,.cidocline.classline.ConceptualObjects {
     background-color: var(--ConceptualObjects);
 }
-.cidoccell.PhysicalThings,#descCodeColor.PhysicalThings,.propertydomain.PhysicalThings,.propertyrange.PhysicalThings {
+.cidoccell.PhysicalThings,#descCodeColor.PhysicalThings,.propertydomain.PhysicalThings,.propertyrange.PhysicalThings,.cidocline.classline.PhysicalThings {
     background-color: var(--PhysicalThings);
 }
-.cidoccell.Appellations,#descCodeColor.Appellations,.propertydomain.Appellations,.propertyrange.Appellations {
+.cidoccell.Appellations,#descCodeColor.Appellations,.propertydomain.Appellations,.propertyrange.Appellations,.cidocline.classline.Appellations {
     background-color: var(--Appellations);
 }
-.cidoccell.Places,#descCodeColor.Places,.propertydomain.Places,.propertyrange.Places {
+.cidoccell.Places,#descCodeColor.Places,.propertydomain.Places,.propertyrange.Places,.cidocline.classline.Places {
     background-color: var(--Places);
 }
-.cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types {
+.cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types,.cidocline.classline.Types {
     background-color: var(--Types);
 }
 
+.cidocline.classline.none {
+    background-color: lightgrey;
+    color: black;
+}
 
 /* DOMAIN AND RANGES IN PROPERTIES */
 
-.propertydomain.TemporalEntity,.propertyrange.TemporalEntity {
+.propertydomain.TemporalEntity{
     background-color: var(--TemporalEntity);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--TemporalEntity) 90%, var(--TemporalEntity) 100%);
 }
-.propertydomain.Actors,.propertyrange.Actors {
+.propertydomain.Actors{
     background-color: var(--Actors);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Actors) 90%, var(--Actors) 100%);
 }
-.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects {
+.propertydomain.ConceptualObjects{
     background-color: var(--ConceptualObjects);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--ConceptualObjects) 90%, var(--ConceptualObjects) 100%);
 }
-.propertydomain.PhysicalThings,.propertyrange.PhysicalThings {
+.propertydomain.PhysicalThings{
     background-color: var(--PhysicalThings);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--PhysicalThings) 90%, var(--PhysicalThings) 100%);
 }
-.propertydomain.Appellations,.propertyrange.Appellations {
+.propertydomain.Appellations{
     background-color: var(--Appellations);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Appellations) 90%, var(--Appellations) 100%);
 }
-.propertydomain.Places,.propertyrange.Places {
+.propertydomain.Places {
     background-color: var(--Places);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Places) 90%, var(--Places) 100%);
 }
-.propertydomain.Types,.propertyrange.Types {
+.propertydomain.Types {
     background-color: var(--Types);
     background: linear-gradient(270deg, rgba(128, 128, 128, 0) 0%, var(--Types) 90%, var(--Types) 100%);
 }
@@ -444,30 +448,27 @@ body {
 
 
 
-
-
-
-.propertyrange.TemporalEntity {
+.propertyrange.TemporalEntity{
     background-color: var(--TemporalEntity);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--TemporalEntity) 90%, var(--TemporalEntity) 100%);
 }
-.propertyrange.Actors {
+.propertyrange.Actors{
     background-color: var(--Actors);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Actors) 90%, var(--Actors) 100%);
 }
-.propertyrange.ConceptualObjects {
+.propertyrange.ConceptualObjects{
     background-color: var(--ConceptualObjects);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--ConceptualObjects) 90%, var(--ConceptualObjects) 100%);
 }
-.propertyrange.PhysicalThings {
+.propertyrange.PhysicalThings{
     background-color: var(--PhysicalThings);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--PhysicalThings) 90%, var(--PhysicalThings) 100%);
 }
-.propertyrange.Appellations {
+.propertyrange.Appellations{
     background-color: var(--Appellations);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Appellations) 90%, var(--Appellations) 100%);
 }
-.propertyrange.Places {
+.propertyrange.Places{
     background-color: var(--Places);
     background: linear-gradient(90deg, rgba(128, 128, 128, 0) 0%, var(--Places) 90%, var(--Places) 100%);
 }
@@ -565,7 +566,7 @@ tbody {
     font-weight: bold;
 }
 
-.tdProperty {
+/* .tdProperty {
     width: 40%;
 } 
 .tdDomain {
@@ -573,7 +574,7 @@ tbody {
 }
 .tdRange {
     width: 50%;
-}
+} */
 
 #descDomain .cidoccell, #descRange .cidoccell {
     opacity: 1 !important;
@@ -784,4 +785,48 @@ html {
 
 .classcell.cidoccell:hover {
     opacity: 1 !important;
+}
+
+.cidocline.classline {
+    padding: 2px;
+    color: white;
+    font-size: 8pt;
+}
+
+.cidoclineCode {
+    font-weight: 800;
+}
+
+.cidoclineLabel {
+    padding-left: 3px;
+}
+
+.cidocline.propertyline {
+    border: 1px solid rgb(200,200,200);
+    text-align: left;
+    font-size: 8pt;
+}
+
+.cidoclineDomain {
+    left: 0;
+}
+
+.cidoclineRange {
+    right: 0;
+}
+
+.cidoclineName {
+    display: inline-block;
+}
+
+.cidocline.propertyline {
+    display: block;
+    position: relative;
+}
+
+.cidoclineDomain,.cidoclineRange {
+    width: 20px;
+    position: absolute;
+    height: 100%;
+    top: 0;
 }

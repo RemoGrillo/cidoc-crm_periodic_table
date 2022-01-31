@@ -426,14 +426,32 @@ function addPropertiesAndReferencesToLayout(code){
     let properties = cidoc[code].props[0]["props"]["properties"];
     let htmlstring = "<table class='classPropertiesTable'><tbody><div class='directClassProperties'>" 
     $.each(properties, function(index, value){
-        htmlstring += "<tr class='classPropertyRow'><td class='tdDomain'>" + code + "</td><td class='tdProperty'><span class='directPropertySpan' onclick='cellClick(\""+ value +"\", true)'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
+        let range;
+        if (isCidocName(cidoc[value].range)){
+            range = classesLineLayout(getCode(cidoc[value].range));
+        } else {
+            range = nonCidocConversion(cidoc[value].range);
+        }
+
+        htmlstring += "<tr class='classPropertyRow'>";
+        htmlstring += "<td class='tdDomain'>" +  classesLineLayout(code) + "</td>";
+        htmlstring += "<td class='tdProperty'><span class='directPropertySpan' onclick='cellClick(\""+ value +"\", true)'>" + propertiesLineLayout(value) + "</span></td>";
+        htmlstring += "<td class='tdRange'>" + range + "</td></tr>";
     })
     //Inherited Properties
     let inheritedProperties = cidoc[code].inheritedProps;
     htmlstring += "<div class='inheritedClassProperties'>" 
     $.each(inheritedProperties, function(index, value){
         $.each(value.props.properties, function(i,ipcode){
-            htmlstring += "<tr class='classPropertyRow'><td>" + value.code + "</td><td><span class='inheritedPropertySpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + cidoc[ipcode].about + "</span></td><td>" + cidoc[ipcode].range + "</td></tr>";
+            let range;
+            console.log(ipcode);
+            if (isCidocName(cidoc[ipcode].range)){
+                range = classesLineLayout(getCode(cidoc[ipcode].range));
+            } else {
+                range = nonCidocConversion(cidoc[ipcode].range);
+            }
+    
+            htmlstring += "<tr class='classPropertyRow'><td>" + classesLineLayout(value.code) + "</td><td><span class='inheritedPropertySpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + propertiesLineLayout(ipcode) + "</span></td><td>" + range + "</td></tr>";
         });
     })
     htmlstring += "</div>"
@@ -444,7 +462,20 @@ function addPropertiesAndReferencesToLayout(code){
     let references = cidoc[code].props[0].props.references;
     htmlstring2 += "<table class='classReferencesTable'><tbody><div class='directClassReferences'>" 
     $.each(references, function(index, value){
-        htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + cidoc[value].domain + "</td><td class='tdProperty'><span class='directReferenceSpan' onclick='cellClick(\""+ value +"\", true)'>" + cidoc[value].about + "</span></td><td class='tdRange'>" + cidoc[value].range + "</td></tr>";
+        let domain;
+        if (isCidocName(cidoc[value].domain)){
+            domain = classesLineLayout(getCode(cidoc[value].domain));
+        } else {
+            domain = nonCidocConversion(cidoc[value].domain);
+        }
+
+        let range;
+        if (isCidocName(cidoc[value].range)){
+            range = classesLineLayout(getCode(cidoc[value].range));
+        } else {
+            range = nonCidocConversion(cidoc[value].range);
+        }
+        htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + domain + "</td><td class='tdProperty'><span class='directReferenceSpan' onclick='cellClick(\""+ value +"\", true)'>" + propertiesLineLayout(value) + "</span></td><td class='tdRange'>" + range + "</td></tr>";
     })
 
     //Inherited References
@@ -453,7 +484,17 @@ function addPropertiesAndReferencesToLayout(code){
         htmlstring2 += "<div class='inheritedClassReferences'>" 
         $.each(inheritedReferences, function(index, value){
             $.each(value.props.references, function(i,ipcode){
-                htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + getCode(cidoc[ipcode].domain)  + "</td><td class='tdProperty'><span class='inheritedReferenceSpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + cidoc[ipcode].about + "</span></td><td class='tdRange'>" + value.code + "</td></tr>";
+                let domain;
+                if (isCidocName(cidoc[ipcode].domain)){
+                    domain = classesLineLayout(getCode(cidoc[ipcode].domain));
+                } else {
+                    domain = nonCidocConversion(cidoc[ipcode].domain);
+                }
+
+                let range;
+                range = classesLineLayout(value.code);
+                
+                htmlstring2 += "<tr class='classReferenceRow'><td class='tdDomain'>" + domain  + "</td><td class='tdProperty'><span class='inheritedReferenceSpan' onclick='cellClick(\""+ ipcode +"\", true)'>" + propertiesLineLayout(ipcode) + "</span></td><td class='tdRange'>" + range + "</td></tr>";
             });
         })
         htmlstring2 += "</div>"
@@ -883,8 +924,8 @@ function generateJson(data){
 }
 
 function getColorCode(code){
-    if(isCidocClass(code) || code.startsWith("P")){
-        let color_code = "none"
+    let color_code = "none"
+    if(isCidocClass(code)){
         if(cidoc[code].colorcodes.length == 1){
             color_code = cidoc[code].colorcodes[0].label;
         }
@@ -911,6 +952,40 @@ function classesLayout(code){
         html += "</div>";
         return html;
     }
+}
+
+function classesLineLayout(code){
+    let color_code = getColorCode(code);
+    let html = "<div code='" + code + "' class='cidocline classline " + color_code + " title='"+ cidoc[code].comment +"'>";
+    html += "<span class='cidoclineCode'>" + code + "</span>";
+    html += "<span class='cidoclineLabel'>" + cidoc[code].label + "</span>";
+    html += "</div>"
+    return html;
+}
+
+function propertiesLineLayout(code){
+    //NON-CIDOC management
+    let propertyDomainCode
+    let propertyRangeCode
+    if(isCidocName(cidoc[code].domain)){
+        propertyDomainCode = getCode(cidoc[code].domain)
+    } else {
+        propertyDomainCode = nonCidocConversion(cidoc[code].domain)
+    }
+    if(isCidocName(cidoc[code].range)){
+        propertyRangeCode = getCode(cidoc[code].range)
+    } else {
+        propertyRangeCode = nonCidocConversion(cidoc[code].range)
+    }
+    
+    //Build template
+    let html = "<div code='" + code + "' class='cidocline propertyline' title='"+ cidoc[code].comment +"'>";
+    html += "<div class='cidoclineDomain "+ getColorCode(propertyDomainCode) +"'></div>"
+    html += "<div class='cidoclineName'><span class='cidoclineCode'>" + code + "</span>";
+    html += "<span class='cidoclineLabel'>" + cidoc[code].label + "</span></div>";
+    html += "<div class='cidoclineRange " + getColorCode(propertyRangeCode) + "'></div>"
+    html += "</div>"
+    return html;
 }
 
 function nonCidocConversion(string){
