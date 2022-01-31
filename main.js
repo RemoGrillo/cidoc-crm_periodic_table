@@ -45,17 +45,22 @@ $(document).ready(function(){
         generateJson(data);
         addPropertiesAndReferencesToJson();
         addColorcodesToJson();
+
         generateLayout();
         createTree();
-        //generateTreeGraph(treegraph);
+        
+        //Visualization initializers
         $('#propertiesContainer').hide();
         $('#classesbtn').hide();
         $('#descDomainRange').hide();
         $('#toggleInverseBtn').hide();
         $('#descDomainRangeSeparator').hide();
         checkInversePropertiesStatus();
-
+        
+        //Add click listeners
         $('.cidoccell').click(function(){cellClick($(this))});
+
+        //Show first class for first
         $('[code="E1"]').click();
     });
 
@@ -156,14 +161,41 @@ function setInversePropertiesStatus(boole){
 }
 
 function toggleViewFromCode(code){
-    if(code.startsWith("P")){
+    if(isCidocProperty(code)){
         $('.belongsToClasses').hide();
         $('.belongsToProperties').show();
         setInversePropertiesStatus(code.endsWith("i"));
         checkInversePropertiesStatus();
-    } else if (code.startsWith("E")){
+    } else if (isCidocClass(code)){
         $('.belongsToClasses').show();
         $('.belongsToProperties').hide();
+    }
+}
+
+function isCidocName(string){
+    let code = getCode(string);
+    return(isCidocCode(code));
+}
+
+//TODO: genera dinamicamente prime lettere
+function isCidocCode(code){
+    let regex = /^[E,P,L,D]\d{1,3}/gm
+    return(regex.test(code))
+}
+
+function isCidocClass(code){
+    return (code.startsWith("E") || code.startsWith("D"));
+}
+
+function isCidocProperty(code){
+    return (code.startsWith("P") || code.startsWith("L"));
+}
+
+function getCode(cidocName){
+    if(isCidocClass(cidocName) || isCidocProperty(cidocName)){
+        return cidocName.split("_")[0];
+    } else {
+        console.log("ERROR: " + cidocName + " is not a cidoc Name!")
     }
 }
 
@@ -179,6 +211,9 @@ function cellClick(elem, simulated=false){
     } else {
         keycode = $(elem).attr("code");
     }
+
+    //window.location.href = '?code=' + keycode;
+
     $('[code="' + keycode + '"]').addClass("selectedCell");
     toggleViewFromCode(keycode);
 
@@ -194,7 +229,7 @@ function cellClick(elem, simulated=false){
     $('#descCode').text(keycode);
     $('#descTitle').text(cidoc[keycode]["label"]);
     
-    if(keycode.startsWith("P")){
+    if(isCidocProperty(keycode)){
         /* PROPERTIES */
         if(keycode.endsWith("i")){
             comment = cidoc[keycode.substring(0, keycode.length - 1)]["comment"];
@@ -205,13 +240,25 @@ function cellClick(elem, simulated=false){
         }
         $('#descDomainRange').show();
         $('#descCodeColor').attr('class', "");
-        $('#descDomain').html(classesLayout(getCode(cidoc[keycode]["domain"])));
         $('#descProperty').html(propertiesLayout(keycode));
-        $('#descRange').html(classesLayout(getCode(cidoc[keycode]["range"])));
         $('.cidoccell').unbind("click");
         $('.cidoccell').click(function(){cellClick($(this))});
 
-    } else if (keycode.startsWith("E")) {
+        //Sometimes we have RDF classes as domain or range. We need to check that before casting the cidoc class layout
+        if(isCidocName(cidoc[keycode]["domain"])){
+            $('#descDomain').html(classesLayout(getCode(cidoc[keycode]["domain"])));
+            $('.cidoccell').click(function(){cellClick($(this))});
+        } else {
+            $('#descDomain').html(nonCidocClassesLayout(cidoc[keycode]["domain"]));
+        }
+        if(isCidocName(cidoc[keycode]["range"])){
+            $('#descRange').html(classesLayout(getCode(cidoc[keycode]["range"])));
+            $('.cidoccell').click(function(){cellClick($(this))});
+        } else {
+            $('#descRange').html(nonCidocClassesLayout(cidoc[keycode]["range"]));
+        }
+
+    } else if (isCidocClass(keycode)) {
         comment = cidoc[keycode]["comment"];
         /* CLASSES */
         $('#descCodeColor').attr('class', "");
@@ -241,7 +288,7 @@ function cellClick(elem, simulated=false){
     $('#descComment').text(comment);
 }
 
-function getFilteredCodes(query){
+function getSearchedCodes(query){
     let corresponding_codes = [];
     $.each(cidoc, function(k,v){
         console.log(k)
@@ -269,13 +316,11 @@ function filterBySearch(){
         $('.cidoccell').show();
         checkInversePropertiesStatus();
     } else {
-        let query_result = getFilteredCodes(query);
+        let query_result = getSearchedCodes(query);
         console.log(query_result);
         $('.cidoccell').each(function(){
             if(query_result.includes($(this).attr("code"))){
-                //if((showinverse && $(this).hasClass("inverseproperty")) || (!showinverse && $(this).hasClass("straightproperty"))){
-                    $(this).show();
-                //}
+                $(this).show();
             } else {
                 $(this).hide();
             }
@@ -336,7 +381,7 @@ function getAllPropertiesAndReferences(code){
 
 function addPropertiesAndReferencesToJson(){
     $.each(cidoc, function(k,v){
-        if(k.startsWith("E")){
+        if(isCidocClass(k)){
             let superclasses = getAllSuperclassesWrapper(k);
             cidoc[k]["recursiveSuperclasses"] = superclasses;
             cidoc[k]["props"] = [];
@@ -356,7 +401,7 @@ function addPropertiesAndReferencesToJson(){
 function addColorcodesToJson(){
     $.each(cidoc, function(k,v){
         let colorcodes = [];
-        if(k.startsWith("E")){
+        if(isCidocClass(k)){
             $.each(cidoc_colorcodes, function(superclass, value){
                 if(hasSuperclass(k, superclass)){
                     colorcodes.push(value)
@@ -367,7 +412,7 @@ function addColorcodesToJson(){
     });
 
     $.each(cidoc, function(k,v){
-        if(k.startsWith("E")){
+        if(isCidocClass(k)){
             if(cidoc[k].colorcodes.length > 1){
                 //console.log("Found: " + k + " length: " + cidoc[k].colorcodes.length)
                 //console.log(cidoc[k])
@@ -476,7 +521,7 @@ function createTree(){
     while (!completed) {
         completed = true;
         $.each(cidoc, function(k,v){
-            if(k.startsWith("E")){
+            if(isCidocClass(k)){
                 // DOES THE NODE IN THE TREE ALREADY EXIST?
                 var found = root.first(function (node) {
                     return node.model.code === k;
@@ -742,11 +787,6 @@ function calculateSubclasses(){
     })
 }
 
-function isCidocCode(code){
-    let regex = /^[E,P]\d{1,3}/gm
-    return(regex.test(code))
-}
-
 function highlightSubclassesByClass(code){
     $('.cidoccell').removeClass("highlighted");
     let subclasses = getAllRecursiveSubclassesWrapper(code);
@@ -842,18 +882,8 @@ function generateJson(data){
     console.log(cidoc);
 }
 
-function getCode(string){
-    if(string.startsWith("E") || string.startsWith("P")){
-        return string.split("_")[0];
-    }
-    //If it's a link (assuming it's rdf) return the last part 
-    if(string.startsWith("http://")){
-        return string.split("#")[1];
-    }
-}
-
 function getColorCode(code){
-    if(code.startsWith("E") || code.startsWith("P")){
+    if(isCidocClass(code) || code.startsWith("P")){
         let color_code = "none"
         if(cidoc[code].colorcodes.length == 1){
             color_code = cidoc[code].colorcodes[0].label;
@@ -880,28 +910,49 @@ function classesLayout(code){
         html += "<div class='classsubclasses'>" + getAllSubclasses(code) + "</div>";
         html += "</div>";
         return html;
-    } else {
-        return "<div class='nonCidocCode'>" + code + "</div>";
     }
+}
+
+function nonCidocConversion(string){
+    if(string.startsWith("http://")){
+        return string.split("#")[1];
+    }
+}
+
+function nonCidocClassesLayout(string){
+    let resultString = nonCidocConversion(string);
+    return "<div class='nonCidocCode'>" + resultString + "</div>";
 }
 
 /* PROPERTIES */
 function propertiesLayout(code){
+        console.log(code);
         let aproperty = cidoc[code];
         let propertyDirection = "straightproperty";
         if(code.endsWith("i")) {
             propertyDirection = "inverseproperty";
         }
 
-        propertyDomainCode = getCode(aproperty.domain)
-        propertyRangeCode = getCode(aproperty.range)
+        //NON-CIDOC management
+        if(isCidocName(aproperty.domain)){
+            propertyDomainCode = getCode(aproperty.domain)
+        } else {
+            propertyDomainCode = nonCidocConversion(aproperty.domain)
+        }
+
+        if(isCidocName(aproperty.range)){
+            propertyRangeCode = getCode(aproperty.range)
+        } else {
+            propertyRangeCode = nonCidocConversion(aproperty.range)
+        }
+
         propertyDomainLabel = "";
         propertyRangeLabel = "";
 
-        if(propertyDomainCode.startsWith("E") || propertyDomainCode.startsWith("P")){
+        if(isCidocClass(propertyDomainCode)){
             propertyDomainLabel = cidoc[propertyDomainCode].label;
         }
-        if(propertyRangeCode.startsWith("E") || propertyRangeCode.startsWith("P")){
+        if(isCidocClass(propertyRangeCode)){
             propertyRangeLabel = cidoc[propertyRangeCode].label;
         }
 
@@ -920,7 +971,7 @@ function propertiesLayout(code){
 function generateLayout(){
     $.each(cidoc, function(k,v){
         //If entry is a class (starting with E)
-       if(k.startsWith("E")){
+       if(isCidocClass(k)){
         $('#classesContainer').append(classesLayout(k));
        } else {
         $('#propertiesContainer').append(propertiesLayout(k));
