@@ -383,32 +383,29 @@ body {
   }
   
 
-.cidoccell.TemporalEntity,#descCodeColor.TemporalEntity,.propertydomain.TemporalEntity,.propertyrange.TemporalEntity,.cidocline.classline.TemporalEntity {
+.cidoccell.TemporalEntity,#descCodeColor.TemporalEntity,.propertydomain.TemporalEntity,.propertyrange.TemporalEntity {
     background-color: var(--TemporalEntity);
 }
-.cidoccell.Actors,#descCodeColor.Actors,.propertydomain.Actors,.propertyrange.Actors,.cidocline.classline.Actors {
+.cidoccell.Actors,#descCodeColor.Actors,.propertydomain.Actors,.propertyrange.Actors {
     background-color: var(--Actors);
 }
-.cidoccell.ConceptualObjects,#descCodeColor.ConceptualObjects,.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects,.cidocline.classline.ConceptualObjects {
+.cidoccell.ConceptualObjects,#descCodeColor.ConceptualObjects,.propertydomain.ConceptualObjects,.propertyrange.ConceptualObjects {
     background-color: var(--ConceptualObjects);
 }
-.cidoccell.PhysicalThings,#descCodeColor.PhysicalThings,.propertydomain.PhysicalThings,.propertyrange.PhysicalThings,.cidocline.classline.PhysicalThings {
+.cidoccell.PhysicalThings,#descCodeColor.PhysicalThings,.propertydomain.PhysicalThings,.propertyrange.PhysicalThings {
     background-color: var(--PhysicalThings);
 }
-.cidoccell.Appellations,#descCodeColor.Appellations,.propertydomain.Appellations,.propertyrange.Appellations,.cidocline.classline.Appellations {
+.cidoccell.Appellations,#descCodeColor.Appellations,.propertydomain.Appellations,.propertyrange.Appellations {
     background-color: var(--Appellations);
 }
-.cidoccell.Places,#descCodeColor.Places,.propertydomain.Places,.propertyrange.Places,.cidocline.classline.Places {
+.cidoccell.Places,#descCodeColor.Places,.propertydomain.Places,.propertyrange.Places {
     background-color: var(--Places);
 }
-.cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types,.cidocline.classline.Types {
+.cidoccell.Types,#descCodeColor.Types,.propertydomain.Types,.propertyrange.Types {
     background-color: var(--Types);
 }
 
-.cidocline.classline.none {
-    background-color: lightgrey;
-    color: black;
-}
+
 
 /* DOMAIN AND RANGES IN PROPERTIES */
 
@@ -483,8 +480,78 @@ body {
 
 
 
+/* classlines */
 
+.cidoclineCode {
+    display: inline-block;
+    width: 35px;
+    text-align: center;
+}
 
+.cidocline.classline .cidoclineCode {
+    color: white;
+    padding: 2px;
+}
+
+.cidocline.propertyline .cidoclineCode{
+    color: black;
+    background-color:rgb(200, 200, 200);
+    padding: 2px;
+}
+
+.cidocline.classline, .cidocline.propertyline {
+    border-radius: 3px;
+}
+
+.cidocline.classline.TemporalEntity .cidoclineCode {
+    background-color: var(--TemporalEntity)
+}
+.cidocline.classline.Actors .cidoclineCode {
+    background-color: var(--Actors)
+}
+.cidocline.classline.ConceptualObjects .cidoclineCode {
+    background-color: var(--ConceptualObjects)
+}
+.cidocline.classline.PhysicalThings .cidoclineCode {
+    background-color: var(--PhysicalThings)
+}
+.cidocline.classline.Appellations .cidoclineCode {
+    background-color: var(--Appellations)
+}
+.cidocline.classline.Places .cidoclineCode {
+    background-color: var(--Places)
+}
+.cidocline.classline.Types .cidoclineCode {
+    background-color: var(--Types)
+}
+.cidocline.classline.none .cidoclineCode {
+    background-color: var(--None)
+}
+
+.cidocline.classline.TemporalEntity {
+    border: 1px solid var(--TemporalEntity)
+}
+.cidocline.classline.Actors {
+    border: 1px solid var(--Actors)
+}
+.cidocline.classline.ConceptualObjects {
+    border: 1px solid var(--ConceptualObjects)
+}
+.cidocline.classline.PhysicalThings {
+    border: 1px solid var(--PhysicalThings)
+}
+.cidocline.classline.Appellations {
+    border: 1px solid var(--Appellations)
+}
+.cidocline.classline.Places {
+    border: 1px solid var(--Places)
+}
+.cidocline.classline.Types {
+    border: 1px solid var(--Types)
+}
+.cidocline.classline.none {
+    border: 1px solid var(--None)
+}
 
 
 
@@ -788,8 +855,7 @@ html {
 }
 
 .cidocline.classline {
-    padding: 2px;
-    color: white;
+    color: black;
     font-size: 8pt;
 }
 
