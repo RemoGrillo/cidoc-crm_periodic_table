@@ -35,6 +35,10 @@ body {
     border: 1px solid black;
 }
 
+.classcell:not(.experimental){
+    width: 90px;
+    height: 90px;
+}
 
 .nonCidocCode {
     font-size: 10pt;
@@ -59,13 +63,18 @@ body {
 }
 
 #describer {
-    border: 1px solid rgba(19, 19, 19, 0.8);
-    padding: 20px;
     width: 39%;
     height: 85vh;
+    position: fixed !important;
+    right: 20px;
 }
 
-#sandbox {
+.front, .back {
+    padding: 20px;
+    border: 1px solid rgba(19, 19, 19, 0.8);
+}
+
+#experiment {
     display: none;
     border: 1px solid rgba(19, 19, 19, 0.8);
     padding: 20px;
@@ -77,14 +86,16 @@ body {
     z-index: 10;
 }
 
-#classesbtn, #propertiesbtn {
+#classesbtn, #propertiesbtn, #experimentbtn, #inspectbtn {
     cursor:pointer;
     user-select: none;
     float: right;
     margin:20px;
     font-family: "Sorts Mill Goudy";
     padding:5px;
+    z-index: 99999999999;
 }
+
 
 #pointingHand {
     width: 80px;
@@ -127,14 +138,17 @@ body {
 }
 
 
-.classcell:not(.highlighted):not(.selectedCell) {
+.classcell:not(.highlighted):not(.selectedCell):not(.experimentallyHighlighted) {
     opacity: 0.5 !important;
 }
 
+.classcell.experimentallyHighlighted {
+    opacity: 1 !important;
+}
+
+
 .classcell {
     display: inline-grid;
-    width: 90px;
-    height:90px;
     outline: 1px solid rgba(19, 19, 19, 0.8);
     color: rgba(19, 19, 19, 0.8);
     position: relative;
@@ -146,10 +160,8 @@ body {
 
 .propertycell {
     display: inline-block;
-    width: 170px;
-    height:65px;
     outline: 1px solid rgba(255, 255, 255, 0);
-    background-color: rgba(19, 19, 19, 0.8);
+    background-color: rgba(60, 60, 60);
     color: white;
     position: relative;
     padding: 2px;
@@ -375,11 +387,11 @@ body {
     --TemporalEntity: #3783a8;
     --Actors: #72005f;
     --ConceptualObjects: #c78f15;
-    --PhysicalThings: rgb(128, 20, 1);
-    --Appellations: rgb(104, 129, 12);
-    --Places: rgb(32, 109, 51);
-    --Types: rgb(248, 140, 52);
-    --None: rgb(114, 114, 114);
+    --PhysicalThings: #801401;
+    --Appellations: #68810C;
+    --Places: #206D33;
+    --Types: #F88C34;
+    --None: #d8d8d8;
   }
   
 
@@ -716,7 +728,7 @@ D3.js
 
 #clipboardMessage {
     position: fixed;
-    top: 100px;
+    bottom: 100px;
     left:50%;
     transform: translate(-50%);
     padding: 50px;
@@ -854,6 +866,10 @@ html {
     opacity: 1 !important;
 }
 
+.classcell.experimental:hover {
+    opacity: 0.5 !important;
+}
+
 .cidocline.classline {
     color: black;
     font-size: 8pt;
@@ -895,4 +911,86 @@ html {
     position: absolute;
     height: 100%;
     top: 0;
+}
+
+
+
+#classesbtn:hover, #propertiesbtn:hover, #toggleInverseBtn:hover, #experimentbtn:hover, #inspectbtn:hover {
+    background-color: black;
+    color: white;
+}
+
+#experiment_domain, #experiment_property, #experiment_range {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='43' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.propertycell:not(.experimental){
+    width: 170px;
+    height:65px;
+}
+
+#experiment_domain, #experiment_range, .classcell.experimental {
+    width: 120px;
+    height:120px;
+}
+
+#experiment_property, .propertycell.experimental {
+    width:200px;
+    height:120px;
+}
+
+.experiment_column {
+    text-align: center;
+}
+
+.experiment_cell {
+    margin: auto;
+}
+
+.experiment_add {
+    cursor: pointer;
+}
+
+.experiment_cell:hover {
+    background-color: rgb(241, 241, 241);
+}
+
+#experiment_row {
+    margin-top: 50px;
+}
+
+.experiment_add {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.experiment_label {
+    font-family: "Sorts Mill Goudy";
+    font-size: 10pt;
+    font-weight: bolder;
+}
+
+.experimentallyHighlighted {
+    opacity: 1 !important;
+}
+
+.experimentallyNotHighlighted {
+    opacity: 0.2;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+#classesContainer > .experimentallyNotHighlighted.cidoccell, #propertiesContainer > .experimentallyNotHighlighted.cidoccell {
+    display: none;
+}
+
+#experiment_domain_remove, #experiment_property_remove, #experiment_range_remove {
+    cursor: pointer;
+}
+
+.experiment_remove:hover {
+    opacity: 0.5;
+    cursor: pointer;
 }

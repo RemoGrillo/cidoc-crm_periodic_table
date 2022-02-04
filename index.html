@@ -13,10 +13,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy&family=Spartan:wght@100;200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" media="all" rel="stylesheet">
-</head>
+    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+    </head>
 <body>
-<div class="row">
-    <div class="col-12"><img id="pointingHand" src="assets/hand.png" alt="pointinghand"><h1 id="title" style="padding-bottom: 0;">The CIDOC-CRM periodic table.</h1><span id="classesbtn" class="belongsToProperties">Go to Classes</span><span id="propertiesbtn" class="belongsToClasses">Go to Properties</span><span id="toggleInverseBtn" class="belongsToProperties">Inverse Properties</span><span id="searchcontainer"><span class="search">
+<div id="mainRow" class="row">
+    <div id="menuRow" class="col-12">
+        <img id="pointingHand" src="assets/hand.png" alt="pointinghand">
+        <h1 id="title" style="padding-bottom: 0;">The CIDOC-CRM periodic table.</h1>
+        <span id="classesbtn" class="belongsToProperties">Go to Classes</span>
+        <span id="propertiesbtn" class="belongsToClasses">Go to Properties</span>
+        <span id="toggleInverseBtn" class="belongsToProperties">Inverse Properties</span>
+        <span id="experimentbtn"><i class="fa fa-flask" aria-hidden="true"></i> Experiment</span>
+        <span id="inspectbtn"><i class="fa fa-eye" aria-hidden="true"></i> Inspect</span>
+        <span id="searchcontainer"><span class="search">
         <input id="searchinput" type="text" placeholder=" ">
         <div>
             <svg>
@@ -32,79 +41,113 @@
     </span>
     </div>
 </div>
-<hr style="margin-top: 0; border-color: black;">
+<hr id="menuHr" style="margin-top: 0; border-color: black;">
 <div class="row">
     <div id="classesContainer" class="row col-7 belongsToClasses">
     </div>
     <div id="propertiesContainer" class="row col-7 belongsToProperties">
     </div>
     <div id="describer">
-        <div id="descCodeContainer" class="row" style="position:relative;">
-            <h3 id="descCode"></h3>
-            <div id="descCodeColor"></div>
-            <div id="addtoclipboard">
-                <img src="assets/copy-regular.svg" alt="clipboard" width="20px" >
-            </div>
-            <div id="showHierarchyTree">
-                <i class="fas fa-project-diagram"></i>
-            </div>
-        </div>
-        <h3 id="descTitle">Describer</h3>
-        <hr>
-        <div id="descComment">Select a Class or Property to see its details.</div>
-        <hr>
-        <div id="descDomainRange" class="row belongsToProperties">
-            <div class="col-3" id="descDomainCol">
-                <h5>domain</h5>
-                <div id="descDomain"></div>
-            </div>
-            <div class="col-1 arrowRightColumn"><i class="fas fa-long-arrow-alt-right"></i></div>
-            <div class="col-4" id="descPropertyCol">
-                <h5>property</h5>
-                <div id="descProperty"></div>
-            </div>
-            <div class="col-1 arrowRightColumn"><i class="fas fa-long-arrow-alt-right"></i></div>
-            <div class="col-3" id="descRangeCol">
-                <h5>range</h5>
-                <div id="descRange"></div>
-            </div>
-        </div>
-        <hr id="descDomainRangeSeparator" class="belongsToProperties">
-        <div class="row belongsToClasses">
-            <div class="col-6" id="descsubclassescol">
-                <h5>Subclasses</h5>
-                <div id="descsubclasses">
-                    <div id="subclasses"></div>
-                    <div id="treelist"></div>
+        <div class="front">
+            <div id="descCodeContainer" class="row" style="position:relative;">
+                <h3 id="descCode"></h3>
+                <div id="descCodeColor"></div>
+                <div id="addtoclipboard">
+                    <img src="assets/copy-regular.svg" alt="clipboard" width="20px" >
+                </div>
+                <div id="showHierarchyTree">
+                    <i class="fas fa-project-diagram"></i>
                 </div>
             </div>
-            <div class="col-6" id="descsuperclassescol">
-                <h5>Superclasses</h5>
-                <div id="superclasses"></div>
+            <h3 id="descTitle">Describer</h3>
+            <hr>
+            <div id="descComment">Select a Class or Property to see its details.</div>
+            <hr>
+            <div id="descDomainRange" class="row belongsToProperties">
+                <div class="col-3" id="descDomainCol">
+                    <h5>domain</h5>
+                    <div id="descDomain"></div>
+                </div>
+                <div class="col-1 arrowRightColumn"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="col-4" id="descPropertyCol">
+                    <h5>property</h5>
+                    <div id="descProperty"></div>
+                </div>
+                <div class="col-1 arrowRightColumn"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="col-3" id="descRangeCol">
+                    <h5>range</h5>
+                    <div id="descRange"></div>
+                </div>
             </div>
-        </div>
-        <hr class="belongsToClasses">
-        <div class="row belongsToClasses">
-            <div class="col-12">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                      <a class="nav-link active" id="descClassesProperties" data-toggle="tab" href="#nav-properties" role="tab" aria-controls="nav-home" aria-selected="true">Properties</a>
-                      <a class="nav-link" id="descClassesReferences" data-toggle="tab" href="#nav-references" role="tab" aria-controls="nav-profile" aria-selected="false">References</a>
+            <hr id="descDomainRangeSeparator" class="belongsToProperties">
+            <div class="row belongsToClasses">
+                <div class="col-6" id="descsubclassescol">
+                    <h5>Subclasses</h5>
+                    <div id="descsubclasses">
+                        <div id="subclasses"></div>
+                        <div id="treelist"></div>
                     </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-properties" role="tabpanel" aria-labelledby="descClassesProperties">
-                        <div id="classPropertiesContainer"></div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-references" role="tabpanel" aria-labelledby="descClassesReferences">
-                        <div id="classReferencesContainer"></div>
+                </div>
+                <div class="col-6" id="descsuperclassescol">
+                    <h5>Superclasses</h5>
+                    <div id="superclasses"></div>
+                </div>
+            </div>
+            <hr class="belongsToClasses">
+            <div class="row belongsToClasses">
+                <div class="col-12">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <a class="nav-link active" id="descClassesProperties" data-toggle="tab" href="#nav-properties" role="tab" aria-controls="nav-home" aria-selected="true">Properties</a>
+                          <a class="nav-link" id="descClassesReferences" data-toggle="tab" href="#nav-references" role="tab" aria-controls="nav-profile" aria-selected="false">References</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-properties" role="tabpanel" aria-labelledby="descClassesProperties">
+                            <div id="classPropertiesContainer"></div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-references" role="tabpanel" aria-labelledby="descClassesReferences">
+                            <div id="classReferencesContainer"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="sandbox">
-        <h3>Sandbox</h3>
+        <div class="back">
+            <div id="experimentContainer">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 id="experimentTitle">Experiment</h1>
+                        <hr>
+                    </div>
+                </div>
+                <div id="experiment_row" class="row">
+                    <div class="col-4 experiment_column">
+                        <div class="experiment_label">domain</div>
+                        <div id="experiment_domain" class="experiment_cell">
+                            <div id="experiment_domain_add" class="experiment_add"><i class="fa fa-plus"></i></div>
+                        </div>
+                        <div id="experiment_domain_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+                    </div>
+                    <div class="col-4 experiment_column">
+                        <div class="experiment_label">property</div>
+                        <div id="experiment_property" class="experiment_cell">
+                            <div id="experiment_property_add"  class="experiment_add"><i class="fa fa-plus"></i></div>
+                        </div>
+                        <div id="experiment_property_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+                    </div>
+                    <div class="col-4 experiment_column">
+                        <div class="experiment_label">range</div>
+                        <div id="experiment_range" class="experiment_cell">
+                            <div id="experiment_range_add" class="experiment_add">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </div>
+                        <div id="experiment_range_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <input id="clipboardInput" value="">
