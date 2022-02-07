@@ -131,6 +131,8 @@ $(document).ready(function(){
     });
 
     $('.experiment_remove').hide();
+    $('#experiment_description').hide();
+    $('#experiment_code_container').hide();
 
     $(document).keyup(function(e) {
         if (e.key === "Escape") { // escape key maps to keycode `27`
@@ -157,7 +159,7 @@ $(document).ready(function(){
     });
 
     $('#addtoclipboard').click(function(){
-        copyToClipboard();
+        copyToClipboard("inspect");
     });
 
     $('#toggleInverseBtn').click(function(){
@@ -296,14 +298,14 @@ function getCompatibleClassesByProperty(){
         }
     });
 
-    console.log("Here's the experiment selectables:")
-    console.log(experimentSelectables);
+    // console.log("Here's the experiment selectables:")
+    // console.log(experimentSelectables);
     return experimentSelectables;
 }
 
 function getCompatiblePropertiesByClasses(){
     let experimentSelectables = [];
-    console.log(experimentObject)
+//    console.log( experimentObject)
     $.each(cidoc,function(key,value){
         if(isCidocProperty(key)){
             if(experimentObject.range !== "" && experimentObject.domain !== ""){
@@ -319,12 +321,12 @@ function getCompatiblePropertiesByClasses(){
                     range_subclasses_list = getAllRecursiveSubclassesWrapper(range_code)
                     range_subclasses_list.push(range_code)
                 }
-                console.log("range_subclasses_list")
-                console.log(range_subclasses_list)
-                console.log("domain_subclasses_list")
-                console.log(domain_subclasses_list)
-                console.log("experimentObject")
-                console.log(experimentObject)
+                // console.log("range_subclasses_list")
+                // console.log(range_subclasses_list)
+                // console.log("domain_subclasses_list")
+                // console.log(domain_subclasses_list)
+                // console.log("experimentObject")
+                // console.log(experimentObject)
 
                 if(domain_subclasses_list.includes(experimentObject.domain) && range_subclasses_list.includes(experimentObject.range)){
                     experimentSelectables.push(key);
@@ -358,8 +360,8 @@ function getCompatiblePropertiesByClasses(){
             }
         }
     })
-    console.log("Experiment Selectables")
-    console.log(experimentSelectables);
+    // console.log("Experiment Selectables")
+    // console.log(experimentSelectables);
     return experimentSelectables;
 }
 
@@ -370,6 +372,7 @@ function experimentSelectionMode(onOrOff){
             $('.belongsToClasses').show();
             $('.belongsToProperties').hide();
         } else {
+            $('.cidoccell').show();
             $('.belongsToClasses').hide();
             $('.belongsToProperties').show();
         }
@@ -390,8 +393,8 @@ function experimentSelectionMode(onOrOff){
                 experimentSelectables = getCompatibleClassesByProperty();
             }
     
-            console.log("experimentSelectables")
-            console.log(experimentSelectables)
+            // console.log("experimentSelectables")
+            // console.log(experimentSelectables)
         }
 
             
@@ -407,13 +410,15 @@ function experimentSelectionMode(onOrOff){
         $('#menuRow').addClass("experimentallyNotHighlighted");
         $('#menuHr').addClass("experimentallyNotHighlighted");
 
-
+    //If turning off
     } else {
         waitForSelection = false;
         $('*').removeClass("experimentallyNotHighlighted");
         $('*').removeClass("experimentallyHighlighted");
         experimentObject["selecting"] = "";
         $('[code="E1"]').click();
+        experimentDescriptionUpdate();
+        $('.experimental').show();
     }
 }
 
@@ -429,17 +434,58 @@ function experimentRemove(triplePart){
     experimentObject[triplePart] = "";
     $('#experiment_'+ triplePart).find('.cidoccell').remove();
     $('#experiment_'+  triplePart + '_remove').hide();
+    $('#experiment_'+  triplePart + '_add').show();
+    experimentDescriptionUpdate();
+}
+
+function startsWithVowel(word){
+    var vowels = ("aeiouAEIOU"); 
+    return vowels.indexOf(word[0]) !== -1;
+ }
+
+function experimentDescriptionUpdate(){
+    if(experimentObject.domain !== "" && experimentObject.property !== "" && experimentObject.range !== ""){
+        let domain = cidoc[experimentObject.domain].label;
+        let property = cidoc[experimentObject.property].label;
+        let range = cidoc[experimentObject.range].label;
+
+
+        property_nl = property.startsWith("has ") ? property.replace("has ", "has, as a ")+"," : property;
+        property_nl = property.startsWith("had ") ? property.replace("had ", "had, as a ")+"," : property;
+
+        let domainArticle = startsWithVowel(domain) ? "an " : "a ";
+        let rangeArticle = startsWithVowel(range) ? "an " : "a ";
+
+        let template = "This triple asserts that ";
+        template += domainArticle + domain + " " + property_nl + " " + rangeArticle + range + ".";
+    
+        $('#experiment_description').hide()
+        $('#experiment_description').html(template)
+        $('#experiment_description').fadeIn(1000);
+
+
+        /* TRIPLE CODE */
+
+        let experiment_code_string = "crm:" + cidoc[experimentObject.domain].about + " crm:" + cidoc[experimentObject.property].about + " crm:" + cidoc[experimentObject.range].about + "."
+
+        $('#experiment_code').html(experiment_code_string);
+        $('#experiment_code_container').fadeIn(1000);
+    } else {
+        $('#experiment_description').fadeOut(400);
+        $('#experiment_code_container').fadeOut(400);
+    }
 }
 
 function cellClick(elem, simulated=false){
     if(waitForSelection && experimentMode){
-        console.log('experiment_' + experimentObject["selecting"]);
+        // console.log('experiment_' + experimentObject["selecting"]);
         let code = $(elem).attr("code");
         let layout = experimentObject.selecting == "property" ? propertiesLayout(code, true) : classesLayout(code, true);
         $('#experiment_' + experimentObject["selecting"]).append(layout);
         experimentObject[experimentObject.selecting] = code;
-        console.log($('#experiment_'+ experimentObject["selecting"] + '_remove').length);
+        // console.log($('#experiment_'+ experimentObject["selecting"] + '_remove').length);
         $('#experiment_'+ experimentObject["selecting"] + "_remove").show();
+        $('#experiment_'+ experimentObject["selecting"] + "_add").hide();
         experimentSelectionMode("off");
     } else {
         $("#searchinput").val("");
@@ -448,7 +494,6 @@ function cellClick(elem, simulated=false){
         $('.cidoccell').removeClass("selectedCell");
     
         if(simulated){
-            console.log("Simulated")
             keycode = elem;
         } else {
             keycode = $(elem).attr("code");
@@ -534,8 +579,8 @@ function cellClick(elem, simulated=false){
 function getSearchedCodes(query){
     let corresponding_codes = [];
     $.each(cidoc, function(k,v){
-        console.log(k)
-        console.log(v)
+        // console.log(k)
+        // console.log(v)
         //Inverse properties don't have comments (they are in the corresponding direct property)
         if(k.endsWith("i")){
             if (v.label.toUpperCase().includes(query.toUpperCase())|| cidoc[k.substring(0, k.length - 1)].comment.toUpperCase().includes(query.toUpperCase())){
@@ -1150,13 +1195,18 @@ function takeDataFromEntry(entry){
     }
 }
 
-function copyToClipboard(){
+function copyToClipboard(what){
+    if(what == "code"){
+        let copyText = $('#experiment_code').text();
+        navigator.clipboard.writeText(copyText);
+        $('#clipboardMessage').text("Copied triple to clipboard.");
+        $("#clipboardMessage").fadeIn(150, function(){$("#clipboardMessage").fadeOut(3000)});
+    } else {
         let copyText = $('#clipboardInput').val();
         navigator.clipboard.writeText(copyText);
-
-
         $('#clipboardMessage').text("Copied \"" + copyText + "\" to clipboard.");
         $("#clipboardMessage").fadeIn(150, function(){$("#clipboardMessage").fadeOut(3000)});
+    }
 }
 
 function generateJson(data){
@@ -1191,8 +1241,9 @@ function classesLayout(code, experiment=false){
         let color_code = getColorCode(code);
         let classObject = cidoc[code];
         let experimentClass = experiment ? "experimental": "";
+        let onClick = experiment ? "onClick='experimentRemove(\""+ experimentObject.selecting + "\")'" : "";
 
-        var html = "<div code='"+ code +"' class='cidoccell classcell " + color_code + " " + experimentClass + "' title='"+ classObject.comment +"' about='"+ classObject.about +"'>";
+        var html = "<div code='"+ code +"' class='cidoccell classcell " + color_code + " " + experimentClass + "' " + onClick + "title='"+ classObject.comment +"' about='"+ classObject.about +"'>";
         //html += "<div class='ccdot' style='background-color:" + color_code + ";'></div>";
         html += "<div class='classsuperclasses'> " + classObject.superclasses.join() + "</div>";
         html += "<div class='classcodes'>" + code + "</div>";
@@ -1258,6 +1309,8 @@ function propertiesLayout(code, experimental=false){
         }
 
         let experimentalClass = experimental ? "experimental" : "";
+        let onClick = experimental ? "onClick='experimentRemove(\""+ experimentObject.selecting + "\")'" : "";
+
 
         //NON-CIDOC management
         if(isCidocName(aproperty.domain)){
@@ -1284,7 +1337,7 @@ function propertiesLayout(code, experimental=false){
 
 
 
-        var html = "<div code='"+ code +"' class='cidoccell propertycell "+ propertyDirection + " " + experimentalClass + "' title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
+        var html = "<div code='"+ code +"' class='cidoccell propertycell "+ propertyDirection + " " + experimentalClass + "' "+ onClick +" title='"+ aproperty.comment +"' about='"+ aproperty.about +"'>";
             html += "<div class='propertysuperproperties'> " + aproperty.superproperties.join() + "</div>";
             html += "<div class='propertycodes'>" + code + "</div>";
             html += "<div class='propertytitle'>" + aproperty.label + "</div>";

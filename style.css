@@ -138,7 +138,7 @@ body {
 }
 
 
-.classcell:not(.highlighted):not(.selectedCell):not(.experimentallyHighlighted) {
+.classcell:not(.highlighted):not(.selectedCell):not(.experimentallyHighlighted):not(.experimental) {
     opacity: 0.5 !important;
 }
 
@@ -870,6 +870,56 @@ html {
     opacity: 0.5 !important;
 }
 
+.propertycell.experimental:hover {
+    opacity: 0.5 !important;
+}
+
+.classcell.experimental > .classtitle {
+    font-size: 10pt;
+    line-height: 10pt;
+    margin-top: -20px;
+}
+
+.classcell.experimental > .classcodes {
+    margin-top: 25px;
+    padding-top: 0 !important;
+}
+
+.propertycell.experimental > .propertytitle {
+    font-size: 10pt;
+    line-height: 10pt;
+}
+
+.propertycell.experimental > .propertycodes {
+    font-size: 20pt;
+    margin-top: 16px;
+}
+
+#experiment_code {
+    font-family: 'Source Code Pro', monospace;
+    border: 1px dashed rgb(136, 136, 136);
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#experiment_code_container {
+    padding: 10px;
+    background: rgb(231, 230, 230);
+}
+
+.inverseProperty.experimental {
+    display:inherit !important;
+}
+
+#addtoclipboard_code, #code_title {
+    display: inline-block;
+}
+
+#addtoclipboard_code {
+    float: right;
+    cursor: pointer;
+}
+
 .cidocline.classline {
     color: black;
     font-size: 8pt;
@@ -934,6 +984,23 @@ html {
     height:120px;
 }
 
+.experiment_cell {
+    position: relative;
+}
+
+#experiment_domain > .classcell {
+    position: absolute;
+    left:0;
+}
+
+#experiment_description_row {
+    margin-top: 20px;
+}
+
+#experiment_description {
+    text-align: center;
+}
+
 #experiment_property, .propertycell.experimental {
     width:200px;
     height:120px;
@@ -956,7 +1023,7 @@ html {
 }
 
 #experiment_row {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .experiment_add {
@@ -988,6 +1055,13 @@ html {
 
 #experiment_domain_remove, #experiment_property_remove, #experiment_range_remove {
     cursor: pointer;
+}
+
+.experiment_remove {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .experiment_remove:hover {

@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" media="all" rel="stylesheet">
     <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
     </head>
 <body>
 <div id="mainRow" class="row">
@@ -125,25 +128,50 @@
                     <div class="col-4 experiment_column">
                         <div class="experiment_label">domain</div>
                         <div id="experiment_domain" class="experiment_cell">
-                            <div id="experiment_domain_add" class="experiment_add"><i class="fa fa-plus"></i></div>
+                            <div id="experiment_domain_add" class="experiment_add">
+                                <i class="fa fa-plus fa-2x"></i>
+                            </div>
+                            <div id="experiment_domain_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
                         </div>
-                        <div id="experiment_domain_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
                     </div>
                     <div class="col-4 experiment_column">
                         <div class="experiment_label">property</div>
                         <div id="experiment_property" class="experiment_cell">
-                            <div id="experiment_property_add"  class="experiment_add"><i class="fa fa-plus"></i></div>
+                            <div id="experiment_property_add"  class="experiment_add">
+                                <i class="fa fa-plus fa-2x"></i>
+                            </div>
+                            <div id="experiment_property_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
                         </div>
-                        <div id="experiment_property_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
                     </div>
                     <div class="col-4 experiment_column">
                         <div class="experiment_label">range</div>
                         <div id="experiment_range" class="experiment_cell">
                             <div id="experiment_range_add" class="experiment_add">
-                                <i class="fa fa-plus"></i>
+                                <i class="fa fa-plus fa-2x"></i>
                             </div>
+                            <div id="experiment_range_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
                         </div>
-                        <div id="experiment_range_remove" class="experiment_remove"><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+                <div id="experiment_description_row" class="row">
+                    <div class="col-12">
+                        <div id="experiment_description"></div>
+                    </div>
+                </div>
+                <hr>
+                <div id="experiment_code_row" class="row">
+                    <div class="col-12">
+                        <div id="experiment_code_container">
+                            <div id="code-toprow" class="row">
+                                <div class="col-12">
+                                    <div id="code_title">In turtle syntax:</div>
+                                    <div id="addtoclipboard_code" onClick="copyToClipboard('code')">
+                                        <img src="assets/copy-regular.svg" alt="clipboard" width="20px" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="experiment_code"></div>
+                        </div>
                     </div>
                 </div>
             </div>
