@@ -213,7 +213,7 @@ function checkInversePropertiesStatus(){
         $('.straightproperty').show();
         $('#toggleInverseBtn').removeClass('activatedInversion');
     }
-    //filterBySearch();
+    $('.experimental').show();
 }
 
 function currentlyShownCellCode(){
