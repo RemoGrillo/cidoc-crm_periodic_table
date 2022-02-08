@@ -459,15 +459,14 @@ function experimentDescriptionUpdate(){
         let property = cidoc[experimentObject.property].label;
         let range = cidoc[experimentObject.range].label;
 
-
-        property_nl = property.startsWith("has ") ? property.replace("has ", "has, as a ")+"," : property;
-        property_nl = property.startsWith("had ") ? property.replace("had ", "had, as a ")+"," : property;
+        property = property.startsWith("has ") ? property.replace("has ", "has, as a ")+"," : property;
+        property = property.startsWith("had ") ? property.replace("had ", "had, as a ")+"," : property;
 
         let domainArticle = startsWithVowel(domain) ? "an " : "a ";
         let rangeArticle = startsWithVowel(range) ? "an " : "a ";
 
         let template = "This triple asserts that ";
-        template += domainArticle + domain + " " + property_nl + " " + rangeArticle + range + ".";
+        template += domainArticle + domain + " " + property + " " + rangeArticle + range + ".";
     
         $('#experiment_description').hide()
         $('#experiment_description').html(template)
