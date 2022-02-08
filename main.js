@@ -78,11 +78,11 @@ $(document).ready(function(){
         const urlParams = new URLSearchParams(queryString);
         const code = urlParams.get('code')
         console.log(code);
-        if(code){
+        if(code !== null){
             $('[code="' + code + '"]').click();
         } else {
             //Show first class as first
-            ('[code="E1"]').click();
+            $('[code="E1"]').click();
         }
 
 
