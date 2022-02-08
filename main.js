@@ -74,8 +74,18 @@ $(document).ready(function(){
         //Add click listeners
         $('.cidoccell').click(function(){cellClick($(this))});
 
-        //Show first class for first
-        $('[code="E1"]').click();
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const code = urlParams.get('code')
+        console.log(code);
+        if(code){
+            $('[code="' + code + '"]').click();
+        } else {
+            //Show first class as first
+            ('[code="E1"]').click();
+        }
+
+
     });
 
     $('#showHierarchyTree').click(function(){
@@ -498,6 +508,9 @@ function cellClick(elem, simulated=false){
         } else {
             keycode = $(elem).attr("code");
         }
+
+        var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '?code=' + keycode;    
+        window.history.pushState({ path: refresh }, '', refresh);
     
         //window.location.href = '?code=' + keycode;
     
