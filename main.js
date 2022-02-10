@@ -11,7 +11,7 @@ var experimentObject = {
 var waitForSelection = false;
 
 
-var palette = ["48aadb","003d5b","bf531d","cba415","657153"];
+const palette = ["48aadb","003d5b","bf531d","cba415","657153"];
 
 //Higher-level-colors
 const cidoc_colorcodes = {
@@ -49,7 +49,29 @@ const cidoc_colorcodes = {
 }
 
 $(document).ready(function(){
-    $.getJSON("cidoc7.1.json", function(data){
+    $('#cidocVersionSelect').on('change', function() {
+        mainStart($(this).val());
+    });
+   mainStart();
+});
+
+function mainStart(cidocVersion="7.1"){
+    cidoc = {};
+    treegraph = {};
+    showinverse = false;
+    experimentMode = false;
+    experimentObject = {
+        "domain": "",
+        "property": "",
+        "range":"",
+        "selecting":""
+    }
+    waitForSelection = false;
+
+    $('#classesContainer').html("");
+    $('#propertiesContainer').html("");
+
+    $.getJSON("cidoc" + cidocVersion + ".json", function(data){
         generateJson(data);
         addPropertiesAndReferencesToJson();
         addColorcodesToJson();
@@ -211,7 +233,7 @@ $(document).ready(function(){
     //         });
     //     }
     // });
-});
+}
 
 function checkInversePropertiesStatus(){
     if(showinverse){

@@ -1068,3 +1068,15 @@ html {
     opacity: 0.5;
     cursor: pointer;
 }
+
+#cidocVersionSelectContainer {
+    display: inline-block;
+    width: 150px !important;
+    float: right;
+    margin:20px;
+    padding:5px;
+}
+
+#cidocVersionSelect {
+    cursor: pointer;
+}
