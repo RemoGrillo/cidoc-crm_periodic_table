@@ -1184,23 +1184,6 @@
           }
         },
         {
-          "-rdf:about": "E33_E41_Linguistic_Appellation",
-          "rdfs:label": {
-            "-xml:lang": "en",
-            "#text": "Linguistic Appellation"
-          },
-          "rdfs:subClassOf": [
-            {
-              "-rdf:resource": "E33_Linguistic_Object",
-              "-self-closing": "true"
-            },
-            {
-              "-rdf:resource": "E41_Appellation",
-              "-self-closing": "true"
-            }
-          ]
-        },
-        {
           "-rdf:about": "E34_Inscription",
           "rdfs:label": [
             {

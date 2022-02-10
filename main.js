@@ -49,7 +49,7 @@ const cidoc_colorcodes = {
 }
 
 $(document).ready(function(){
-    $.getJSON("cidoc6.2.1.json", function(data){
+    $.getJSON("cidoc7.1.json", function(data){
         generateJson(data);
         addPropertiesAndReferencesToJson();
         addColorcodesToJson();
@@ -1181,6 +1181,7 @@ function takeDataFromEntry(entry){
     /* SUPERCLASSES */
     let superclasses = [];
     cidoc[currentcode]["superclasses"] = [];
+    console.log("current code");
     if("rdfs:subClassOf" in entry){
         if(Array.isArray(entry["rdfs:subClassOf"])){
             entry["rdfs:subClassOf"].forEach(function(superclass){
