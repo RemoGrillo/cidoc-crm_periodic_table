@@ -49,7 +49,7 @@ const cidoc_colorcodes = {
 }
 
 $(document).ready(function(){
-    $.getJSON("cidoc.json", function(data){
+    $.getJSON("cidoc6.2.1.json", function(data){
         generateJson(data);
         addPropertiesAndReferencesToJson();
         addColorcodesToJson();
@@ -1254,12 +1254,12 @@ function classesLayout(code, experiment=false){
         let classObject = cidoc[code];
         let experimentClass = experiment ? "experimental": "";
         let onClick = experiment ? "onClick='experimentRemove(\""+ experimentObject.selecting + "\")'" : "";
-
+        let level = getClassLevel(code, 0);
         var html = "<div code='"+ code +"' class='cidoccell classcell " + color_code + " " + experimentClass + "' " + onClick + "title='"+ classObject.comment +"' about='"+ classObject.about +"'>";
         //html += "<div class='ccdot' style='background-color:" + color_code + ";'></div>";
         html += "<div class='classsuperclasses'> " + classObject.superclasses.join() + "</div>";
         html += "<div class='classcodes'>" + code + "</div>";
-        html += "<div class='classlevel level" + getClassLevel(code, 0) + "'></div>";
+        html += "<div class='classlevel level" + level + "'></div>";
         html += "<div class='classtitle'>" + classObject.label + "</div>";
         html += "<div class='classsubclasses'>" + getAllSubclasses(code) + "</div>";
         html += "</div>";
