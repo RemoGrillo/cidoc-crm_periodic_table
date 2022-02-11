@@ -137,6 +137,33 @@ $(document).ready(function(){
         $('.belongsToProperties').show();
         $('[code=P1]').click();
     });
+    
+    $('#addtoclipboard').click(function(){
+        copyToClipboard("inspect");
+    });
+
+    $('#toggleInverseBtn').click(function(){
+        let previouslyDisplayedCode = currentlyShownCellCode();
+            if(previouslyDisplayedCode.endsWith("i")){
+                let straightcode = previouslyDisplayedCode.substring(0, previouslyDisplayedCode.length -1);
+                if(cidoc[straightcode]){
+                    cellClick(straightcode, true);
+                } else {
+                    cellClick("[code='P1']");
+                }
+            } else {
+                let inversecode = previouslyDisplayedCode + "i";
+                if(cidoc[inversecode]){
+                    cellClick(inversecode, true);
+                } else {
+                    cellClick("[code='P1i']");
+                }
+            }
+    });
+
+    $("#searchinput").on('input', function(){
+        filterBySearch();
+    });
 
    mainStart();
 });
@@ -190,32 +217,7 @@ function mainStart(cidocVersion="7.1"){
         $('[code="'+code+'"]').click();
     });
 
-    $('#addtoclipboard').click(function(){
-        copyToClipboard("inspect");
-    });
-
-    $('#toggleInverseBtn').click(function(){
-        let previouslyDisplayedCode = currentlyShownCellCode();
-            if(previouslyDisplayedCode.endsWith("i")){
-                let straightcode = previouslyDisplayedCode.substring(0, previouslyDisplayedCode.length -1);
-                if(cidoc[straightcode]){
-                    cellClick(straightcode, true);
-                } else {
-                    cellClick("[code='P1']");
-                }
-            } else {
-                let inversecode = previouslyDisplayedCode + "i";
-                if(cidoc[inversecode]){
-                    cellClick(inversecode, true);
-                } else {
-                    cellClick("[code='P1i']");
-                }
-            }
-    });
-
-    $("#searchinput").on('input', function(){
-        filterBySearch();
-    });
+    
 
     /* TOP FIXER SCROLL */
     // var fixmeTop = $('#describer').offset().top;
@@ -472,7 +474,7 @@ function experimentRemove(triplePart){
 
 function experimentClear(){
     let tripleparts = ["domain", "range", "property"];
-    for(partIndex in tripleparts){
+    for(let partIndex in tripleparts){
         experimentRemove(tripleparts[partIndex]);
     }
 }
