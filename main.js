@@ -613,15 +613,24 @@ function cellClick(elem, simulated=false){
 function getSearchedCodes(query){
     let corresponding_codes = [];
     $.each(cidoc, function(k,v){
-        // console.log(k)
-        // console.log(v)
-        //Inverse properties don't have comments (they are in the corresponding direct property)
-        if(k.endsWith("i")){
-            if (v.label.toUpperCase().includes(query.toUpperCase())|| cidoc[k.substring(0, k.length - 1)].comment.toUpperCase().includes(query.toUpperCase())){
+        //Sometimes cidoc properties don't have comments
+        if(v.comment){
+            if (v.label.toUpperCase().includes(query.toUpperCase()) || v.comment.toUpperCase().includes(query.toUpperCase())){
+                corresponding_codes.push(k)
+            }
+        } else {
+            //Inverse properties in particular often don't have comments (they are in the corresponding direct property)
+            if(k.endsWith("a") || k.endsWith("b")){
+                let superproperty = getCode(cidoc[k].superproperties[0]);
+                corresponding_codes.push(superproperty);
+            } else if(k.endsWith("i")){
+                if (v.label.toUpperCase().includes(query.toUpperCase())|| cidoc[k.substring(0, k.length - 1)].comment.toUpperCase().includes(query.toUpperCase())){
+                    corresponding_codes.push(k);
+                }
+            } else if (v.label.toUpperCase().includes(query.toUpperCase()) || v.comment.toUpperCase().includes(query.toUpperCase())){
+                console.log(k + " Cannot go here!!!")
                 corresponding_codes.push(k);
             }
-        } else if (v.label.toUpperCase().includes(query.toUpperCase()) || v.comment.toUpperCase().includes(query.toUpperCase())){
-            corresponding_codes.push(k);
         }
     });
     return corresponding_codes;
