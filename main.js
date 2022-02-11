@@ -52,63 +52,19 @@ $(document).ready(function(){
     $('#cidocVersionSelect').on('change', function() {
         mainStart($(this).val());
     });
-   mainStart();
-});
 
-function mainStart(cidocVersion="7.1"){
-    cidoc = {};
-    treegraph = {};
-    showinverse = false;
-    experimentMode = false;
-    experimentObject = {
-        "domain": "",
-        "property": "",
-        "range":"",
-        "selecting":""
-    }
-    waitForSelection = false;
-
-    $('#classesContainer').html("");
-    $('#propertiesContainer').html("");
-
-    $.getJSON("cidoc" + cidocVersion + ".json", function(data){
-        generateJson(data);
-        addPropertiesAndReferencesToJson();
-        addColorcodesToJson();
-
-        generateLayout();
-        createTree();
-
-        $('#describer').flip({
-            trigger: "manual"
-        });
-
-        $('#inspectbtn').hide();
-        
-        //Visualization initializers
-        $('#propertiesContainer').hide();
-        $('#classesbtn').hide();
-        $('#descDomainRange').hide();
-        $('#toggleInverseBtn').hide();
-        $('#descDomainRangeSeparator').hide();
-        checkInversePropertiesStatus();
-        
-        //Add click listeners
-        $('.cidoccell').click(function(){cellClick($(this))});
-
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const code = urlParams.get('code')
-        console.log(code);
-        if(code !== null){
-            $('[code="' + code + '"]').click();
-        } else {
-            //Show first class as first
-            $('[code="E1"]').click();
-        }
-
-
+    $('#describer').flip({
+        trigger: "manual"
     });
+
+    $('#inspectbtn').hide();
+    
+    //Visualization initializers
+    $('#propertiesContainer').hide();
+    $('#classesbtn').hide();
+    $('#descDomainRange').hide();
+    $('#toggleInverseBtn').hide();
+    $('#descDomainRangeSeparator').hide();
 
     $('#showHierarchyTree').click(function(){
         $('#hierarchyModal').modal('show');
@@ -171,8 +127,7 @@ function mainStart(cidocVersion="7.1"){
            experimentSelectionMode("","off");
        }
    });
-
-    $('#classesbtn').click(function(){
+   $('#classesbtn').click(function(){
         $('.belongsToClasses').show();
         $('.belongsToProperties').hide();
         $('[code=E1]').click();
@@ -181,6 +136,51 @@ function mainStart(cidocVersion="7.1"){
         $('.belongsToClasses').hide();
         $('.belongsToProperties').show();
         $('[code=P1]').click();
+    });
+
+   mainStart();
+});
+
+function mainStart(cidocVersion="7.1"){
+    cidoc = {};
+    treegraph = {};
+    showinverse = false;
+    experimentMode = false;
+    experimentObject = {
+        "domain": "",
+        "property": "",
+        "range":"",
+        "selecting":""
+    }
+    waitForSelection = false;
+    experimentClear();
+
+    $('#classesContainer').html("");
+    $('#propertiesContainer').html("");
+
+    $.getJSON("cidoc" + cidocVersion + ".json", function(data){
+        generateJson(data);
+        addPropertiesAndReferencesToJson();
+        addColorcodesToJson();
+
+        generateLayout();
+        createTree();
+        
+        checkInversePropertiesStatus();
+        
+        //Add click listeners
+        $('.cidoccell').click(function(){cellClick($(this))});
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const code = urlParams.get('code')
+        console.log(code);
+        if(code !== null){
+            $('[code="' + code + '"]').click();
+        } else {
+            //Show first class as first
+            $('[code="E1"]').click();
+        }
     });
 
     
@@ -468,6 +468,13 @@ function experimentRemove(triplePart){
     $('#experiment_'+  triplePart + '_remove').hide();
     $('#experiment_'+  triplePart + '_add').show();
     experimentDescriptionUpdate();
+}
+
+function experimentClear(){
+    let tripleparts = ["domain", "range", "property"];
+    for(partIndex in tripleparts){
+        experimentRemove(tripleparts[partIndex]);
+    }
 }
 
 function startsWithVowel(word){
