@@ -1390,6 +1390,24 @@ body.hide-ont-crmdig #describer .ont-crmdig {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 }
 
+/* Loose paths (they touch an endpoint only through a more general class) are
+   sorted last and marked, so a glance separates them from the tight ones */
+.pathResultChain.pathLoose {
+    opacity: 0.72;
+    border-style: dashed;
+}
+.pathResultChain.pathLoose::after {
+    content: "loose";
+    position: absolute;
+    right: 28px;
+    top: 7px;
+    font-size: 6.5pt;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #b06a00;
+    opacity: 0.75;
+}
+
 .pathResultChain .cidocline {
     display: inline-flex;
     align-items: center;

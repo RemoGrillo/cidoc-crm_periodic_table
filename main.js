@@ -167,6 +167,8 @@ $(document).ready(function(){
     $('#path_end_remove').click(function(){ pathRemove("end"); });
     $('#pathDepthSelect').on('change', runPathSearchIfReady);
     $('#pathLooseCheckbox').on('change', runPathSearchIfReady);
+    //Tightness filter is display-only: re-render without re-searching
+    $('#pathTightCheckbox').on('change', function(){ renderPathResults(); });
 
     //Hovering a result shows its path on the periodic table
     $(document).on('mouseenter', '.pathResultChain', function(){
@@ -874,6 +876,59 @@ function pathSpecificityScore(props){
     return props.reduce(function(sum, p){ return sum + (propertySpecificity[p] || 0); }, 0);
 }
 
+//Minimum number of subClassOf steps from a descendant up to an ancestor
+//(Infinity if `ancestor` is not actually an ancestor of `descendant`).
+function classHopsUp(descendant, ancestor){
+    if(descendant === ancestor) return 0;
+    if(!cidoc[descendant]) return Infinity;
+    let visited = {};
+    let queue = [[descendant, 0]];
+    while(queue.length){
+        let node = queue.shift();
+        let sups = cidoc[node[0]] ? cidoc[node[0]].superclasses : [];
+        for(let i = 0; i < sups.length; i++){
+            let s = sups[i];
+            if(s === ancestor) return node[1] + 1;
+            if(!visited[s] && cidoc[s]){ visited[s] = true; queue.push([s, node[1] + 1]); }
+        }
+    }
+    return Infinity;
+}
+
+//How far apart two classes are on the subclass axis (either direction).
+function classDistance(a, b){
+    if(a === b) return 0;
+    let up = classHopsUp(a, b);
+    if(up !== Infinity) return up;
+    let down = classHopsUp(b, a);
+    if(down !== Infinity) return down;
+    return 6;   //unrelated: shouldn't happen on a valid chain
+}
+
+//Generalization "gap" of a chain: how many hierarchy steps are spent bending
+//the actual classes to fit each property's declared domain/range. A property
+//whose range IS the target (P107i -> E74 Group) costs 0 there; one that reaches
+//the target only because it is a subtype of the range (P49 -> E39 Actor) pays
+//for the gap. Lower gap = tighter, more relevant path.
+function pathGap(startCode, endCode, props){
+    let chain = pathDisplayChain(startCode, endCode, props);
+    let gap = 0;
+    for(let i = 1; i < chain.length; i += 2){
+        let subj = chain[i-1], p = chain[i], obj = chain[i+1];
+        gap += classDistance(subj, getCode(cidoc[p].domain));
+        gap += classDistance(obj, getCode(cidoc[p].range));
+    }
+    return gap;
+}
+
+//Gap at the endpoints only: how loosely the chain touches the two chosen
+//classes (ignoring internal junctions). Drives the "hide loose paths" flag.
+function pathEndpointGap(startCode, endCode, props){
+    let startGap = classDistance(startCode, getCode(cidoc[props[0]].domain));
+    let endGap = classDistance(endCode, getCode(cidoc[props[props.length - 1]].range));
+    return startGap + endGap;
+}
+
 //Bidirectional meet-in-the-middle search. "loose" also allows hops that are
 //only valid when the intermediate instance is of a more specific class
 //(downcasts, common in real CRM modeling); strict chains are always valid.
@@ -1003,15 +1058,26 @@ function findPaths(startCode, endCode, maxDepth, loose){
         }
     }
 
-    results.sort(function(a,b){
-        return a.length - b.length || pathSpecificityScore(b) - pathSpecificityScore(a);
+    //Score every path by generalization gap: specific paths (tight fit to the
+    //chosen endpoints) rank ahead of ones that connect only through a supertype.
+    let scored = results.map(function(props){
+        return {
+            props: props,
+            gap: pathGap(startCode, endCode, props),
+            endpointGap: pathEndpointGap(startCode, endCode, props)
+        };
     });
-    let total = results.length;
-    if(results.length > PATH_RESULTS_CAP){
+    scored.sort(function(a,b){
+        return a.props.length - b.props.length
+            || a.gap - b.gap
+            || pathSpecificityScore(b.props) - pathSpecificityScore(a.props);
+    });
+    let total = scored.length;
+    if(scored.length > PATH_RESULTS_CAP){
         truncated = true;
-        results = results.slice(0, PATH_RESULTS_CAP);
+        scored = scored.slice(0, PATH_RESULTS_CAP);
     }
-    return { paths: results, truncated: truncated, total: total };
+    return { paths: scored, truncated: truncated, total: total };
 }
 
 //Classes to display between the hops: the range of each property, or the next
@@ -1100,7 +1166,8 @@ function pathRemove(which){
     $('#path_' + which + '_remove').hide();
     $('#path_' + which + '_add').show();
     syncPathUrlParam();
-    renderPathResults(null);
+    lastPathResult = null;
+    renderPathResults();
 }
 
 function pathClear(){
@@ -1118,30 +1185,50 @@ function syncPathUrlParam(){
     window.history.replaceState({}, '', window.location.pathname + "?" + urlParams.toString());
 }
 
+var lastPathResult = null;
+
+//A path is "loose" when its endpoints only match through a more general class
+//(the start's aspect or the target's supertype). One natural step is tolerated.
+const PATH_LOOSE_THRESHOLD = 1;
+
 function runPathSearchIfReady(){
     if(pathObject.start === "" || pathObject.end === ""){
-        renderPathResults(null);
+        lastPathResult = null;
+        renderPathResults();
         return;
     }
     let maxDepth = parseInt($('#pathDepthSelect').val(), 10) || 3;
     let loose = $('#pathLooseCheckbox').is(':checked');
-    renderPathResults(findPaths(pathObject.start, pathObject.end, maxDepth, loose));
+    lastPathResult = findPaths(pathObject.start, pathObject.end, maxDepth, loose);
+    renderPathResults();
 }
 
-function renderPathResults(result){
+function renderPathResults(){
     let container = $('#path_results');
+    let result = lastPathResult;
     if(result === null){
         container.html("");
         return;
     }
-    if(result.paths.length === 0){
-        container.html("<div id='pathNoResults'>No paths found within " + $('#pathDepthSelect').val() + " steps. Try more steps or include specializations.</div>");
+
+    let hideLoose = $('#pathTightCheckbox').is(':checked');
+    let hiddenLoose = 0;
+    let shown = result.paths.filter(function(entry){
+        if(hideLoose && entry.endpointGap > PATH_LOOSE_THRESHOLD){ hiddenLoose++; return false; }
+        return true;
+    });
+
+    if(shown.length === 0){
+        let msg = result.paths.length === 0
+            ? "No paths found within " + $('#pathDepthSelect').val() + " steps. Try more steps or include specializations."
+            : "All " + hiddenLoose + " path" + (hiddenLoose === 1 ? "" : "s") + " within " + $('#pathDepthSelect').val() + " steps are loose. Untick “hide loose paths” to see them.";
+        container.html("<div id='pathNoResults'>" + msg + "</div>");
         return;
     }
 
     let groups = {};
-    result.paths.forEach(function(props){
-        (groups[props.length] = groups[props.length] || []).push(props);
+    shown.forEach(function(entry){
+        (groups[entry.props.length] = groups[entry.props.length] || []).push(entry);
     });
 
     let lengths = Object.keys(groups).sort(function(a,b){ return a - b; });
@@ -1157,14 +1244,16 @@ function renderPathResults(result){
             + "<span class='pathGroupCount'>" + groups[len].length + " path" + (groups[len].length === 1 ? "" : "s") + "</span>"
             + "</div>";
         html += "<div class='pathGroupBody'>";
-        groups[len].forEach(function(props){
+        groups[len].forEach(function(entry){
+            let props = entry.props;
             let chain = pathDisplayChain(pathObject.start, pathObject.end, props);
             //For table highlighting, inverse properties also light up their direct cell
             let highlightCodes = chain.slice();
             props.forEach(function(p){
                 if(p.endsWith("i")) highlightCodes.push(p.substring(0, p.length - 1));
             });
-            html += "<div class='pathResultChain' data-chain='" + chain.join(",") + "' data-codes='" + highlightCodes.join(",") + "'>";
+            let looseClass = entry.endpointGap > PATH_LOOSE_THRESHOLD ? " pathLoose" : "";
+            html += "<div class='pathResultChain" + looseClass + "' data-chain='" + chain.join(",") + "' data-codes='" + highlightCodes.join(",") + "'>";
             chain.forEach(function(code, index){
                 if(index % 2 === 0){
                     html += classesLineLayout(code);
@@ -1180,8 +1269,15 @@ function renderPathResults(result){
         html += "</div></div>";
     });
 
+    let notes = "";
     if(result.truncated){
-        html += "<div id='pathTruncatedNote'>Showing the " + result.paths.length + " most specific of " + (result.total > result.paths.length ? result.total + "+" : result.total) + " paths.</div>";
+        notes += "Showing the " + result.paths.length + " most specific of " + (result.total > result.paths.length ? result.total + "+" : result.total) + " paths. ";
+    }
+    if(hiddenLoose > 0){
+        notes += hiddenLoose + " loose path" + (hiddenLoose === 1 ? "" : "s") + " hidden.";
+    }
+    if(notes){
+        html += "<div id='pathTruncatedNote'>" + notes + "</div>";
     }
     container.html(html);
 }

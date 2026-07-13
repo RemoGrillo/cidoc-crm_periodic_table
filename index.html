@@ -230,6 +230,9 @@
                         <label id="pathLooseLabel" title="Also count hops that are valid only when the intermediate instance belongs to a more specific class (downcast)">
                             <input type="checkbox" id="pathLooseCheckbox"> include specializations
                         </label>
+                        <label id="pathTightLabel" title="Hide paths that reach the start or target only through a more general class (e.g. a Person reached as a Physical Thing)">
+                            <input type="checkbox" id="pathTightCheckbox"> hide loose paths
+                        </label>
                     </div>
                 </div>
                 <div id="path_results"></div>
