@@ -1,0 +1,877 @@
+{
+ "rdf:RDF": {
+  "-xml:base": "http://www.cidoc-crm.org/extensions/crmdig/",
+  "rdfs:Class": [
+   {
+    "-rdf:about": "D1_Digital_Object",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digital Object"
+    },
+    "rdfs:comment": "This class comprises identifiable immaterial items that can be represented as sets of bit sequences, such as data sets, e-texts, images, audio or video items, software, etc., and are documented as single units. Any change in the bit sequence results in a new instance of D1 Digital Object. Any aggregation of instances of D1 Digital Object into a whole treated as a single unit is also regarded as an instance of D1 Digital Object. This means that for instance, the content of a DVD, an XML file on it, and an element of this file, are regarded as distinct instances of D1 Digital Object, mutually related by the P106 is composed of (forms part of) property. In the case of embedded metadata, the documentalist must take care to distinguish the identity of the object including the metadata from the identity of the included content described by the metadata. A D1 Digital Object does not depend on a specific physical carrier, and it can exist on one or more carriers simultaneously.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "D2_Digitization_Process",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digitization Process"
+    },
+    "rdfs:comment": "This class comprises events that result in the creation of instances of D9 Data Object that represent the appearance (for instance, light reflection properties), form or recorded inner structure of an instance of E18 Physical Thing such as paper documents, statues, buildings, paintings, biological objects etc. Such methods are typically called “imaging techniques”. A particular case is the analogue-to-digital conversion of audiovisual material. This class represents the transition from a material item to an immaterial representation of a relevant spatial distribution of local physical properties on the material item (in the case of audio material item, also along the respective sound track) Subsequent processing steps of the output of digitization processes that preserve or improve the relevant spatial correlations with the digitized object or a part of it are regarded as instances of D3 Formal Derivation.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D11_Digital_Measurement_Event"
+    }
+   },
+   {
+    "-rdf:about": "D3_Formal_Derivation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Formal Derivation"
+    },
+    "rdfs:comment": "This class comprises events that result in the creation of a D1 Digital Object from another one following a deterministic algorithm, such that the resulting instance of digital object shares representative properties with the original object. In other words, this class describes the transition from an immaterial object referred to by property L21 used as derivation source (was derivation source for) to another immaterial object referred to by property L22 created derivative (was derivative created by) preserving the representation of some things but in a different form. Characteristic examples are colour corrections, contrast changes and resizing of images.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D10_Software_Execution"
+    }
+   },
+   {
+    "-rdf:about": "D7_Digital_Machine_Event",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digital Machine Event"
+    },
+    "rdfs:comment": "This class comprises events that happen on physical digital devices following a human activity that intentionally caused its immediate or delayed initiation and results in the creation of a new instance of D1 Digital Object on behalf of the human actor. The input of a D7 Digital Machine Event may be parameter settings and/or data to be processed. Some D7 Digital Machine Events may form part of a wider E65 Creation event. In this case, all machine output of the partial events is regarded as creation of the overall activity.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E11_Modification"
+     },
+     {
+      "-rdf:resource": "E65_Creation"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "D8_Digital_Device",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digital Device"
+    },
+    "rdfs:comment": "This class comprises identifiable material items such as computers, scanners, cameras, etc. that have the capability to process or produce instances of D1 Digital Object.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E22_Human-Made_Object"
+    }
+   },
+   {
+    "-rdf:about": "D9_Data_Object",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Data Object"
+    },
+    "rdfs:comment": "This class comprises instances of D1 Digital Object that are the result of measurements or other observations and / or their algorithmic evaluation in the form of structured data, such as encoded formal propositions, CSV files (“comma separated values”) or equivalent representations. If an instance of D1 Digital Object contains the value set of an instance of E54 Dimension, such as the primary data from an instance of S21 Measurement, this association can be documented with the property L61 contains value set of (has value set representation).",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E31_Document"
+     },
+     {
+      "-rdf:resource": "D1_Digital_Object"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "D10_Software_Execution",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Software Execution"
+    },
+    "rdfs:comment": "This class comprises events by which a digital device runs a software program or a series of computing operations on a digital object as a single task, which is completely determined by its digital input, the software and the generic properties of the device.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "D11_Digital_Measurement_Event",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digital Measurement Event"
+    },
+    "rdfs:comment": "This class comprises actions measuring physical properties using a digital device, that are determined by a systematic procedure and creates an instance of D9 Data Object, which is stored on an instance of D13 Digital Information Carrier. In contrast to instances of D10 Software Execution, environmental factors have an intended influence on the outcome of an instance of D11 Digital Measurement Event. Measurement devices may include running distinct software, such as the RAW to JPEG conversion in digital cameras, as an integral part of the overall process. If the respective software is configurable for the device, the event is regarded as an instance of both classes, D10 Software Execution and D11 Digital Measurement Event. The actual physical properties measured should be documented using the property O39 observed dimension (was observed in): E54 Dimension. Note that the property L20 has created (was created by): D9 Data Object constitutes a shortcut of the full path from D11 Digital Measurement Event through O39 observed dimension (was observed in), E54 Dimension, L61 contains value set of (has value set representation) , to D9 Data Object.",
+    "externalSuperclasses": [
+     "S21_Measurement (CRMsci)"
+    ],
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "D12_Data_Transfer_Event",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Data Transfer Event"
+    },
+    "rdfs:comment": "This class comprises events that transfer a digital object from one digital carrier to another. Normally, the digital object remains the same. If in general or by observation the transfer implies or has implied some data corruption, the change of the digital objects may be documented distinguishing input and output rather than instantiating the property L14 transferred (was transferred by).",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "D13_Digital_Information_Carrier",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Digital Information Carrier"
+    },
+    "rdfs:comment": "This class comprises all instances of E84 Information Carrier that are explicitly designed to be used as persistent digital physical carriers of instances of D1 Digital Object. An instance of D13 Digital Information Carrier may or may not contain information, e.g., an empty diskette.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E22_Human-Made_Object"
+    }
+   },
+   {
+    "-rdf:about": "D14_Software",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Software"
+    },
+    "rdfs:comment": "This class comprises software codes, computer programs, procedures and functions that are used to operate a system of digital objects.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "D29_Annotation_Object",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Annotation Object"
+    },
+    "rdfs:comment": "This class comprises objects that make propositions about other artefacts. Instances of this class are not the attributes themselves, by which things are annotated, but represent the connection between the concepts related in a proposition, and the activities of creation, modification and deletion. This class is specialized by appropriate subclasses to express more specific relationships between annotated things, such as knowledge object, same as etc.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E89_Propositional_Object"
+    }
+   },
+   {
+    "-rdf:about": "D30_Annotation_Event",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Annotation Event"
+    },
+    "rdfs:comment": "This class comprises activities of creating an annotation in the form of an instance of D29 Annotation Object. These activities typically constitute characteristic parts in scholarly and scientific workflows and processes, often in a dialogue or exchange of opinions between experts.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E65_Creation"
+    }
+   },
+   {
+    "-rdf:about": "D35_Area",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Area"
+    },
+    "rdfs:comment": "This class describes a part (of any shape or size) of interest in basically any media object stored in the Object Repository, i.e., a text, an image, a video or a 3D model. It points to content consisting of just a portion or area of a file. In some contexts, however, the area can also point to content represented by an integral (i.e., proper) file. It is equal to the METS AREA element.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   }
+  ],
+  "rdf:Property": [
+   {
+    "-rdf:about": "L1_digitized",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "digitized"
+    },
+    "rdfs:comment": "This property associates an instance of D2 Digitization Process with an instance of E18 Physical Thing which is a material thing.",
+    "externalSuperclasses": [
+     "O24_measured (CRMsci)"
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "D2_Digitization_Process"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E18_Physical_Thing"
+    }
+   },
+   {
+    "-rdf:about": "L1i_was_digitized_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was digitized by"
+    },
+    "externalSuperclasses": [
+     "O24i_was_measured_by (CRMsci)"
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "E18_Physical_Thing"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D2_Digitization_Process"
+    }
+   },
+   {
+    "-rdf:about": "L2_used_as_source",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used as source"
+    },
+    "rdfs:comment": "This property associates an instance of D10 Software Execution with an instance of D1 Digital Object which is used as a source, software essential for the performance.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10_had_input"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D10_Software_Execution"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L2i_was_source_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was source for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10i_was_input_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D10_Software_Execution"
+    }
+   },
+   {
+    "-rdf:about": "L10_had_input",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "had input"
+    },
+    "rdfs:comment": "This property associates an instance ofD7 Digital Machine Event with an instance of D1 Digital Object which is the input used to specify the machine action.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16_used_specific_object"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L10i_was_input_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was input of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16i_was_used_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "L11_had_output",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "had output"
+    },
+    "rdfs:comment": "This property associates an instance of D7 Digital Machine Event with an instance of D1 Digital Object which is the output of the activity.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P94_has_created"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L11i_was_output_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was output of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P94i_was_created_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "L12_happened_on_device",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "happened on device"
+    },
+    "rdfs:comment": "This property associates an instance of D7 Digital Machine Event with an object, the D8 Digital Device, which happened with, e.g. a capturing event that happened on/with a digital camera, etc.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P12_occurred_in_the_presence_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D8_Digital_Device"
+    }
+   },
+   {
+    "-rdf:about": "L12i_was_device_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was device for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P12i_was_present_at"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D8_Digital_Device"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "L13_used_parameters",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used parameters"
+    },
+    "rdfs:comment": "This property associates an instance of D10 Software Execution with an instance of D1 Digital Object used as a parameter during the process.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10_had_input"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D10_Software_Execution"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L13i_parameters_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "parameters for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10i_was_input_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D10_Software_Execution"
+    }
+   },
+   {
+    "-rdf:about": "L14_transferred",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "transferred"
+    },
+    "rdfs:comment": "This property identifies an instance of D1 Digital Object transferred by a D12 Data Transfer Event.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10_had_input"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L14i_was_transferred_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was transferred by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L10i_was_input_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    }
+   },
+   {
+    "-rdf:about": "L15_has_sender",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has sender"
+    },
+    "rdfs:comment": "This property identifies an instance of D8 Digital Device used as a medium on which data are transferred through a D12 Data Transfer Event.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L12_happened_on_device"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D8_Digital_Device"
+    }
+   },
+   {
+    "-rdf:about": "L15i_was_sender_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was sender for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L12i_was_device_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D8_Digital_Device"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    }
+   },
+   {
+    "-rdf:about": "L16_has_receiver",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has receiver"
+    },
+    "rdfs:comment": "This property identifies an instance of D8 Digital Device used as a medium to receive data through a D12 Data Transfer Event.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L12_happened_on_device"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D8_Digital_Device"
+    }
+   },
+   {
+    "-rdf:about": "L16i_was_receiver_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was receiver of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L12i_was_device_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D8_Digital_Device"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D12_Data_Transfer_Event"
+    }
+   },
+   {
+    "-rdf:about": "L18_has_modified",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has modified"
+    },
+    "rdfs:comment": "This property identifies a D13 Digital Information Carrier modified in a D7 Digital Machine Event for storing its results.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P31_has_modified"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D13_Digital_Information_Carrier"
+    }
+   },
+   {
+    "-rdf:about": "L18i_was_modified_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was modified by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P31i_was_modified_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D13_Digital_Information_Carrier"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "L19_stores",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "stores"
+    },
+    "rdfs:comment": "This property associates an instance of a D13 Digital Information Carrier with the instance of Digital Object that is stored on it.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P128_carries"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D13_Digital_Information_Carrier"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L19i_is_stored_on",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is stored on"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P128i_is_carried_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D13_Digital_Information_Carrier"
+    }
+   },
+   {
+    "-rdf:about": "L20_has_created",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has created"
+    },
+    "rdfs:comment": "This property associates an instance of D11 Digital Measurement Event with an instance of D9 Data Object that was created for storing the results, i.e., observed values, of the measurement.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11_had_output"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D11_Digital_Measurement_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D9_Data_Object"
+    }
+   },
+   {
+    "-rdf:about": "L20i_was_created_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was created by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11i_was_output_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D9_Data_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D11_Digital_Measurement_Event"
+    }
+   },
+   {
+    "-rdf:about": "L21_used_as_derivation_source",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used as derivation source"
+    },
+    "rdfs:comment": "This property associates an instance of a D3 Formal Derivation with the instance of D1 Digital Object that is used as a derivation source.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L2_used_as_source"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D3_Formal_Derivation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L21i_was_derivation_source_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was derivation source for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L2i_was_source_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D3_Formal_Derivation"
+    }
+   },
+   {
+    "-rdf:about": "L22_created_derivative",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "created derivative"
+    },
+    "rdfs:comment": "This property associates an instance of a D3 Formal Derivation with the instance of D1 Digital Object that is used to create a version of.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11_had_output"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D3_Formal_Derivation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L22i_was_derivative_created_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was derivative created by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11i_was_output_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D3_Formal_Derivation"
+    }
+   },
+   {
+    "-rdf:about": "L23_used_software_or_firmware",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used software or firmware"
+    },
+    "rdfs:comment": "This property associates an instance of D7 Digital Machine Event with the instance of D14 Software that it used.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16_used_specific_object"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D14_Software"
+    }
+   },
+   {
+    "-rdf:about": "L23i_was_software_or_firmware_used_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was software or firmware used by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16i_was_used_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D14_Software"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D7_Digital_Machine_Event"
+    }
+   },
+   {
+    "-rdf:about": "L24_created_logfile",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "created logfile"
+    },
+    "rdfs:comment": "This property identifies the logfile that was created by an instance of D10 Software Execution in order to record all the activities in the system.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11_had_output"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D10_Software_Execution"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L24i_was_logfile_created_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was logfile created by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "L11i_was_output_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D10_Software_Execution"
+    }
+   },
+   {
+    "-rdf:about": "L43_annotates",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "annotates"
+    },
+    "rdfs:comment": "This property associates an instance of D29 Annotation Object with a relevant instance of E1 CRM Entity explicitly referred to in the annotation object.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P129_is_about"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D29_Annotation_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "L43i_is_annotated_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is annotated by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P129i_is_subject_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D29_Annotation_Object"
+    }
+   },
+   {
+    "-rdf:about": "L48_created_annotation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "created annotation"
+    },
+    "rdfs:comment": "This property identifies the D29 Annotation Object (associations) that came into existence as a result of a D30 Annotation Event.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P94_has_created"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D30_Annotation_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D29_Annotation_Object"
+    }
+   },
+   {
+    "-rdf:about": "L48i_was_annotation_created_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was annotation created by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P94i_was_created_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D29_Annotation_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D30_Annotation_Event"
+    }
+   },
+   {
+    "-rdf:about": "L49_is_primary_area_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is primary area of"
+    },
+    "rdfs:comment": "This property describes the association between an instance of a particular D35 Area declared in an original instance of D1 Digital Object.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P106_is_composed_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D35_Area"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L49i_has_primary_area",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has primary area"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P106i_forms_part_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D35_Area"
+    }
+   },
+   {
+    "-rdf:about": "L50_is_propagated_area",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is propagated area"
+    },
+    "rdfs:comment": "This property describes the association between an instance of D35 Area and the instance of D1 Digital Object to which it is propagated.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P106_is_composed_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D35_Area"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D1_Digital_Object"
+    }
+   },
+   {
+    "-rdf:about": "L50i_has_propagated_area",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has propagated area"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P106i_forms_part_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "D1_Digital_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D35_Area"
+    }
+   },
+   {
+    "-rdf:about": "L54_is_same_as",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is same as"
+    },
+    "rdfs:comment": "This property describes a non-unique identification applied to E1 CRM Entity.",
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "L61_contains_value_set_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "contains value set of"
+    },
+    "rdfs:comment": "This property associates an instance of D9 Data Object with an instance of E54 Dimension, in the case that the former contains the set of values of the respective dimension in a digital format.",
+    "rdfs:domain": {
+     "-rdf:resource": "D9_Data_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E54_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "L61i_has_value_set_representation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has value set representation"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E54_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "D9_Data_Object"
+    }
+   }
+  ]
+ }
+}

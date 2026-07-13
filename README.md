@@ -24,9 +24,26 @@ There is no server-side computation, all the data processing and reasoning is do
 * Show all relations, recursively, for every class and property
 * Clipboard (a copy/paste function, pretty useful during modeling)
 * Switch between Properties and Inverse Properties
+* **Extension ontologies**: toggle CRMinf and CRMdig on/off (any combination), on top of the base CIDOC-CRM (version 7.1)
+* **Experiment mode** produces a valid, instance-based Turtle example with the correct `@prefix` declarations
+
+### Ontologies & versions
+
+| Ontology | Versions available | Notes |
+|----------|--------------------|-------|
+| CIDOC-CRM (base) | 7.1, 6.2.1 | selected from the version dropdown |
+| CRMinf (argumentation) | 1.2.1 | available when base = 7.1 |
+| CRMdig (digital provenance) | 5.0 | available when base = 7.1 |
+
+The extension data (`crminf1.2.1.json`, `crmdig5.0.json`) is generated from the
+official RDFS files by `tools/convert_rdfs_to_json.py` — see [tools/README.md](tools/README.md)
+for sources and regeneration commands.
+
+The URL captures state: `?ont=crm,crminf&code=I1` opens the table with CIDOC-CRM
+and CRMinf enabled, focused on class I1. A `?code=` for an extension entry
+auto-enables its ontology.
 
 ### Future releases 
 
 * Higher level grouping of classes (in a real periodic table fashion)
-* Permalinks for Classes and Properties
 * A reasoner-powered sandbox, useful to test consistency of triples

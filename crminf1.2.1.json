@@ -1,0 +1,1006 @@
+{
+ "rdf:RDF": {
+  "-xml:base": "http://www.cidoc-crm.org/extensions/crminf/",
+  "rdfs:Class": [
+   {
+    "-rdf:about": "I1_Argumentation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Argumentation"
+    },
+    "rdfs:comment": "This class comprises the activity of making honest inferences or observations. An honest inference or observation is one, in which the E39 Actor carrying out the I1 Argumentation justifies and believes that the I6 Belief Value associated with the resulting I2 Belief about the I4 Proposition Set is the correct value at the time that the activity was undertaken and that any I3 Inference Logic or methodology was correctly applied. An instance of E39 Actor may carry out an instance of I1 Argumentation, though the E39 Actor may, of course, be an instance of E74 Group.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E7_Activity"
+    }
+   },
+   {
+    "-rdf:about": "I2_Belief",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Belief"
+    },
+    "rdfs:comment": "This class comprises the notion that the associated I4 Proposition Set is to have a particular I6 Belief Value by a particular E39 Actor. This can be understood as the period of time that an individual group holds a particular set of propositions to be true, false, or somewhere in between.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E2_Temporal_Entity"
+    }
+   },
+   {
+    "-rdf:about": "I3_Inference_Logic",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Inference Logic"
+    },
+    "rdfs:comment": "This class comprises the rules used as inputs to I5 Inference Making. In this context, the term “logic” is used in the most general sense of the Greek term, and not in the mathematical sense only. Examples are the direct application of formal logic, mathematical theories, and calculus, formal or informal default reasoning based on default values associated with categories, probabilistic reasoning-based mathematical models and assumed or observed frequencies for certain categories, application of theoretical social models and comparisons with “cultural parallels”, etc. An instance of Inference Logic could also be a reference to the exact software release of a Bayesian reasoner, a rule such as “later layers are on top of earlier layers”, or even a term like “social intuition”, if this is scholarly acceptable (after Doerr, Kritsotaki and Boutsika, 2011). Indeed, anything that is scientifically or academically acceptable as a method for drawing conclusions may be included, for instance, human pattern recognition. A particular instance of I3 Inference Logic would be the algorithm implemented in a particular revision of a software package. Instances of I3 Inference Logic not only comprise the method of reasoning, but also the set of categorical laws or axioms used in the argumentation. Often, both are inextricably interwoven, for instance in a software implementation.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E89_Propositional_Object"
+    }
+   },
+   {
+    "-rdf:about": "I4_Proposition_Set",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Proposition Set"
+    },
+    "rdfs:comment": "This class comprises sets of unambiguous propositions that are, or could, in principle, be, encoded in a knowledge representation language. These propositions should be factual, i.e., each proposition should pertain to at least one particular item, in contrast to universals, such as instances of E55 Type. The identity of an instance of I4 Proposition Set is given by the total of its content, regardless of equivalent encodings. An instance of I4 Proposition Set should be regarded per se to be neutral to its relationship to reality. The relationship to reality is determined by the link using the proposition set: If an instance of I2 Belief refers to an instance of I4 Proposition Set, the belief value “TRUE” means that the proposition sets are believed to correspond to reality, assuming that the propositions can be related to reality –i.e., are about real-world items, in contrast to mathematical statements, for example. A belief value “FALSE” means that at least one of the propositions in the set is regarded as not corresponding to reality. Belief values expressing possibility or probability will mean “possibly real”, given that the propositions can be related to reality. Some properties associating an activity with an instance of I4 Proposition Set may imply the belief of the Actor carrying out the activity that the propositions are true. This should be expressed in the respective scope notes. In a Knowledge Base implementation, an instance of I4 Proposition Set may be represented by the URI of a Named Graph, but only if the propositions are encoded in the data model of the Knowledge Base and held to be true by the maintainers of the Knowledge Base, because they become part of the stated knowledge. In this case, the platform-internal relation between the URI and its content, is regarded as equivalent to the property J25 is encoded by . Proposition Sets held to be possibly true by the maintainers of a Knowledge Base may also be introduced as Named Graphs, if the operation of the Knowledge Base foresees filtering by provenance and likelihood. In this case, Named Graphs are particularly effective.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E89_Propositional_Object"
+    }
+   },
+   {
+    "-rdf:about": "I5_Inference_Making",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Inference Making"
+    },
+    "rdfs:comment": "This class comprises the action of making honest propositions and statements about particular states of affairs in reality or possible realities, or categorical descriptions of reality by using inferences from other statements based on hypotheses and any form of formal or informal logic. It includes evaluations, calculations, and interpretations, based on mathematical formulations and propositions. It is characterized by the use of an existing I2 Belief as the premise that, taken together with a set of I3 Inference Logic, draws a further I2 Belief as a conclusion. Documenting instances of I5 Inference making primarily enables tracing the dependency of knowledge from conclusion to premise through subsequent inferences possibly back to primary evidence, so that the range of influence of knowledge revision at any intermediate stage of complex inference chains on current convictions can be narrowed down by query. The explicit reference to the applied inference logic further allows scholars and scientists to assess if they can or would follow the documented argument. The class is not intended to promote the use of computationally decidable systems of logic as replacements of scholarly justifications of arguments, even though it allows for documenting the use of decidable logic, if that was deemed adequate for the problem at hand. Principles of scholarly justifications of arguments are also regarded as kinds of inference logic.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "I7_Belief_Adoption",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Belief Adoption"
+    },
+    "rdfs:comment": "This class comprises the action of an E39 Actor adopting propositions taken from an interpretation of the intended meaning of an instance of E73 Information Object as being true, or in some way likely to be true. The adopted propositions constitute the conclusion of the action in the form of a new instance of I12 Adopted belief of the actor adopting it. The basis of I7 Belief Adoption is the justification of trust in the source of the adopted propositions, rather than the application of rules for inferring the respective propositions from logical premises. Typical examples are the citation of academic papers or the reuse of datasets. Where an instance of I7 Belief Adoption is based on personal communication (marked as pers.comm. in the studied text), this should be represented by using P2 has type: “Pers.Comm” , directly from the instance of I7 Belief Adoption.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "I10_Provenance_Statement",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Provenance Statement"
+    },
+    "rdfs:comment": "This class comprises statements about the provenance of instances of E70 Thing existing at the time of making the provenance statements. An instance of I10 Provenance Statement must contain propositions about the presence of the respective instances of E70 Thing in an event or spatiotemporal context of reference. Characteristically, it may pertain to the writing by a known author at ta known or unknown date or place, or to the existence of the text known to some public, regardless of the truth of authorship. In case that only information objects exist describing the proper thing of interest, such as a photo of a lost archaeological object, or a photo of a photo thereof, an instance of I10 Provenance Statement should contain the relevant chain of intermediate events transferring the information from the proper thing of interest up to the extant information objects taken into account, or they, at least, should refer to said chain of intermediate events. The property J20 is about the provenance of (has provenance claim) can be used to link the instance of I10 Provenance Statement as a whole, with the proper thing of interest. It constitutes a constraint to the provenance statement that it must contain the description of the relevant context of reference, and, if applicable, to the relevant chain of intermediate events transferring the information.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "I11_Situation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Situation"
+    },
+    "rdfs:comment": "This class comprises sets of formal propositions characterizing a particular state of affairs as having certain relations between particular items or within certain ranges or kinds of related entities, over or within a timespan. The respective characterization is in general not regarded as being complete, but as constituting an aspect of interest of an actor. It may capture an observed aspect of a real situation, such as some known “persons A and B have met”, or be used for a question, such as whether “persons A and B have ever met”, or even for negation, such as “ persons A and B have met is FALSE”. Since many kinds of properties in the knowledge representation framework, that the CRM is based on, do not specify times of validity, a particular timespan, further constraining the concerned validity of all referred properties, can optionally be specified using the property J24 held at least for (is at least validity of) . The identity of an instance of I11 Situation is given its total content f propositions, regardless of encoding, or the value for the property J24 held at least for (is at least validity of) , if used. If an instance of I11 Situation is used to characterize an observation, its temporal validity is necessarily constrained at least to the period of observation.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "I12_Adopted_Belief",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Adopted Belief"
+    },
+    "rdfs:comment": "This class comprises the notion that an instance of E39 Actor adopted the meaning of an associated instance of I4 Proposition Set by arguments of trust from a source created by another instance of E39 Actor, and holds it as being true or in some way likely to be true. This source can be documented via the property J14 adopted interpretation of (has adopted interpretation) . The used interpretation of the meaning of the source may be a belief of the adopting Actor or another one and can be documented as an instance of I13 Intended Meaning Belief, if this detail is relevant.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "I13_Intended_Meaning_Belief",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Intended Meaning Belief"
+    },
+    "rdfs:comment": "This class comprises beliefs on the part of an instance of E39 Actor that a particular I4 Proposition Set formally represents (in part or in its entirety) the intended meaning that was created by another instance of E39 Actor, without considering an opinion yet about its truth or trustworthiness. The belief constitutes an interpretation of the source. The respective proposition set can be documented using the property J16 assumed meaning (is supposed meaning in) , whereas the respective source can be documented via the property J17 about (has interpretation) and holds as being true or in some way likely to be true.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "I14_Provenance_Belief",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Provenance Belief"
+    },
+    "rdfs:comment": "This class comprises beliefs of an Actor that a particular instance of E70 Thing, in general available to this Actor, is identical to one present in a relevant event or context of reference in the past, such as a text in a book being sufficiently identical to the one in the claimed author’s original manuscript or edition, to be used by the Actor for citation. Other examples are the provenance of archaeological objects in collections, which may pertain to the claimed excavation spot or to the inferred context of their creation. The term “in general available” means that the thing is either physically in the hands of the actor or that the actor or an actor of their trust has, in principle, the ability to get access to the thing. In case that only information objects exist describing the proper thing of interest, such as a photo of a lost archaeological object, an instance of I14 Provenance Belief should be based on arguments including references to provenance beliefs about descriptions, representations and the described things. A formal description about the assumed provenance can be documented via the property J 19 that (is subject of) . Note that, depending on the intended argumentation about the respective instance of E70 Thing, different aspects of provenance may be described about the same instance of E70 Thing.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "I15_Provenance_Assessment",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Provenance Assessment"
+    },
+    "rdfs:comment": "This class comprises activities of making arguments and concluding about the likely provenance of instances of E70 Thing existing at the time of this assessment. These activities may further be about the provenance of things referred to or represented by existing information objects, and subsequent references.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "I16_Meaning_Comprehension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Meaning Comprehension"
+    },
+    "rdfs:comment": "This class comprises processes of interpreting the intended meaning of parts or the whole of the content of an instance of E73 Information Object as propositions. Such interpretations may include the disambiguation of the meaning of words and expressions, expanding abbreviations, resolving named entities, references and co-references, and completing missing text parts, without however arguing about the actual truth of the information. In principle, any use of an information object pertaining to its meaning implies an instance of I16 Meaning Comprehension. However, in practical applications, texts in natural language are often clear enough, so that no explicit explanation of the interpretation is needed for the user. In such cases, there is no need to create explicit instances of I16 Meaning Comprehension, but the adopted belief may directly be linked via J26 adopted interpretation (has adopted interpretation) , or the instance of I16 Meaning Comprehension may be made implicit to an instance of I7 Belief Adoption by multiple instantiation. Explicitly documenting instances of I16 Meaning Comprehension can be very useful, especially when the interpretations are not obvious or if there exist competing arguments about them.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "I17_One-Proposition_Set",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "One-Proposition Set"
+    },
+    "rdfs:comment": "This class comprises proposition sets containing exactly one proposition representing a binary relationship, which is, or could, in principle, be, encoded in a knowledge representation language. The identity of an instance of I17 One-Proposition Set is given by its entire content, regardless of equivalent encodings. An instance of I17 One-Proposition Set in a Knowledge Base may, alternatively, be implemented by a ‘reification’ construct, and is regarded as logically equivalent in this model. Similarly, all triples of properties declared for one class that denote the domain, type, and range of another property, such as the properties of E13 Attribute Assignment and its subclasses, can be interpreted as shortcuts to an instance of I17 One-Proposition Set, and its properties, J30 has domain (is domain of) , J31 has range (is range of) , J32 has property type (is property type of) . Such property triples can also be interpreted as a ‘reification’ which is implicit in the declaring class. As such, the class I17 One-Proposition Set plays the role of a logical interface between different ways to document a discourse about propositions within a Knowledge Base. It is particularly relevant for implementing effective queries. For documentation, the use of simpler shortcut properties will, typically, be the preferred approach.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   }
+  ],
+  "rdf:Property": [
+   {
+    "-rdf:about": "J1_used_as_premise",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used as premise"
+    },
+    "rdfs:comment": "This property associates an instance of I2 Belief with the instance of I5 Inference Making that used it as a premise.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P17_was_motivated_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I5_Inference_Making"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J1i_was_premise_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was premise for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P17i_motivated"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I2_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I5_Inference_Making"
+    }
+   },
+   {
+    "-rdf:about": "J2_concluded_that",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "concluded that"
+    },
+    "rdfs:comment": "This property associates an instance of I2 Belief with the instance of I1 Argumentation that concluded it.",
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P175_starts_before_or_with_the_start_of"
+     },
+     {
+      "-rdf:resource": "P175i_starts_after_or_with_the_start_of"
+     },
+     {
+      "-rdf:resource": "P185_ends_before_the_end_of"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "I1_Argumentation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J2i_was_concluded_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was concluded by"
+    },
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P175_starts_before_or_with_the_start_of"
+     },
+     {
+      "-rdf:resource": "P175i_starts_after_or_with_the_start_of"
+     },
+     {
+      "-rdf:resource": "P185i_ends_after_the_end_of"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "I2_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "J3_applied",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "applied"
+    },
+    "rdfs:comment": "This property associates an instance of I3 Inference Logic with the instance of I5 Inference Making that used it to draw its conclusion.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16_used_specific_object"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I5_Inference_Making"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I3_Inference_Logic"
+    }
+   },
+   {
+    "-rdf:about": "J3i_was_applied_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was applied by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16i_was_used_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I3_Inference_Logic"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I5_Inference_Making"
+    }
+   },
+   {
+    "-rdf:about": "J4_that",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "that"
+    },
+    "rdfs:comment": "This property associates an instance of I4 Proposition Set with the instance of I2 Belief that holds an opinion about it. This property is part of the fully developed path from E13 Attribute Assignment through J2 concluded that (was concluded by) , I2 Belief, J4 that (is subject of) , to I17 One-Proposition Set, which is shortcut by J33 assigned proposition (is assigned by) . This property is also part of the fully developed path from I2 Belief, J4 that (is subject of) , I4 Proposition Set, J26 has unambiguous description (describes the formal meaning of) , to E73 Information Object, which is strongly shortcut by J27 that the formal meaning of (has a meaning belief) .",
+    "rdfs:domain": {
+     "-rdf:resource": "I2_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J4i_is_subject_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is subject of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J5_holds_to_be",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "holds to be"
+    },
+    "rdfs:comment": "This property associates an instance of I2 Belief with the I6 Belief Value that reflects the opinion of a particular E39 Actor about the truth of the associated I4 Proposition Set.",
+    "rdfs:domain": {
+     "-rdf:resource": "I2_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    }
+   },
+   {
+    "-rdf:about": "J7_is_based_on_evidence_from",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is based on evidence from"
+    },
+    "rdfs:comment": "This property associates an instance of I7 Belief Adoption with the instance of E73 Information Object that is a source of evidence for the I4 Proposition Set that was adopted.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16_used_specific_object"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J7i_is_evidence_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is evidence for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16i_was_used_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    }
+   },
+   {
+    "-rdf:about": "J13_adopted_interpretation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "adopted interpretation"
+    },
+    "rdfs:comment": "This property associates an instance of I7 Belief Adoption with the instance of I12 Adopted Belief that was established and possibly selected from the interpretation of the source or sources referred to by the property J14 adopted interpretation of (has adopted interpretation). This property implies a relation of trust in the reliability of the sources. The actual believed content, i.e., propositions about some past reality that have been adopted from the source, should be documented using the property J4 that (is subject of) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2_concluded_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I12_Adopted_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J13i_was_concluded_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was concluded by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2i_was_concluded_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I12_Adopted_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    }
+   },
+   {
+    "-rdf:about": "J14_adopted_interpretation_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "adopted interpretation of"
+    },
+    "rdfs:comment": "This property associates an instance of I12 Adopted Belief with a source or sources of interpretation from which the belief was established and possibly selected. In some cases of scholarly arguments, multiple sources referring to a common topic may have been interpreted to form a particular belief about the topic referred to.",
+    "rdfs:domain": {
+     "-rdf:resource": "I12_Adopted_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J14i_has_adopted_interpretation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has adopted interpretation"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I12_Adopted_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J15_assumed_meaning",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "assumed meaning"
+    },
+    "rdfs:comment": "This property associates an instance of I7 Belief Adoption with an instance of I13 Intended meaning Belief about a meaning believed to be expressed in the source or sources referred to by the property J14 adopted interpretation of (has adopted interpretation) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2_concluded_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J15i_was_assumed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was assumed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2i_was_concluded_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    }
+   },
+   {
+    "-rdf:about": "J16_assumed_meaning",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "assumed meaning"
+    },
+    "rdfs:comment": "This property associates an instance of I13 Intended Meaning Belief with the instance of I4 Proposition Set that represents the meaning assumed by the holder of the belief to have been intended by the respective source. The latter source can be documented with the property J17 about (has interpretation) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J4_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J16i_is_supposed_meaning_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is supposed meaning in"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J4i_is_subject_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J17_about",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "about"
+    },
+    "rdfs:comment": "This property associates an instance of I13 Intended Meaning Belief with the instance of E73 Information Object that was a source of or evidence for the interpretation of its intended meaning. If sources are fragmentary about or complementary to a specific topic, more than one source may have been used.",
+    "rdfs:domain": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J17i_has_interpretation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has interpretation"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J18_assumed_provenance",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "assumed provenance"
+    },
+    "rdfs:comment": "This property associates an instance of I7 Belief Adoption with an instance of I14 Provenance Belief about the source or sources referred to by the property J14 adopted interpretation of (has adopted interpretation) , which justifies the conviction that the trusted and adopted content of the source, or its copy at hand, is actually identical, or sufficiently close to the assumed original and its context of creation.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P17_was_motivated_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J18i_was_assumed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was assumed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P17i_motivated"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I7_Belief_Adoption"
+    }
+   },
+   {
+    "-rdf:about": "J19_that",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "that"
+    },
+    "rdfs:comment": "This property associates an instance of I14 Provenance Belief with the instance of I10 Provenance Statement that holds an opinion about it.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J4_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I10_Provenance_Statement"
+    }
+   },
+   {
+    "-rdf:about": "J19i_is_subject_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is subject of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J4i_is_subject_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I10_Provenance_Statement"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J20_is_about_the_provenance_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is about the provenance of"
+    },
+    "rdfs:comment": "This property associates an instance of I10 Provenance Statement with an instance of E70 Thing, the provenance of which the statement describes.",
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P129_is_about"
+     },
+     {
+      "-rdf:resource": "J28_contains_entity_reference"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "I10_Provenance_Statement"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E70_Thing"
+    }
+   },
+   {
+    "-rdf:about": "J20i_has_provenance_claim",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has provenance claim"
+    },
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P129i_is_subject_of"
+     },
+     {
+      "-rdf:resource": "J28i_is_referred_to_in"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "E70_Thing"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I10_Provenance_Statement"
+    }
+   },
+   {
+    "-rdf:about": "J21_concluded_provenance",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "concluded provenance"
+    },
+    "rdfs:comment": "This property associates an instance of I15 Provenance Assessment with an instance of I14 Provenance Belief that constitutes the conclusion of the assessment. An instance of I15 Provenance Assessment may conclude more than one instances of I14 Provenance Belief, typically about different objects considered in the same assessment.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2_concluded_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I15_Provenance_Assessment"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J21i_was_assessed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was assessed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2i_was_concluded_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I14_Provenance_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I15_Provenance_Assessment"
+    }
+   },
+   {
+    "-rdf:about": "J22_interpreted_meaning_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "interpreted meaning of"
+    },
+    "rdfs:comment": "This property associates an instance of I16 Meaning Comprehension with the instance of E73 Information Object that was the source of or evidence for the interpretation of its intended meaning. If sources are fragmentary about or complementary to a specific topic, more than one source may have been used.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16_used_specific_object"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I16_Meaning_Comprehension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J22i_was_interpreted_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was interpreted by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P16i_was_used_for"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I16_Meaning_Comprehension"
+    }
+   },
+   {
+    "-rdf:about": "J23_interpreted_meaning_as",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "interpreted meaning as"
+    },
+    "rdfs:comment": "This property associates an instance of I16 Meaning Comprehension with the instance of I13 Intended Meaning Belief that was the result of the interpretation of the intended meaning of the analysed source(s).",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2_concluded_that"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I16_Meaning_Comprehension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J23i_was_interpretation_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was interpretation by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J2i_was_concluded_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I13_Intended_Meaning_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I16_Meaning_Comprehension"
+    }
+   },
+   {
+    "-rdf:about": "J24_held_at_least_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "held at least for"
+    },
+    "rdfs:comment": "This property associates an instance of I11 Situation with the instance of E52 Time-Span that defines the minimal time of asserted validity of the property instances constituting this situation. The associated time-span constitutes a necessary part of the identity of this situation. Any different association of a time-span even to the same constituting propositions of this situation will identify another instance of I11 Situation. Note that the respective situation may have had shorter duration than the one given by the property P82 at some time within to the associated time-span, but the same propositions may quite well have prevailed for longer and other times. In order to make a statement about how long at least the propositions of that situation uninterruptedly prevailed, the property P81 ongoing throughout should be used for the associated time-span. There is no means to declare that the propositions of that situation did not occur outside the given time-span. There are two typical cases for the determination of the related instance of E52 Time-Span. In the first, it is the temporal extent of some instance of E2 Temporal Entity, such as an observation activity, and documented with P4 has timespan (is timespan of) : this then documents the validity of the asserted instance of I11 Situation for the complete instance of E2 Temporal Entity, even if the actual time-span is not known, and can be regarded as a phenomenal timespan. In the second, the instance of E52 Time-Span is a date range declared in or derived from historical sources or provided by dating methods: then it is a declarative timespan.",
+    "rdfs:domain": {
+     "-rdf:resource": "I11_Situation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E52_Time-Span"
+    }
+   },
+   {
+    "-rdf:about": "J24i_is_at_least_validity_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is at least validity of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E52_Time-Span"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I11_Situation"
+    }
+   },
+   {
+    "-rdf:about": "J25_is_encoded_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is encoded by"
+    },
+    "rdfs:comment": "This property associates an instance of I4 Proposition Set with a “serialization” of its content in the format of a knowledge representation language. There may be more than one ontologically equivalent formal encodings of the same propositions. In a Knowledge Base implementation, the content of an instance of I4 Proposition Set may be represented by the content of a Named Graph, but only if the propositions are encoded in the data model of the Knowledge Base and held to be true by the maintainers of a Knowledge Base because they become part of the stated knowledge. In this case, the platform-internal relation between the URI of the Named Graph and its content are regarded as equivalent to J25 is encoded by , and the property should formally not be instantiated.",
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    }
+   },
+   {
+    "-rdf:about": "J26_has_unambiguous_description",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has unambiguous description"
+    },
+    "rdfs:comment": "This property associates an instance of I4 Proposition Set with an instance of E73 Information Object that expresses in a natural language the content of the former as propositions that are or could, in principle be, encoded in a knowledge representation language. The formulation of these propositions should be unambiguous at least within the context of provenance of the information object and the context of documenting them as the content of the instance of I4 Proposition Set. For a textual representation, rules of a normal scholarly consensus that it is unambiguous should be applied. This property is part of the fully developed path from I2 Belief, J4 that (is subject of) , I4 Proposition Set, J26 has unambiguous description (describes the formal meaning of) , to E73 Information Object, which is strongly shortcut by the property J27 that the formal meaning of (has a meaning belief).",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P129i_is_subject_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J26i_describes_the_formal_meaning_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "describes the formal meaning of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P129_is_about"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J27_that_the_formal_meaning_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "that the formal meaning of"
+    },
+    "rdfs:comment": "This property associates an instance of I2 Belief with an instance of E73 Information Object that expresses the believed propositions in a sufficiently unambiguous way and in a form that they are or could, in principle be, encoded in a knowledge representation language. This property is a strong shortcut of the fully developed path from I2 Belief, J4 that (is subject of) , I4 Proposition Set, J26 has unambiguous description (describes the formal meaning of) , to E73 Information Object. It is introduced into this model for the convenience of the user, when the implied instance of I4 Proposition Set appears not to be a separate object of discourse within this documentation context.",
+    "rdfs:domain": {
+     "-rdf:resource": "I2_Belief"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E73_Information_Object"
+    }
+   },
+   {
+    "-rdf:about": "J27i_has_a_meaning_belief",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has a meaning belief"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E73_Information_Object"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I2_Belief"
+    }
+   },
+   {
+    "-rdf:about": "J28_contains_entity_reference",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "contains entity reference"
+    },
+    "rdfs:comment": "This property associates an instance of I4 Proposition Set with an instance of E1 CRM Entity that appears as an element of one or more propositions in the content of the former. This property serves on one side to relate an instance of I4 Proposition Set to other contexts of interest, in particular when its content is or cannot be represented as a Named Graph in the same knowledge base. On the other hand, it plays an important structural role in this model for expressing constraints to the content of an instance of I4 Proposition Set or one of its subclasses.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P67_refers_to"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "J28i_is_referred_to_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is referred to in"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P67i_is_referred_to_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J29_contains_property_type",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "contains property type"
+    },
+    "rdfs:comment": "This property associates an instance of I4 Proposition Set with an instance of E55 Type that appears as property type in one or more propositions in the content of the former. This property plays an important structural role in this model for expressing constraints to the content of an instance of I4 Proposition Set or one of its subclasses.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P67_refers_to"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I4_Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "J29i_is_property_type_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is property type in"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P67i_is_referred_to_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E55_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I4_Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J30_has_domain",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has domain"
+    },
+    "rdfs:comment": "This property associates an instance of I17 One-Proposition Set with an instance of E1 CRM Entity that must appear as the only domain instance of the proposition in the content of the former. This property is part of the fully developed path from E13 Attribute Assignment through J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J30 has domain (is domain of) , to E1 CRM Entity, which is shortcut by P140 assigned attribute to (was attributed by) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28_contains_entity_reference"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "J30i_is_domain_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is domain of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28i_is_referred_to_in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J31_has_range",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has range"
+    },
+    "rdfs:comment": "This property associates an instance of I17 One-Proposition Set with an instance of E1 CRM Entity that must appear as the range of the proposition in the content of the former. This property is part of the fully developed path from E13 Attribute Assignment through J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J31 has range (is range of) , to E1 CRM Entity, which is shortcut by P141 assigned (was assigned by) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28_contains_entity_reference"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "J31i_is_range_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is range of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28i_is_referred_to_in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J32_has_property_type",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has property type"
+    },
+    "rdfs:comment": "This property associates an instance of I17 One-Proposition Set with an instance of E55 Type that must appear as the only property type of the proposition in the content of the former. This property is part of the fully developed path from E13 Attribute Assignment through J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J 32 has property type (is property type of) , to E1 CRM Entity, which is shortcut by P177 assigned property of type (is type of property assigned) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J29_contains_property_type"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "J32i_is_property_type_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is property type of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J29i_is_property_type_in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E55_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J33_assigned_propositions",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "assigned propositions"
+    },
+    "rdfs:comment": "This property associates an instance of E13 Attribute Assignment with an instance of I17 One-Proposition Set that describes the proposition made and believed to be true. This property constitutes a formal logical alternative to specifying the proposition made by an instance of E13 Attribute Assignment via P140 assigned attribute to (was attributed by), P141 assigned (was assigned by) and P177 assigned property of type (is type of property assigned). As such, it is of importance for querying knowledge bases compatible with either model. This property forms part of the following three (3) fully developed paths from E13 Attribute Assignment through: J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J30 has domain (is domain of) to E1 CRM Entity, which is shortcut by P140 assigned attribute to (was attributed by) . J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J31 has range (is range of) to E1 CRM Entity, which is shortcut by P141 assigned (was assigned by) , J33 assigned proposition (is assigned by) , I17 One-Proposition Set, J32 has property type (is property type of) to E1 CRM Entity, which is shortcut by P177 assigned property of type (is type of property assigned). This property is a shortcut for the path from E13 Attribute Assignment through J2 concluded that (was concluded by) , I2 Belief, J4 that (is subject of) , I4 Proposition Set, J5 holds to be to I6 Belief Value (= “TRUE”).",
+    "rdfs:domain": {
+     "-rdf:resource": "E13_Attribute_Assignment"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    }
+   },
+   {
+    "-rdf:about": "J33i_is_assigned_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is assigned by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "I17_One-Proposition_Set"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E13_Attribute_Assignment"
+    }
+   }
+  ]
+ }
+}

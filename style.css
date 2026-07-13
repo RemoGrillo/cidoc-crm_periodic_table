@@ -74,6 +74,34 @@ body {
     border: 1px solid rgba(19, 19, 19, 0.8);
 }
 
+/* The card has a fixed height; lay its content out as a column so the
+   Properties/References section can take the leftover space and scroll,
+   instead of spilling below the card on shorter screens. */
+.front {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+/* Everything keeps its natural size; only the tabs section absorbs the slack */
+.front > * {
+    flex-shrink: 0;
+}
+#descTabsRow {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+#descTabsRow > .col-12 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+#nav-tabContent {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
 #experiment {
     display: none;
     border: 1px solid rgba(19, 19, 19, 0.8);
@@ -86,7 +114,7 @@ body {
     z-index: 10;
 }
 
-#classesbtn, #propertiesbtn, #experimentbtn, #inspectbtn {
+#classesbtn, #propertiesbtn, #exploreBtn, #inspectbtn {
     cursor:pointer;
     user-select: none;
     float: right;
@@ -124,19 +152,6 @@ body {
 #propertiesContainer {
     margin-left: 30px;
 }
-
-/*
-@keyframes flickerAnimation {
-    0%   { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
-    50%  { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.5); }
-    100% { box-shadow: inset 0px 0px 10px 1px rgba(255, 255, 255, 0.8); }
-}
-*/
-
-.highlighted {
-    animation: flickerAnimation 3.5s infinite;
-}
-
 
 .classcell:not(.highlighted):not(.selectedCell):not(.experimentallyHighlighted):not(.experimental) {
     opacity: 0.5 !important;
@@ -616,8 +631,7 @@ tbody {
 .classReferencesTable tbody, .classPropertiesTable tbody {
     display: block;
     width: 100%;
-    overflow: auto;
-    height: 250px;
+    /* scrolling is handled by #nav-tabContent, which fills the remaining card height */
 }
 
 .classReferenceRow {
@@ -907,7 +921,7 @@ html {
     background: rgb(231, 230, 230);
 }
 
-.inverseProperty.experimental {
+.inverseproperty.experimental {
     display:inherit !important;
 }
 
@@ -965,12 +979,12 @@ html {
 
 
 
-#classesbtn:hover, #propertiesbtn:hover, #toggleInverseBtn:hover, #experimentbtn:hover, #inspectbtn:hover {
+#classesbtn:hover, #propertiesbtn:hover, #toggleInverseBtn:hover, #exploreBtn:hover, #inspectbtn:hover {
     background-color: black;
     color: white;
 }
 
-#experiment_domain, #experiment_property, #experiment_range {
+#experiment_domain, #experiment_property, #experiment_range, #path_start, #path_end {
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='grey' stroke-width='5' stroke-dasharray='6%2c 14' stroke-dashoffset='43' stroke-linecap='square'/%3e%3c/svg%3e");
 }
 
@@ -979,7 +993,7 @@ html {
     height:65px;
 }
 
-#experiment_domain, #experiment_range, .classcell.experimental {
+#experiment_domain, #experiment_range, #path_start, #path_end, .classcell.experimental {
     width: 120px;
     height:120px;
 }
@@ -1080,4 +1094,349 @@ html {
 #cidocVersionSelect {
     cursor: pointer;
     font-family: "Sorts Mill Goudy";
+}
+
+/* ONTOLOGY FILTERS (CRM / CRMinf / CRMdig) */
+
+:root {
+    --ont-crm: #1b1b1b;
+    --ont-crminf: #7b2d8b;
+    --ont-crmdig: #0e7c7b;
+}
+
+/* Cells of a disabled ontology disappear from the two main containers only.
+   !important beats the inline show()/hide() calls scattered in main.js. */
+body.hide-ont-crm #classesContainer .ont-crm,
+body.hide-ont-crm #propertiesContainer .ont-crm,
+body.hide-ont-crminf #classesContainer .ont-crminf,
+body.hide-ont-crminf #propertiesContainer .ont-crminf,
+body.hide-ont-crmdig #classesContainer .ont-crmdig,
+body.hide-ont-crmdig #propertiesContainer .ont-crmdig {
+    display: none !important;
+}
+
+/* References to disabled ontologies inside the describer stay visible, dimmed.
+   Clicking one re-enables its ontology (auto-reveal). */
+body.hide-ont-crm #describer .ont-crm,
+body.hide-ont-crminf #describer .ont-crminf,
+body.hide-ont-crmdig #describer .ont-crmdig {
+    opacity: 0.45;
+    filter: grayscale(0.6);
+}
+
+/* Extension cells carry a side stripe in their ontology color
+   (pseudo-element: box-shadow is already taken by .selectedCell) */
+.cidoccell.ont-crminf::before,
+.cidoccell.ont-crmdig::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    z-index: 1;
+}
+.cidoccell.ont-crminf::before { background: var(--ont-crminf); }
+.cidoccell.ont-crmdig::before { background: var(--ont-crmdig); }
+
+.cidocline.ont-crminf .cidoclineCode { border-bottom: 3px solid var(--ont-crminf); }
+.cidocline.ont-crmdig .cidoclineCode { border-bottom: 3px solid var(--ont-crmdig); }
+
+/* Section headers inside the tables */
+.ontologySectionHeader {
+    flex-basis: 100%;
+    width: 100%;
+    margin: 18px 0 6px 0;
+    padding-bottom: 2px;
+    font-family: "Sorts Mill Goudy";
+    font-size: 13pt;
+    border-bottom: 1px solid rgba(19, 19, 19, 0.4);
+}
+.ontologySectionHeader.ont-crminf { border-color: var(--ont-crminf); color: var(--ont-crminf); }
+.ontologySectionHeader.ont-crmdig { border-color: var(--ont-crmdig); color: var(--ont-crmdig); }
+
+/* Toggle chips in the menu row (they double as the legend) */
+#ontologyToggles {
+    float: right;
+    margin: 20px 0;
+}
+
+.ontToggle {
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+    font-family: "Sorts Mill Goudy";
+    padding: 5px 8px;
+    margin-left: 8px;
+    border: 1px solid rgba(19, 19, 19, 0.4);
+    opacity: 0.45;
+}
+
+.ontToggle.activeOntToggle {
+    opacity: 1;
+    border-color: black;
+    box-shadow: 2px 2px 0 rgba(19, 19, 19, 0.85);
+}
+
+.ontToggle:hover:not(.disabledOntToggle) {
+    background-color: black;
+    color: white;
+}
+
+.ontToggle.disabledOntToggle {
+    opacity: 0.25;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.ontToggleSwatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 2px;
+    background: var(--ont-crm);
+}
+.ontToggle.ont-crminf .ontToggleSwatch { background: var(--ont-crminf); }
+.ontToggle.ont-crmdig .ontToggleSwatch { background: var(--ont-crmdig); }
+.ontToggle:hover:not(.disabledOntToggle) .ontToggleSwatch { outline: 1px solid white; }
+
+/* Ontology tag: tiny, bottom-right of the class/property title row */
+#descTitleRow {
+    position: relative;
+}
+.descOntologyTag {
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    font-size: 6.5pt;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    padding: 1px 4px;
+    color: rgba(19, 19, 19, 0.6);
+    border: 1px solid rgba(19, 19, 19, 0.3);
+    border-radius: 2px;
+    white-space: nowrap;
+}
+.descOntologyTag:empty { display: none; }
+.descOntologyTag.ont-crminf { border-color: var(--ont-crminf); color: var(--ont-crminf); }
+.descOntologyTag.ont-crmdig { border-color: var(--ont-crmdig); color: var(--ont-crmdig); }
+
+/* References to models not included in the app (e.g. CRMsci) */
+.externalRef {
+    opacity: 0.55;
+    cursor: default !important;
+    font-style: italic;
+}
+
+/* The experiment snippet is real multi-line Turtle now */
+#experiment_code {
+    white-space: pre-wrap;
+}
+
+
+/* PATH FINDER */
+
+/* The back face hosts two panels; only the active one is shown */
+.back {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+#experimentContainer, #pathfinderContainer {
+    display: none;
+}
+#experimentContainer.activePanel {
+    display: block;
+}
+#pathfinderContainer.activePanel {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* Tab bar switching the two back panels (shared header for both) */
+#backTabs {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid rgba(19, 19, 19, 0.8);
+    margin-bottom: 6px;
+}
+
+.backTab {
+    cursor: pointer;
+    user-select: none;
+    font-family: "Sorts Mill Goudy";
+    font-size: 20pt;
+    padding: 4px 2px;
+    color: rgba(19, 19, 19, 0.4);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+}
+
+.backTab:hover {
+    color: rgba(19, 19, 19, 0.7);
+}
+
+.backTab.activeBackTab {
+    color: rgba(19, 19, 19, 1);
+    border-bottom-color: rgba(19, 19, 19, 1);
+}
+
+.backTab i {
+    font-size: 14pt;
+}
+
+.pathArrowCol {
+    text-align: center;
+    padding-top: 55px;
+    opacity: 0.5;
+}
+
+#path_row {
+    margin-top: 20px;
+}
+
+#path_options {
+    text-align: center;
+    margin: 12px 0 0 0;
+    font-size: 9pt;
+}
+
+#path_options label {
+    margin: 0 10px;
+    font-weight: normal;
+}
+
+#pathLooseLabel {
+    cursor: help;
+}
+
+/* Results: accordion grouped by number of steps */
+#path_results {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: 8px;
+    border-top: 1px solid #ddd;
+}
+
+.pathGroup {
+    border-bottom: 1px solid #ddd;
+}
+
+.pathGroupHeader {
+    cursor: pointer;
+    user-select: none;
+    font-family: "Sorts Mill Goudy";
+    font-size: 11pt;
+    font-weight: bold;
+    padding: 8px 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pathGroupHeader:hover {
+    background: #f0f0f0;
+}
+
+.pathGroupChevron {
+    font-size: 9pt;
+    width: 10px;
+    transition: transform 0.15s ease;
+}
+
+.pathGroup.pathGroupCollapsed .pathGroupChevron {
+    transform: rotate(-90deg);
+}
+
+.pathGroupCount {
+    font-weight: normal;
+    opacity: 0.6;
+    font-size: 9pt;
+}
+
+.pathGroupBody {
+    padding-bottom: 6px;
+}
+
+.pathGroup.pathGroupCollapsed .pathGroupBody {
+    display: none;
+}
+
+/* Each path is a distinct card: border + spacing + zebra so the start and
+   end of a (wrapping) chain are unambiguous */
+.pathResultChain {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 30px 8px 8px;
+    margin: 5px 4px;
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.pathResultChain:nth-child(even) {
+    background: #f4f4f4;
+}
+
+.pathResultChain:hover {
+    border-color: #999;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.pathResultChain .cidocline {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    cursor: pointer;
+}
+
+.pathResultChain .cidocline.propertyline {
+    padding: 0 22px;
+}
+
+.pathArrow {
+    font-size: 9pt;
+    opacity: 0.45;
+    margin: 0 2px;
+}
+
+.pathTurtleCopy {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.pathResultChain:hover .pathTurtleCopy {
+    opacity: 0.7;
+}
+
+.pathTurtleCopy:hover {
+    opacity: 1 !important;
+}
+
+#pathNoResults, #pathTruncatedNote {
+    font-size: 9pt;
+    opacity: 0.7;
+    text-align: center;
+    margin: 12px 0;
+}
+
+/* Hovering a result dims the table down to the path's cells */
+body.pathHovering #classesContainer .cidoccell:not(.pathHighlighted),
+body.pathHovering #propertiesContainer .cidoccell:not(.pathHighlighted) {
+    opacity: 0.15 !important;
+}
+
+#classesContainer .pathHighlighted,
+#propertiesContainer .pathHighlighted {
+    opacity: 1 !important;
 }
