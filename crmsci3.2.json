@@ -1,0 +1,1524 @@
+{
+ "rdf:RDF": {
+  "-xml:base": "http://www.cidoc-crm.org/extensions/crmsci/",
+  "rdfs:Class": [
+   {
+    "-rdf:about": "S1_Matter_Removal",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Matter Removal"
+    },
+    "rdfs:comment": "This class comprises the activities that result in an instance of S10 Material Substantial being decreased by the removal of an amount of matter. Typical scenarios include the removal of a component or piece of a physical object, removal of an archaeological or geological layer, taking a tissue sample from a body or a sample of fluid from a body of water. The removed matter may acquire a persistent identity of different nature beyond the act of its removal, such as becoming a physical object in the narrower sense. Such cases should be modelled by using multiple instantiation with adequate concepts of creating the respective items.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E7_Activity"
+    }
+   },
+   {
+    "-rdf:about": "S2_Sample_Taking",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Sample Taking"
+    },
+    "rdfs:comment": "This class comprises the activity that results in taking an amount of matter as sample for further analysis from a material substantial such as a body of water, a geological formation, or an archaeological object. The removed matter may acquire a persistent identity of different nature beyond the act of its removal, such as becoming a physical object in the narrower sense. The sample is typically removed from a physical feature which is used as a frame of reference, the place of sampling. In case of a non-rigid Material Substantial, the source of sampling need not be modified by the activity of sample taking.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S1_Matter_Removal"
+    }
+   },
+   {
+    "-rdf:about": "S3_Measurement_by_Sampling",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Measurement by Sampling"
+    },
+    "rdfs:comment": "This class comprises activities of taking a sample and measuring or analysing it as one unit of activity, in which the sample is typically not identified and preserved beyond the context of this activity. Instances of this class describe the taking of one or more samples regardless whether they are explicitly identified in documentation or preserved beyond this activity. The dimensions observed by the respective measurement of this particular sample are regarded as dimensions of the instance of S10 Material Substantial at the place from which the samples were taken. Therefore, the class S3 Measurement by Sampling inherits the properties of S2 Sample Taking O3 sampled from (was sample by) : S10 Material Substantial and O4 sampled at (was sampling location of) : E53 Place, and the properties of S21 Measurement O24 measured (was measured by) : S15 Observable Entity. It needs not instantiate the properties O5 removed (was removed by) : S13 Sample and O24 measured (was measured by) : S15 Observable Entity, if the sample is not documented beyond the context of the activity.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "S21_Measurement"
+     },
+     {
+      "-rdf:resource": "S2_Sample_Taking"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S4_Single_Observation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Single Observation"
+    },
+    "rdfs:comment": "This class comprises the activity of gaining scientific knowledge about particular states of physical reality through empirical evidence, experiments, or measurements, for cases in which the observed knowledge can be described by a single binary proposition relating one instance of S15 Observable Entity to some instance of E1 CRM Entity.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E13_Attribute_Assignment"
+     },
+     {
+      "-rdf:resource": "S27_Observation"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S5_Inference_Making",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Inference Making"
+    },
+    "rdfs:comment": "This class comprises the action of making propositions and statements about particular states of affairs, in reality or in possible realities, or categorical descriptions of reality by using inferences from other statements based on hypotheses and any form of formal or informal logic. It includes evaluations, calculations, and interpretations based on mathematical formulations and propositions.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "S6_Data_Evaluation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Data Evaluation"
+    },
+    "rdfs:comment": "This class comprises the action of concluding propositions on a respective reality from observational data by making evaluations based on mathematical inference rules and calculations using established hypotheses, such as the calculation of an earthquake epicentre. S6 Data Evaluation is distinct from both S21 Measurement and E16 Measurement; Secondary derivations of dimensions of an object from data measured by different processes are regarded as S6 Data Evaluation and not determining instances of Measurement in its own right. For instance, the volume of a statue concluded from a 3D model is an instance of S6 Data Evaluation and not of Measurement.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S5_Inference_Making"
+    }
+   },
+   {
+    "-rdf:about": "S7_Simulation_or_Prediction",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Simulation or Prediction"
+    },
+    "rdfs:comment": "This class comprises activities of executing algorithms or software for simulating the behaviour and the properties of a system of interacting components that form part of reality or not by using a mathematical model of the respective interactions. In particular, it implies making predictions about the future behaviours of a system of interacting components of reality by starting simulation from an actually observed state, such as weather forecasts. Simulations may also be used to understand the effects of a theory, to compare theoretical predictions with reality, or to show differences with another theory.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S5_Inference_Making"
+    }
+   },
+   {
+    "-rdf:about": "S8_Categorical_Hypothesis_Building",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Categorical Hypothesis Building"
+    },
+    "rdfs:comment": "This class comprises the action of making categorical hypotheses based on inference rules and theories; By categorical hypotheses we mean assumptions about the kinds of interactions and related kinds of structures of a domain that have the character of “laws” of nature or human behaviour, be it necessary or probabilistic. Categorical hypotheses are developed by “induction” from finite numbers of observations and the absence of observations of some particular kind. As such, categorical hypotheses are always subject to falsification by new evidence. Instances of S8 Categorical Hypothesis Building include making and questioning categorical hypotheses.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S5_Inference_Making"
+    }
+   },
+   {
+    "-rdf:about": "S9_Property_Type",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Property Type"
+    },
+    "rdfs:comment": "This class comprises properties. Typically, instances of S9 Property Type would be taken from an ontology or terminological system. In particular, instances of this class can be used to describe in a parametric way what kind of properties the values in scientific data sets are about. By virtue of such descriptions, numeric data can be interpreted as sets of propositions in terms of a formal ontology, such as “concentration of nitrate”, observed in the ground water from a certain borehole.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "S10_Material_Substantial",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Material Substantial"
+    },
+    "rdfs:comment": "This class comprises constellations of matter with a relative stability of any form sufficient to associate them with a persistent identity, such as being confined to certain extent, having a relative stability of form or structure, or containing a fixed amount of matter. In particular, it comprises physical things in the narrower sense and fluid bodies. It is an abstraction of physical substance for solid and non-solid things of matter.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E70_Thing"
+     },
+     {
+      "-rdf:resource": "S15_Observable_Entity"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S11_Amount_of_Matter",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Amount of Matter"
+    },
+    "rdfs:comment": "This class comprises fixed amounts of matter specified as some air, some water, some soil, etc., defined by the total and integrity of their material content. In order to be able to identify and recognize in practice one instance of S11 Amount of Matter, some sort of confinement is needed that serves as a constraint for the enclosed matter and the integrity of the content, such as a bottle. In contrast to instances of E18 Physical Thing, no stability of form is required. The content may be put into another bottle without losing its identity. Subclasses may define very different identity conditions for the integrity of the content, such as chemical composition, or the sequence of layers of a bore core. Whereas an instance of E18 Physical Thing may gradually change form and chemical composition while preserving its identity, such as living beings, an instance of S11 Amount of Matter may lose its identifying features by such processes. What matters for the identity of an instance of S1 Amount of Matter is the preservation of a relevant composition from the initial state of definition onwards.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "S12_Amount_of_Fluid",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Amount of Fluid"
+    },
+    "rdfs:comment": "This class comprises fixed amounts of fluid (be they gas or liquid) defined by the total of its material content, typically molecules. They frequently acquire identity in laboratory practice by the fact of being kept or handled together within some adequate containers.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "S11_Amount_of_Matter"
+     },
+     {
+      "-rdf:resource": "S14_Fluid_Body"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S13_Sample",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Sample"
+    },
+    "rdfs:comment": "This class comprises instances of S11 Amount of Matter taken from some instance of S10 Material Substantial with the intention to be representative for some material qualities of the instance of S10 Material Substantial or part of it was taken for further analysis. We typically regard a sample as ceasing to exist when the respective representative qualities become corrupted, such as the purity of a water sample or the layering of a bore core.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S11_Amount_of_Matter"
+    }
+   },
+   {
+    "-rdf:about": "S14_Fluid_Body",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Fluid Body"
+    },
+    "rdfs:comment": "This class comprises a mass of matter in fluid form environmentally constraint in some persistent form allowing for identifying it for the management or research of material phenomena, such as a part of the sea, a river, the atmosphere or the milk in a bottle. Fluids are generally defined by the continuity criterion which is characteristic of their substance: their amorphous matter is continuous and tends to flow. Therefore, contiguous amounts of matter within a fluid body may stay contiguous or at least be locally spatially confined for a sufficiently long time in order to be temporarily identified and traced. This is a much weaker concept of stability of form than the one we would apply to what one would call a physical object. In general, an instance of Fluid Body may gain or lose matter over time through so-called sources or sinks in its surface, in contrast to physical things, which may lose or gain matter by exchange of pieces such as spare parts or corrosion.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "S15_Observable_Entity",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Observable Entity"
+    },
+    "rdfs:comment": "This class comprises instances of E5 Event or S10 Material Substantial (i.e. items or phenomena, such as physical things, their behaviour, states and interactions or events), that can be observed by measurement or detection devices or by human sensory impression including when enhanced by tools. In order to be observable, instances of E5 Event must consist of some interaction or action of material substance. In some cases, the spatiotemporal confinement of the event itself, such as a flash, a car stopping etc. marks the limits of a documented observation of an event. In other cases, such as the situation of a car passing by a certain object, the spatiotemporal limits of the event of observing itself, as well as the direction of attention or the orientation of used instruments, may constrain the observed detail of a larger process, e.g., noticing the sight of a car passing by; a light emission, etc. Conceptual objects manifest through their carriers such as books, digital media, or even human memory. Attributes of conceptual objects, such as number of words, can be observed on their carriers. If the respective properties between carriers differ, either they carry different instances of conceptual objects or the difference can be attributed to accidental deficiencies in one of the carriers. In that sense, even immaterial objects are observable. By this model we address the fact that frequently, the actually observed carriers of conceptual objects are not explicitly identified in documentation, i.e., they are assumed to have existed but they are unknown as individuals.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "S17_Physical_Genesis",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Physical Genesis"
+    },
+    "rdfs:comment": "This class comprises events or processes that result in (generate) physical things, man-made or natural, coming into being in the form by which they are later identified. The creation of a new physical item, at the same time, can be a result of an alteration (modification) – it can become a new thing due to an alteration activity.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E63_Beginning_of_Existence"
+     },
+     {
+      "-rdf:resource": "S18_Alteration"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S18_Alteration",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Alteration"
+    },
+    "rdfs:comment": "This class comprises natural events or man-made processes that create, alter or change physical things, by affecting permanently their form or consistency without changing their identity. Examples include alterations on depositional features-layers by natural factors or disturbance by roots or insects, organic alterations, petrification, etc.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E5_Event"
+    }
+   },
+   {
+    "-rdf:about": "S19_Encounter_Event",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Encounter Event"
+    },
+    "rdfs:comment": "This class comprises activities of Observation (S27) (substance) where an Actor (E39) encounters an instance of E18 Physical Thing, of a kind relevant for the mission of the observation or regarded as potentially relevant for some community (identity). This observation produces knowledge about the existence of the respective thing at particular place in, or on, surrounding matter. This knowledge may be new to the group of people the actor belongs to. In that case, we would talk about discovery. The observer may recognize or assign an individual identity of the thing encountered, or regard only the type as noteworthy in the associated documentation or report. In Archaeology, there is a particular interest if an object is found “in situ”, i.e., if its embedding in the surrounding matter supports the assumption that the object was not moved since the archaeologically relevant deposition event. The surrounding matter with the relative position of the object in it, as well as the absolute position and time of the observation may be recorded to enable inferences about the history of the object. In Biology, additional parameters may be recorded – like the kind of ecosystem, if the biological individual survives the observation, what detection or catching devices have been used, or if the encounter event supported the detection of a new biological kind (“taxon”).",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "S20_Rigid_Physical_Feature",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Rigid Physical Feature"
+    },
+    "rdfs:comment": "Any instance of this class is a physical feature with sufficient stability of form, in itself and with respect to the physical object bearing it, in order to associate a permanent reference space within which its form is invariant and at rest. The maximum volume in space that an instance of S20 Rigid Physical Feature occupies defines uniquely a place for the feature with respect to its surrounding matter. Therefore, we model S20 Rigid Physical Feature as a subclass of E26 Physical Feature and of E53 Place. The latter is intended as a phenomenal place as defined in CRMgeo (Doerr and Hiebel 2013). By virtue of this multiple inheritance, we can discuss positions relative to the extent of an instance of S20 Rigid Physical Feature without representing each instance of it together with an instance of its associated place. However, since the identity and existence of this place depends uniquely on the identity of the instance of S20 Rigid Physical Feature as matter, this multiple inheritance is unambiguous and effective and furthermore corresponds to the intuitions of natural language. It shortcuts an implicit self-referential path from E26 Physical Feature through P156 occupies (is occupied by) , E53 Place , P157 is at rest relative to (provides reference space for) , to E26 Physical Feature. In cases of instances of S20 Rigid Physical Feature on or in the surface of earth, the default reference is typically fixed to the closer environment of the tectonic plate or sea floor. In cases of features on mobile objects, the reference space is typically fixed to the geometry of the bearing object. Note that the reference space associated with the instance of S20 Rigid Physical Feature may quite well be deformed over time, as long the continuity of its topology does not become unclear, such as the compression of dinosaur bones in geological layers, or the distortions of the hull of a ship by the waves of the sea. Defined in this way, the reference space can be used as a means to infer from current topological relationships past topological relationships of interest.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "E26_Physical_Feature"
+     },
+     {
+      "-rdf:resource": "E53_Place"
+     }
+    ]
+   },
+   {
+    "-rdf:about": "S21_Measurement",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Measurement"
+    },
+    "rdfs:comment": "This class comprises actions measuring instances of S15 Observable Entity, properties of physical things, or phenomena, states and interactions or events, that can be determined by a systematic procedure. Primary data from measurement devices are regarded to be results of an observation process.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "S22_Segment_of_Matter",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Segment of Matter"
+    },
+    "rdfs:comment": "This class comprises physical features with relative stability of form and structure within a declared spatial volume of interest. The spatial extent of an instance of S22 Segment of Matter may be declared or defined by a researcher or observer usually because the arrangement and composition of substance is characteristic for the surrounding matter or can be interpreted as traces of its genesis and subsequent internal and external processes it was exposed to. The defining spatial extent is typically declared on a continuous matter by means of geometric determination without observable boundaries on all sides or any side. It may however be extracted at some point in time along the declared boundaries. An instance of S22 Segment of Matter is regarded to be existing from the time on it completely solidified with a structure that is still preserved in a recognizable way at the time of its spatial definition. Its existence is regarded to end when its respective integrity is partially or completely corrupted. Uncorrupted subsections of an instance of S22 Segment of Matter may continue to exist as segments of matter in their own right beyond the existence of the containing instance, and may have solidified before it. Typical examples are segments of archaeological or geological layers. They are regarded as uncorrupted even if they have undergone conformal deformations, such as compressions or shifts, as long as the effects of these deformations do not destroy the relevant structures of interest. This means that the defining spatial volume may be only geometrically valid for an instant of time for which it was declared, and undergo before and after deformations. In some cases, it may be possible to calculate the initial volume at the time of solidification, for instance for petrified bones compressed in Jurassic layers.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S20_Rigid_Physical_Feature"
+    }
+   },
+   {
+    "-rdf:about": "S23_Position_Determination",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Position Determination"
+    },
+    "rdfs:comment": "This class comprises activities of determining the actual position of some instance of S15 Observable Entity in space and time by measuring the necessary parameters sufficient for calculating this position. In the case of a material item, the determined position is intended to approximate a part or all of the extent of the presence (instance of E93 Presence) of an instance of the S15 Observable Entity of interest, such as the outer walls of an excavated settlement, the position of a ship sailing or the start and/or end of an athlete's run in a competition. Characteristically, a theodolite or GPS device may be positioned on some persistent feature. Determining the position of the device will yield an approximation of the position of the feature of interest at that time. Alternatively, some material item may be observed moving through a previously determined position at a given time. In case of determining the position of an Event, the approximated position pertains to areas in the spatiotemporal extent of the Event. This class is not a subclass of S21 Measurement because a position determination normally has to measure more than one dimension. Typically, a position determination consists of a combination of measurements of multiple associated distances and/or angles (instances of E54 Dimension) from a particular spot to certain reference points with previously known position in the same reference space. In some cases, a constituting spatial distance is given by a directed speed and the temporal distance measured from starting from a known position to the actual position, for instance what is registered in a standard log book entry. A particular role is played by the Earth's magnetic field and rotational axis as reference for an angle or direction. Often, the constituting dimensions observed within the context of an instance of S23 Position Determination are not explicitly documented, or hidden in an electronic device ’s software. Nevertheless, they constitute parts of this activity, which can be documented for future reference by the property O41 measured dimension (was measured in): S25 Relative Dimension, or, if they are taken from a previous context, by O42 used result of (results contributed to): O27 Observation. Measurements carried out within the course of the instance of S23 Position Determination for part of the latter and can be documented via the property P9 consists of (forms part of) : S21 Measurement. Devices used can be documented via P16 used specific object (was used for) . The actual calculation of a position is typically executed following standardized methods as part of the same activity carrying out the necessary observations, in particular by using a GPS device. If the calculation is done later in another context, it should be regarded as a distinct instance of S6 Data Evaluation, with its own history of assumptions and accuracies. Even in this case, it is the results of instance of S23 Position Determination which are determinative for the obtained position. In the simplest case of an item being observed to meet an immobile feature of known position (i.e., at a distance as close to 0 as adequate in the particular context), no calculation is needed. The determined position may be given as an E94 Space Primitive, which constitutes a declarative place in the sense of CRMgeo (2013). Note that an instance of E94 Space Primitive itself constitutes an area, often implicit by the given digits, and not an infinitesimally small point. Together with the measured time-span covering the time-critical part of the constituting observations it forms a spacetime volume, which ideally should overlap with the spatiotemporal extent of the thing or phenomenon of interest, if adequate error margins are given. Otherwise, the determined position is regarded to approximate the actual one with deviations characteristic for the measurement methods applied. However, instances of this class are regarded as historical facts, which means that they represent the opinion of the actor executing the determination with all its errors and inaccuracies.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "S24_Sample_Splitting",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Sample Splitting"
+    },
+    "rdfs:comment": "This class comprises the activity of dividing an instance of S13 Sample into new instances of S13 Sample. This activity describes cases of sub-sampling where the resulting instance maintains the characteristic qualities of the original instance. Any observations of these qualities made on the new instance also apply to the original one. This class should be used to model cases of splitting a homogenous sample into multiple ones.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S2_Sample_Taking"
+    }
+   },
+   {
+    "-rdf:about": "S25_Relative_Dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Relative Dimension"
+    },
+    "rdfs:comment": "This class comprises quantifiable properties that can be measured by some calibrated means and were holding between two or more distinct instances of S15 Observable Entity for some time. Typical examples include relative distances between physical things or temporal distances between events such as athletes arriving at a goal or the time elapsed from production in thermoluninescence dating. Generally, all kinds of quantifiable properties holding for a single item in isolation can be compared relative to the same of another item. Depending on the methods, such relative dimensions often constitute important primary observational data for calculating absolute values rather than being computational results from absolute values, an example being relative barometric measurements of altitude during expeditions.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "E54_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "S26_Angle",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Angle"
+    },
+    "rdfs:comment": "This class comprises quantifiable angles that can be measured by some calibrated means and held between a spot on some instance of S15 Observable Entity forming the geometric vertex and two directions to the position of some other instances of S15 Observable Entity. Typical examples include results of measurements with theodolites, sextants or compasses.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "S25_Relative_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "S27_Observation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Observation"
+    },
+    "rdfs:comment": "This class comprises activity of gaining scientific knowledge about particular states of physical reality through empirical evidence, experiments and measurements. We define observation in the sense of natural sciences, as a kind of human activity: at some place and within some time-span, certain physical things and their behaviour and interactions are observed by human sensory impression, and often enhanced by tools and measurement devices. Observed situations or dimensions may pertain to properties confined to a single instance of S15 Observable Entity or pertain to constellations of multiple instances and relations between them, in particular distances between them. The output of the internal processes of measurement devices that do not require additional human interaction are in general regarded as part of the observation and not as additional inference. Primary data from measurement devices are regarded in this model to be results of observation and can be interpreted as propositions believed to be true within the (known) tolerances and degree of reliability of the device. Measurements and witnessing of events are special cases of observations. Observations result in a belief that certain propositions held at a time within the time-span of the observation. In this model, the degree of confidence in the observed properties is regarded to be “true” by default, but could be described differently by adding a property P3 has note to an instance of S4 Observation.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I1_Argumentation"
+    }
+   },
+   {
+    "-rdf:about": "S28_Observable_Situation",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Observable Situation"
+    },
+    "rdfs:comment": "An instance of S28 Observable Situation can be perceived as a set of formal propositions deriving from an observation event on a constellation, an interaction or a dynamic behaviour of instances of S15 Observable Entity, or sections of these instances within a particular time-span and spatial extent that lie in the past. The observation event in question either relies on human senses, or it has been enhanced or mediated by technical instruments. The observer may be directly involved themselves, or they may be receiving signals from each observation. The focus of the observer determines the model they overlay on the observed reality, in order to describe it in terms of distinct properties and value ranges of parameters. The latter selection and projection from reality constitutes the content of a particular instance of S28 Observable Situation. Multiple observers may select different models, details and value systems to the same spatiotemporal area (i.e., views they pay attention to). Consequently, the observed situations may differ, but should, in principle, be comparable to a common reality in their overlaps.",
+    "rdfs:subClassOf": {
+     "-rdf:resource": "I11_Situation"
+    }
+   },
+   {
+    "-rdf:about": "S29_Observable_Proposition",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "Observable Proposition"
+    },
+    "rdfs:comment": "This class comprises proposition sets containing exactly one binary proposition which is, or could, in principle, be, encoded in a knowledge representation language, and which characterizes an observable phenomenon, regardless of whether it has happened or not. For example, it could refer to the intended meaning of a text about an observable phenomenon, where the belief value concerning its reality has not been asserted, or to the question of whether a certain situation has ever happened. The identity of an instance of S29 Observable Proposition is given by the totality of its content, whatever its encoding. The class S29 Observable Proposition plays the role of an important logical interface between observing single propositions and more generally observable situations. It is particularly relevant for implementing effective queries. For documentation, the use of the simpler shortcut properties of S4 Single Observation, i.e. O35 observed entity (was observed by), O9 observed property type (property type was observed by) and O16 observed value (value was observed by) will, typically, be the preferred approach.",
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "I17_One-Proposition_Set"
+     },
+     {
+      "-rdf:resource": "S28_Observable_Situation"
+     }
+    ]
+   }
+  ],
+  "rdf:Property": [
+   {
+    "-rdf:about": "O1_diminished",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "diminished"
+    },
+    "rdfs:comment": "This property associates an instance of S1 Matter Removal with the instance of S10 Material Substantial that this activity diminished. Although an instance of S1 Matter Removal activity normally concerns only one item of S10 Material Substantial, it is possible to imagine circumstances under which more than one item might be diminished by a single Matter Removal activity. An instance S1 Matter Removal activity requires to diminish at least one item of S10 Material Substantial. This may be documented by any of the subproperties of O1 diminished (was diminished by) . Therefore, the instantiation of a particular subproperty of O1 diminished (was diminished by) is not necessary.",
+    "rdfs:domain": {
+     "-rdf:resource": "S1_Matter_Removal"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O1i_was_diminished_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was diminished by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S1_Matter_Removal"
+    }
+   },
+   {
+    "-rdf:about": "O2_removed",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "removed"
+    },
+    "rdfs:comment": "This property associates an instance of S1 Matter Removal with the instance of S11 Amount of Matter that it has removed.",
+    "rdfs:domain": {
+     "-rdf:resource": "S1_Matter_Removal"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S11_Amount_of_Matter"
+    }
+   },
+   {
+    "-rdf:about": "O2i_was_removed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was removed by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S11_Amount_of_Matter"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S1_Matter_Removal"
+    }
+   },
+   {
+    "-rdf:about": "O3_sampled_from",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "sampled from"
+    },
+    "rdfs:comment": "This property associates an instance of S2 Sample Taking with the instance S10 Material Substantial from which a sample was taken. In particular, it may be a feature or a fluid body from which a sample was removed.",
+    "rdfs:domain": {
+     "-rdf:resource": "S2_Sample_Taking"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O3i_was_sample_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was sample by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S2_Sample_Taking"
+    }
+   },
+   {
+    "-rdf:about": "O4_sampled_at",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "sampled at"
+    },
+    "rdfs:comment": "This property associates an instance of S2 Sample Taking with the instance of E53 Place (\"spot\") at which this activity sampled. It identifies the narrowest relevant area on the material substantial from which the sample was taken. This may be known or given in absolute terms or relative to an instance of the material substantial from which it was taken. If samples are taken from more than one spot, the sample taking activity must be documented by separate instances for each spot. The property P7 took place at (witnessed) , inherited from E4 Period, describes the position of the area in which the sampling activity occurred; this latter comprises the space within which operators and instruments were contained during the activity, and the sample taking spot.",
+    "rdfs:domain": {
+     "-rdf:resource": "S2_Sample_Taking"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E53_Place"
+    }
+   },
+   {
+    "-rdf:about": "O4i_was_sampling_location_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was sampling location of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E53_Place"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S2_Sample_Taking"
+    }
+   },
+   {
+    "-rdf:about": "O5_removed",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "removed"
+    },
+    "rdfs:comment": "This property associates an instance of S2 Sample Taking with the instance of S13 Sample that was taken during the activity.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O2_removed"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S2_Sample_Taking"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S13_Sample"
+    }
+   },
+   {
+    "-rdf:about": "O5i_was_removed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was removed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O2i_was_removed_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S13_Sample"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S2_Sample_Taking"
+    }
+   },
+   {
+    "-rdf:about": "O6_is_former_or_current_part_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is former or current part of"
+    },
+    "rdfs:comment": "This property associates an instance of S12 Amount of Fluid with an instance of S14 Fluid Body which formed or forms part of it. It allows instances of S14 Fluid Body to be analysed into elements of S12 Amount of Fluid.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O25_contains"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S12_Amount_of_Fluid"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S14_Fluid_Body"
+    }
+   },
+   {
+    "-rdf:about": "O6i_has_former_or_current_part",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has former or current part"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O25i_is_contained_in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S14_Fluid_Body"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S12_Amount_of_Fluid"
+    }
+   },
+   {
+    "-rdf:about": "O7_confines",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "confines"
+    },
+    "rdfs:comment": "This property associates an instance of S20 Rigid Physical Feature with an instance of S10 Material Substantial that it partially or completely confines. It describes cases in which rigid features such as stratigraphic layers, walls, dams, riverbeds, etc. form the boundaries of some item such as another stratigraphic layer or the waters of a river.",
+    "rdfs:domain": {
+     "-rdf:resource": "S20_Rigid_Physical_Feature"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O7i_is_confined_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is confined by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S20_Rigid_Physical_Feature"
+    }
+   },
+   {
+    "-rdf:about": "O8_observed",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "observed"
+    },
+    "rdfs:comment": "This property associates an instance of S4 Single Observation with one instance of S15 Observable Entity that was observed. Specifically, it describes that a thing, a feature, a phenomenon or some process is observed by an activity of Observation. This property is a strong shortcut of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, O38 has domain (is domain of) , to S15 Observable Entity.",
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P140_assigned_attribute_to"
+     },
+     {
+      "-rdf:resource": "O35_observed_entity"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S4_Single_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O8i_was_observed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was observed by"
+    },
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "P140i_was_attributed_by"
+     },
+     {
+      "-rdf:resource": "O35i_was_observed_by"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S4_Single_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O9_observed_property_type",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "observed property type"
+    },
+    "rdfs:comment": "This property associates an instance of S1 Matter Removal with the instance of S10 Material Substantial that this activity diminished. Although an instance of S4 Single Observation with the instance of S9 Property Type for which the observation provides a value or evidence, such as ‘concentration of nitrate’ observed in the water from a particular borehole. Encoding the observed property by type, observed entity and value (namely, properties O9, O37, and O16, respectively), is a method to circumscribe the reification of the observed property by the respective instance of S4 Single Observation. In an RDFS encoding, this circumscription can be transformed into an explicit representation of the observed property in terms of a formal ontology, either by the use of a reification construct or a Named Graph containing the observed property. The latter representation allows for more formal reasoning with the model, the former is more flexible about the kinds of observations. This property is a strong shortcut of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, J32 has property type (is property type of) , to S9 Property Type.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P177_assigned_property_of_type"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S4_Single_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S9_Property_Type"
+    }
+   },
+   {
+    "-rdf:about": "O9i_property_type_was_observed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "property type was observed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P177i_is_type_of_property_assigned"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S9_Property_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S4_Single_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O10_assigned_dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "assigned dimension"
+    },
+    "rdfs:comment": "This property associates an instance of S6 Data Evaluation with an instance of E54 Dimension that a data evaluation activity has assigned. In that case, dimensions may be determined by making evaluations on observational data based on mathematical inference rules and calculations.",
+    "rdfs:domain": {
+     "-rdf:resource": "S6_Data_Evaluation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E54_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "O10i_dimension_was_assigned_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "dimension was assigned by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E54_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S6_Data_Evaluation"
+    }
+   },
+   {
+    "-rdf:about": "O11_described",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "described"
+    },
+    "rdfs:comment": "This property associates an instance of S6 Data Evaluation with an instance of S15 Observable Entity for which a data evaluation activity provides a description. This description of any Observable Entity is based on data evaluations.",
+    "rdfs:domain": {
+     "-rdf:resource": "S6_Data_Evaluation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O11i_was_described_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was described by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S6_Data_Evaluation"
+    }
+   },
+   {
+    "-rdf:about": "O12_has_dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has dimension"
+    },
+    "rdfs:comment": "This property associates an instance of S15 Observable Entity with an instance of E54 Dimension that the observable entity has. It offers no information about how and when an E54 Dimension was established. Most instances of E54 Dimension pertain to one item only. An instance of E54 Dimension referred to by more than one item via this property or a specialization of it is more specifically an instance of S25 Relative Dimension, such as a distance between two physical objects. In the case of S25 Relative Dimension the property is equivalent to O33i has relative dimension (is relative to) . In case the instance of S15 Observable Entity is more specifically an instance of S10 Material Substantial and the instance of E54 Dimension is not an instance of S25 Relative Dimension, using the property O12 has dimension (is dimension of) is equivalent to using the property P43 has dimension (is dimension of) . In other words, using the one implies the other. This property is a shortcut of the fully developed path from S15 Observable Entity through O24i was measured by (measured) , S21 Measurement, O39 observed dimension (was observed in) , to E54 Dimension. Referring to an instance of E54 Dimension by this property is mutually exclusive to using either property P191 had duration (was duration of) or P179 had sales price (was sales price) to refer to the same instance of E54 Dimension. This broadens the same rule for P43 has dimension (is dimension of) .",
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E54_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "O12i_is_dimension_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is dimension of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E54_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O13_triggered",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "triggered"
+    },
+    "rdfs:comment": "This property associates an instance of E5 Event that triggered another instance of E5 Event with the latter. It identifies the interaction between events: an event can activate (trigger) other events in a target system that is in a situation of sustained tension, such as a trap or an unstable mountain slope giving way to a land slide after a rain or earthquake The distinction of a triggering event A from the triggered event B lies in their difference of nature. The starting of B is the result of an interaction of material constituents of A with material constituents of B. However, B does not necessarily continue the kinds of processes of A. Therefore, the triggering event A must spatiotemporally overlap with the initial time and area of the triggered event B. Any subsequent phenomena must initiate from this area and time and not from multiple independent areas.",
+    "rdfs:domain": {
+     "-rdf:resource": "E5_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E5_Event"
+    }
+   },
+   {
+    "-rdf:about": "O13i_was_triggered_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was triggered by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E5_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E5_Event"
+    }
+   },
+   {
+    "-rdf:about": "O15_occupied",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "occupied"
+    },
+    "rdfs:comment": "This property associates an instance of S10 Material Substantial with the instance of E53 Place that this substance occupied. It describes the space filled (occupied) by a physical matter. This property is the development of the shortcut expressed in the proposition of classification: “S20 Physical Feature” isA “E53 Place”. This property is equivalent to P156 occupies (is occupied by) with domain E18 Physical Thing and range E53 Place.",
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E53_Place"
+    }
+   },
+   {
+    "-rdf:about": "O15i_was_occupied_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was occupied by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E53_Place"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O16_observed_value",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "observed value"
+    },
+    "rdfs:comment": "This property associates a value assigned to an entity observed by S4 Single Observation. This property is a strong shortcut of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, J31 has range (is range of) , to E1 CRM Entity.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P141_assigned"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S4_Single_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E1_CRM_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O16i_value_was_observed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "value was observed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P141i_was_assigned_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E1_CRM_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S4_Single_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O17_generated",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "generated"
+    },
+    "rdfs:comment": "This property associates an instance of S17 Physical Genesis event with an instance of E18 Physical Thing that the event generated.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O18_altered"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S17_Physical_Genesis"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E18_Physical_Thing"
+    }
+   },
+   {
+    "-rdf:about": "O17i_was_generated_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was generated by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O18i_was_altered_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E18_Physical_Thing"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S17_Physical_Genesis"
+    }
+   },
+   {
+    "-rdf:about": "O18_altered",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "altered"
+    },
+    "rdfs:comment": "This property associates an instance of S18 Alteration process with an instance of E18 Physical Thing which was altered by this activity.",
+    "rdfs:domain": {
+     "-rdf:resource": "S18_Alteration"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E18_Physical_Thing"
+    }
+   },
+   {
+    "-rdf:about": "O18i_was_altered_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was altered by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E18_Physical_Thing"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S18_Alteration"
+    }
+   },
+   {
+    "-rdf:about": "O19_encountered_object",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "encountered object"
+    },
+    "rdfs:comment": "This property associates an instance of S19 Encounter Event with an instance of E18 Physical Thing that was encountered or observed as present during the event.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P12_occurred_in_the_presence_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S19_Encounter_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E18_Physical_Thing"
+    }
+   },
+   {
+    "-rdf:about": "O19i_was_object_encountered_through",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was object encountered through"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P12i_was_present_at"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E18_Physical_Thing"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S19_Encounter_Event"
+    }
+   },
+   {
+    "-rdf:about": "O20_sampled_from_type_of_part",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "sampled from type of part"
+    },
+    "rdfs:comment": "This property associates the activity of a Sample Taking with the type of the location part from which a sample was taken. It is a shortcut of the property O4 sampled at (was sampling location of) , and it is used as an alternative property, identifying features and material substantial as types of parts of sampling positions.",
+    "rdfs:domain": {
+     "-rdf:resource": "S2_Sample_Taking"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "O20i_type_of_part_was_sampled_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "type of part was sampled by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E55_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S2_Sample_Taking"
+    }
+   },
+   {
+    "-rdf:about": "O21_encountered_at",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "encountered at"
+    },
+    "rdfs:comment": "This property associates an instance of S19 Encounter Event with an instance of E53 Place at which the things, which were encountered, were observed to be present. This may be given in absolute terms or in terms relative to the observed thing. The associated place must be within the boundaries of the E53 Place at which the S19 Encounter Event took place, if that has been given. Note, that the encountered object may be larger and extend beyond the place of encounter, such as a corner of a building being excavated.",
+    "rdfs:domain": {
+     "-rdf:resource": "S19_Encounter_Event"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E53_Place"
+    }
+   },
+   {
+    "-rdf:about": "O21i_witnessed_encounter",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "witnessed encounter"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E53_Place"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S19_Encounter_Event"
+    }
+   },
+   {
+    "-rdf:about": "O23_is_defined_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is defined by"
+    },
+    "rdfs:comment": "This property identifies the E92 Spacetime Volume that defines a S22 Segment of Matter. The spatial boundaries of the E92 Spacetime Volume are defined through S4 Single Observation or declaration while the temporal boundaries are confined by S18 Alteration events.",
+    "rdfs:domain": {
+     "-rdf:resource": "S22_Segment_of_Matter"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E92_Spacetime_Volume"
+    }
+   },
+   {
+    "-rdf:about": "O23i_defines",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "defines"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E92_Spacetime_Volume"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S22_Segment_of_Matter"
+    }
+   },
+   {
+    "-rdf:about": "O24_measured",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "measured"
+    },
+    "rdfs:comment": "This property associates an instance of S21 Measurement with an instance of S15 Observable Entity to which it applied. An instance of S15 Observable Entity may be measured more than once. Material things and processes may be measured, e.g. the number of words in a copy of a text, or the duration of an event. An instance of S21 Measurement may measure a specific constellation of distinct instances of S15 Observable Entity at some time, to determine a dimension holding between the latter, i.e. an instance of S25 Relative Dimension. This property is part of the fully developed path from S15 Observable Entity through O24i was measured by (measured) , S21 Measurement, O39 observed dimension (was observed in) , to E54 Dimension, which is shortcut by O12 has dimension (is dimension of) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O35_observed_entity"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S21_Measurement"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O24i_was_measured_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was measured by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O35i_was_observed_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S21_Measurement"
+    }
+   },
+   {
+    "-rdf:about": "O25_contains",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "contains"
+    },
+    "rdfs:comment": "This property describes that an instance of S10 Material Substantial was or is contained in another instance of S10 Material Substantial regardless of whether the identity of the involved instances is based on the persistence of the form of material or on material substance that may change form.",
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O25i_is_contained_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is contained in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S10_Material_Substantial"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S10_Material_Substantial"
+    }
+   },
+   {
+    "-rdf:about": "O27_split",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "split"
+    },
+    "rdfs:comment": "This property associates an instance of S24 Sample Splitting with the instance of S13 Sample which is the original sample being split.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O3_sampled_from"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S24_Sample_Splitting"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S13_Sample"
+    }
+   },
+   {
+    "-rdf:about": "O27i_was_source_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was source for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O3i_was_sample_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S13_Sample"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S24_Sample_Splitting"
+    }
+   },
+   {
+    "-rdf:about": "O28_is_conceptually_greater_than",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is conceptually greater than"
+    },
+    "rdfs:comment": "This property associates an instance of E55 Type from a particular concept scheme or vocabulary to be declared as having an order relative to other instances of E55 Type in the same or other concept schemes, without necessarily having a specific value associated with either instance. This allows, for example, for an E55 Type instance representing the concept of \"good\" in a conservation report vocabulary to be greater than the E55 Type instance representing the concept of \"average\" in the same vocabulary. This property is transitive, and thus if \"average\" is greater than \"poor\", then \"good\" is also greater than \"poor\". In the domain of statistics, types that participate in this kind of relationship are called \"Ordinal Variables\"; as opposed to those without order which are called \"Nominal Variables\". This property allows for queries that select based on the relative position of participating E55 Types.",
+    "rdfs:domain": {
+     "-rdf:resource": "E55_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "O28i_is_conceptually_less_than",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is conceptually less than"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E55_Type"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E55_Type"
+    }
+   },
+   {
+    "-rdf:about": "O29_removed_sub-sample",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "removed sub-sample"
+    },
+    "rdfs:comment": "This property associates an instance of S24 Sample Splitting with the resulting instance of S13 Sample that has been removed from the original sample. The new sample (i.e. the sub-sample) maintains the characteristic qualities of the original.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O5_removed"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S24_Sample_Splitting"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S13_Sample"
+    }
+   },
+   {
+    "-rdf:about": "O29i_was_sub-sample_removed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was sub-sample removed by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O5i_was_removed_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S13_Sample"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S24_Sample_Splitting"
+    }
+   },
+   {
+    "-rdf:about": "O30_determined_position",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "determined position"
+    },
+    "rdfs:comment": "This property associates an instance of S23 Position Determination with an instance of E94 Space Primitive that is the result of calculating or concluding an actual position as an integral part of the activity of determining the position. In case the calculation is done later in another context, it should be regarded as the result of a distinct instance of S6 Data Evaluation. The instance of E94 Space Primitive approximates the place occupied by the entity whose position is being determined by the constituting observations.",
+    "rdfs:domain": {
+     "-rdf:resource": "S23_Position_Determination"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "http://www.w3.org/2000/01/rdf-schema#Literal"
+    }
+   },
+   {
+    "-rdf:about": "O31_has_validity_time-span",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has validity time-span"
+    },
+    "rdfs:comment": "This property associates an instance of S23 Position Determination with the instance of E52 Time-Span for which the determination is valid according to the observer at the time of the observation. No inferences can be made in relation to the validity of the determination outside this time-span, despite the fact that some entities are relatively stable, and their positions may remain the same after the determination within the relevant precision. The time-span of validity should fall within the overall time-span of the process of determination. This property should be instantiated if the overall time-span of the process of determination is not sufficiently precise for the purpose and precision of the determination. An example would be the time that a ship reached an assumed position after running for a measured temporal duration with a measured speed and direction from a known position.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P4_has_time-span"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S23_Position_Determination"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E52_Time-Span"
+    }
+   },
+   {
+    "-rdf:about": "O31i_is_time-span_validity_for",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is time-span validity for"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "P4i_is_time-span_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E52_Time-Span"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S23_Position_Determination"
+    }
+   },
+   {
+    "-rdf:about": "O32_determined_position_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "determined position of"
+    },
+    "rdfs:comment": "This property associates an instance of S23 Position Determination with the instance of S15 Observable Entity whose position is being determined.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O35_observed_entity"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S23_Position_Determination"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O32i_was_located_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was located by"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O35i_was_observed_by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S23_Position_Determination"
+    }
+   },
+   {
+    "-rdf:about": "O33_is_relative_to",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is relative to"
+    },
+    "rdfs:comment": "This property associates an instance of S25 Relative Dimension with one of the instances of S15 Observable Entity between which it was holding.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O12i_is_dimension_of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S25_Relative_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O33i_has_relative_dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has relative dimension"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O12_has_dimension"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S25_Relative_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "O34_has_vertex",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has vertex"
+    },
+    "rdfs:comment": "This property associates an instance of S26 Angle with the instance of S15 Observable Entity that includes in its extent the vertex of the former. Typical examples are respective marked spots on Earth or a ship where a theodolite (‘Theodolite’, 2025), a sextant (‘Sextant’, 2025), or a compass is positioned during a position measurement.",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O33_is_relative_to"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S26_Angle"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O34i_is_vertex_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is vertex of"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O33i_has_relative_dimension"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S26_Angle"
+    }
+   },
+   {
+    "-rdf:about": "O35_observed_entity",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "observed entity"
+    },
+    "rdfs:comment": "This property associates an instance of S27 Observation with one of the instances of S15 Observable Entity that were observed. Specifically, it describes that a thing, a feature, a phenomenon, or some process, is observed by an activity of S27 Observation. This property is a strong shortcut for the detailed path from S27 Observation through O36 expressed the observed as (was the expression of) , S28 Observable Situation, O40 refers to observable entity (is referred to in), to S15 Observable Entity.",
+    "rdfs:domain": {
+     "-rdf:resource": "S27_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O35i_was_observed_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was observed by"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O36_expressed_the_observed_as",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "expressed the observed as"
+    },
+    "rdfs:comment": "This property associates an instance of Observation with an instance of S28 Observable Situation that the actors carrying out the observation used to express the observed phenomena of their interests. The alleged time-span of the observed situation must be equal to or within the overall time-span of the domain instance used for this property. A narrower time-span of validity for the observed situation can be documented via the property S28 Observable Situation. J24 held at least for (is at least validity of) : E52 Time-Span. This property is a strong shortcut for the path from S27 Observation through J2 concluded that (was concluded by) , I2 Belief, J4 that (is subject of) , S28 Observable Situation, J5 holds to be , to I6 Belief Value (= “True”).",
+    "rdfs:domain": {
+     "-rdf:resource": "S27_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S28_Observable_Situation"
+    }
+   },
+   {
+    "-rdf:about": "O36i_was_the_expression_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was the expression of"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S28_Observable_Situation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O37_expressed_the_observed_as_observable_proposition",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "expressed the observed as observable proposition"
+    },
+    "rdfs:comment": "This property associates an instance of S4 Single Observation with the instance of S29 Observable Proposition that the actors carrying out the observation used to express the observed phenomenon of interest. This property forms a logical interface between observing single propositions or more generally observable situations. It is particularly relevant for implementing effective queries. For documentation, the use of the simpler shortcut properties, i.e., O8 observed (was observed by), O9 observed property type (property type was observed by) , and O16 observed value (value was observed by) will typically be the preferred approach. The property is part of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, O38 has domain (is domain of) , S15 Observable Entity, which is shortcut by O8 observed (was observed by) . The property is part of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, J31 has range (is range of) , E1 CRM Entity, which is shortcut by O16 observed value (value was observed by) . The property is part of the fully developed path from S4 Single Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, J32 has property type (is property type of) , E55 Type, which is shortcut by O9 observed property type (property type was observed by) .",
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "J33_assigned_propositions"
+     },
+     {
+      "-rdf:resource": "O36_expressed_the_observed_as"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S4_Single_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S29_Observable_Proposition"
+    }
+   },
+   {
+    "-rdf:about": "O37i_was_observable_proposition_characterized_by",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was observable proposition characterized by"
+    },
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "J33i_is_assigned_by"
+     },
+     {
+      "-rdf:resource": "O36i_was_the_expression_of"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S29_Observable_Proposition"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S4_Single_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O38_has_domain",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "has domain"
+    },
+    "rdfs:comment": "This property associates an instance of S29 Observable Proposition with an instance of S15 Observable Entity that must appear as the only domain instance of the proposition in the content of the former. This property is part of the fully developed path from S4 Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, O38 has domain (is domain of) , SO15 Observable Entity, which is shortcut by O8 observed (was observed by) .",
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "J30_has_domain"
+     },
+     {
+      "-rdf:resource": "O40_refers_to_observable_entity"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S29_Observable_Proposition"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O38i_is_domain_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is domain of"
+    },
+    "rdfs:subPropertyOf": [
+     {
+      "-rdf:resource": "J30i_is_domain_of"
+     },
+     {
+      "-rdf:resource": "O40i_is_referred_to_in"
+     }
+    ],
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S29_Observable_Proposition"
+    }
+   },
+   {
+    "-rdf:about": "O39_observed_dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "observed dimension"
+    },
+    "rdfs:comment": "This property records the dimension of an instance of S15 Observable Entity or a specific constellation of such instances that was observed in an instance of S21 Measurement. The observed items should be documented using the property O24 measured (was measured by) . One measurement activity may determine only one dimension of an instance of S15 Observable Entity or a specific constellation of such instances. Such a dimension may be any observable and quantifiable aspect of the latter. Weight, length, spatial or temporal distances are characteristic kinds of dimensions in this sense. A dimension of one or more instances of S15 Observable Entity may be determined either by direct observation or using recorded evidence. However, determination by measuring requires the presence of the measured items. Other methods may constitute other kinds of instances of I1 Argumentation. Even though knowledge of the value of a dimension requires measurement, the dimension may be an object of discourse prior to, or even without, any measurement being made. This property is a part of the fully developed path from S15 Observable Entity through O24i was measured by (measured) , S21 Measurement, O39 observed dimension (was observed in) to E54 Dimension. In case the instance of S21 Measurement is more specifically an instance of E16 Measurement, the instance of E54 Dimension cannot be an instance of S25 Relative Dimension and using the property O39 observed dimension (was observed in) is equivalent to using the property P40 observed dimension (was observed in) . In other words, using the one implies the other. Referring to an instance of E54 Dimension by this property is mutually exclusive to using either property P191 had duration (was duration of) or P179 had sales price (was sales price) to refer to the same instance of E54 Dimension. This follows from the same rule as for O12 has dimension (is dimension of) , in the same way as for P40 observed dimension (was observed in) and P43 has dimension (is dimension of).",
+    "rdfs:domain": {
+     "-rdf:resource": "S21_Measurement"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "E54_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "O39i_was_observed_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was observed in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "E54_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S21_Measurement"
+    }
+   },
+   {
+    "-rdf:about": "O40_refers_to_observable_entity",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "refers to observable entity"
+    },
+    "rdfs:comment": "This property associates an instance of S28 Observable Situation with an instance of S15 Observable Entity that appears as an element of one or more propositions in the content of the former. This property serves on one side to relate an instance of S28 Observable Situation to other contexts of interest, in particular when its content is or cannot be represented as a Named Graph in the same knowledge base. On the other hand, it plays a structural role in this model for expressing a minimal formal constraint for the observability of what is referred by an instance of S28 Observable Situation. This property is part of the fully developed path from S4 Observation through O37 expressed the observed as observable proposition (was observable proposition characterized by) , S29 Observable Proposition, O38 has domain (is domain of) , to S15 Observable Entity, which is strongly shortcut by O8 observed (was observed by) .",
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28_contains_entity_reference"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S28_Observable_Situation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S15_Observable_Entity"
+    }
+   },
+   {
+    "-rdf:about": "O40i_is_referred_to_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "is referred to in"
+    },
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "J28i_is_referred_to_in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S15_Observable_Entity"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S28_Observable_Situation"
+    }
+   },
+   {
+    "-rdf:about": "O41_measured_dimension",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "measured dimension"
+    },
+    "rdfs:comment": "This property associates an instance of S23 Position Determination with an instance of S25 Relative Dimension that was the result of a measurement carried out as part of the activity of determining the position in order to obtain or complete the necessary information for determining the position, such the distances of the item to be determined from two immobile items with known position, or the compass directions of two light-houses (angles with the Earth’s magnetic field ) a s seen from a boat for determining the boat’s position. Only the time-critical measurements need to be carried out of as part of the actual domain instance of this property, such as the time elapsed at which an athlete meets a goal with a predetermined distance from the starting point. This property needs not be instantiated in cases in which the actual relative dimensions are not known to the user, such as the distances to the satellites when using GPS devices.",
+    "rdfs:domain": {
+     "-rdf:resource": "S23_Position_Determination"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S25_Relative_Dimension"
+    }
+   },
+   {
+    "-rdf:about": "O41i_was_measured_in",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "was measured in"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S25_Relative_Dimension"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S23_Position_Determination"
+    }
+   },
+   {
+    "-rdf:about": "O42_used_result_of",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "used result of"
+    },
+    "rdfs:comment": "This property associates an instance of S23 Position Determination with an instance of S27 Observation the results of which were part of the necessary constituting observations of the position determination but carried out earlier, in another context. Therefore, the observations must not be a critical component of the validity time-span of the position determination, such the measurement of the distance between the start and the finish line in a 100m sprint race competition. In contrast, the measurement of the elapsed time an athlete reaches the finish line needs to fall within the time-span and be part of the domain instance of this property.",
+    "rdfs:domain": {
+     "-rdf:resource": "S23_Position_Determination"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S27_Observation"
+    }
+   },
+   {
+    "-rdf:about": "O42i_results_contributed_to",
+    "rdfs:label": {
+     "-xml:lang": "en",
+     "#text": "results contributed to"
+    },
+    "rdfs:domain": {
+     "-rdf:resource": "S27_Observation"
+    },
+    "rdfs:range": {
+     "-rdf:resource": "S23_Position_Determination"
+    }
+   }
+  ]
+ }
+}

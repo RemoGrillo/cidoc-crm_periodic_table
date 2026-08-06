@@ -1096,12 +1096,17 @@ html {
     font-family: "Sorts Mill Goudy";
 }
 
-/* ONTOLOGY FILTERS (CRM / CRMinf / CRMdig) */
+/* ONTOLOGY FILTERS (CRM / CRMinf / CRMdig / CRMsci) */
 
+/* Provenance hues: one per model, kept apart from each other and from the seven
+   class-family colors above (--TemporalEntity ... --Types). CRMsci's indigo is
+   37 degrees of hue from its nearest neighbour (--TemporalEntity) and 8.8:1 on
+   white, so the stripe stays readable next to any family background. */
 :root {
     --ont-crm: #1b1b1b;
     --ont-crminf: #7b2d8b;
     --ont-crmdig: #0e7c7b;
+    --ont-crmsci: #3a3fa0;
 }
 
 /* Cells of a disabled ontology disappear from the two main containers only.
@@ -1111,7 +1116,9 @@ body.hide-ont-crm #propertiesContainer .ont-crm,
 body.hide-ont-crminf #classesContainer .ont-crminf,
 body.hide-ont-crminf #propertiesContainer .ont-crminf,
 body.hide-ont-crmdig #classesContainer .ont-crmdig,
-body.hide-ont-crmdig #propertiesContainer .ont-crmdig {
+body.hide-ont-crmdig #propertiesContainer .ont-crmdig,
+body.hide-ont-crmsci #classesContainer .ont-crmsci,
+body.hide-ont-crmsci #propertiesContainer .ont-crmsci {
     display: none !important;
 }
 
@@ -1119,7 +1126,8 @@ body.hide-ont-crmdig #propertiesContainer .ont-crmdig {
    Clicking one re-enables its ontology (auto-reveal). */
 body.hide-ont-crm #describer .ont-crm,
 body.hide-ont-crminf #describer .ont-crminf,
-body.hide-ont-crmdig #describer .ont-crmdig {
+body.hide-ont-crmdig #describer .ont-crmdig,
+body.hide-ont-crmsci #describer .ont-crmsci {
     opacity: 0.45;
     filter: grayscale(0.6);
 }
@@ -1127,7 +1135,8 @@ body.hide-ont-crmdig #describer .ont-crmdig {
 /* Extension cells carry a side stripe in their ontology color
    (pseudo-element: box-shadow is already taken by .selectedCell) */
 .cidoccell.ont-crminf::before,
-.cidoccell.ont-crmdig::before {
+.cidoccell.ont-crmdig::before,
+.cidoccell.ont-crmsci::before {
     content: "";
     position: absolute;
     left: 0;
@@ -1138,9 +1147,11 @@ body.hide-ont-crmdig #describer .ont-crmdig {
 }
 .cidoccell.ont-crminf::before { background: var(--ont-crminf); }
 .cidoccell.ont-crmdig::before { background: var(--ont-crmdig); }
+.cidoccell.ont-crmsci::before { background: var(--ont-crmsci); }
 
 .cidocline.ont-crminf .cidoclineCode { border-bottom: 3px solid var(--ont-crminf); }
 .cidocline.ont-crmdig .cidoclineCode { border-bottom: 3px solid var(--ont-crmdig); }
+.cidocline.ont-crmsci .cidoclineCode { border-bottom: 3px solid var(--ont-crmsci); }
 
 /* Section headers inside the tables */
 .ontologySectionHeader {
@@ -1154,6 +1165,7 @@ body.hide-ont-crmdig #describer .ont-crmdig {
 }
 .ontologySectionHeader.ont-crminf { border-color: var(--ont-crminf); color: var(--ont-crminf); }
 .ontologySectionHeader.ont-crmdig { border-color: var(--ont-crmdig); color: var(--ont-crmdig); }
+.ontologySectionHeader.ont-crmsci { border-color: var(--ont-crmsci); color: var(--ont-crmsci); }
 
 /* Toggle chips in the menu row (they double as the legend) */
 #ontologyToggles {
@@ -1199,6 +1211,7 @@ body.hide-ont-crmdig #describer .ont-crmdig {
 }
 .ontToggle.ont-crminf .ontToggleSwatch { background: var(--ont-crminf); }
 .ontToggle.ont-crmdig .ontToggleSwatch { background: var(--ont-crmdig); }
+.ontToggle.ont-crmsci .ontToggleSwatch { background: var(--ont-crmsci); }
 .ontToggle:hover:not(.disabledOntToggle) .ontToggleSwatch { outline: 1px solid white; }
 
 /* Ontology tag: tiny, bottom-right of the class/property title row */
@@ -1221,8 +1234,9 @@ body.hide-ont-crmdig #describer .ont-crmdig {
 .descOntologyTag:empty { display: none; }
 .descOntologyTag.ont-crminf { border-color: var(--ont-crminf); color: var(--ont-crminf); }
 .descOntologyTag.ont-crmdig { border-color: var(--ont-crmdig); color: var(--ont-crmdig); }
+.descOntologyTag.ont-crmsci { border-color: var(--ont-crmsci); color: var(--ont-crmsci); }
 
-/* References to models not included in the app (e.g. CRMsci) */
+/* References to models not included in the app (e.g. CRMgeo) */
 .externalRef {
     opacity: 0.55;
     cursor: default !important;

@@ -1,1 +1,15 @@
+# Editor and OS
 .idea
+.DS_Store
+
+# Paper working folder (task notes and the raw analytics export)
+paper_scik2026
+
+# Python bytecode from tools/
+__pycache__/
+*.pyc
+
+# Official RDFS sources downloaded to run tools/convert_rdfs_to_json.py:
+# only the generated JSON is versioned (see tools/README.md)
+/*.rdf
+/*.rdfs

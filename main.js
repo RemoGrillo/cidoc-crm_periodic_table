@@ -40,7 +40,8 @@ const cidoc_colorcodes = {
 const ONTOLOGIES = {
     crm:    { label: "CRM",       prefix: "crm",    ns: "http://www.cidoc-crm.org/cidoc-crm/",         cssClass: "ont-crm",    order: 0 },
     crminf: { label: "CRMinf",    prefix: "crminf", ns: "http://www.cidoc-crm.org/extensions/crminf/", cssClass: "ont-crminf", order: 1 },
-    crmdig: { label: "CRMdig",    prefix: "crmdig", ns: "http://www.cidoc-crm.org/extensions/crmdig/", cssClass: "ont-crmdig", order: 2 }
+    crmdig: { label: "CRMdig",    prefix: "crmdig", ns: "http://www.cidoc-crm.org/extensions/crmdig/", cssClass: "ont-crmdig", order: 2 },
+    crmsci: { label: "CRMsci",    prefix: "crmsci", ns: "http://www.cidoc-crm.org/extensions/crmsci/", cssClass: "ont-crmsci", order: 3 }
 };
 
 //Code letter -> kind and home ontology (E7 -> crm class, J2 -> crminf property...)
@@ -50,30 +51,35 @@ const CODE_PREFIXES = {
     I: { kind: "class",    ont: "crminf" },
     J: { kind: "property", ont: "crminf" },
     D: { kind: "class",    ont: "crmdig" },
-    L: { kind: "property", ont: "crmdig" }
+    L: { kind: "property", ont: "crmdig" },
+    S: { kind: "class",    ont: "crmsci" },
+    O: { kind: "property", ont: "crmsci" }
 };
 
 //Which extension release goes with which base release (verified against the
-//official RDFS files: CRMinf 1.2.1 and CRMdig 5.0 both target CIDOC CRM 7.1.x).
+//official RDFS files: CRMinf 1.2.1, CRMdig 5.0 and CRMsci 3.2 all target CIDOC
+//CRM 7.1.x).
 const VERSIONS = {
     "7.1": {
         base: "cidoc7.1.json",
         extensions: {
             crminf: { file: "crminf1.2.1.json", version: "1.2.1", status: "available", note: "CRMinf 1.2.1 (Stable), targets CIDOC CRM 7.1.3" },
-            crmdig: { file: "crmdig5.0.json",   version: "5.0",   status: "available", note: "CRMdig 5.0 (Stable), targets CIDOC CRM 7.1.3" }
+            crmdig: { file: "crmdig5.0.json",   version: "5.0",   status: "available", note: "CRMdig 5.0 (Stable), targets CIDOC CRM 7.1.3" },
+            crmsci: { file: "crmsci3.2.json",   version: "3.2",   status: "available", note: "CRMsci 3.2 (Stable), targets CIDOC CRM 7.1.3" }
         }
     },
     "6.2.1": {
         base: "cidoc6.2.1.json",
         extensions: {
             crminf: { status: "unavailable", note: "CRMinf machine-readable releases require CIDOC CRM 7.1.x (switch version to 7.1)" },
-            crmdig: { status: "unavailable", note: "CRMdig 5.0 requires CIDOC CRM 7.1.x (switch version to 7.1)" }
+            crmdig: { status: "unavailable", note: "CRMdig 5.0 requires CIDOC CRM 7.1.x (switch version to 7.1)" },
+            crmsci: { status: "unavailable", note: "CRMsci 3.2 requires CIDOC CRM 7.1.x (switch version to 7.1)" }
         }
     }
 };
 
 var currentVersion = "7.1";
-var enabledOntologies = { crm: true, crminf: false, crmdig: false };
+var enabledOntologies = { crm: true, crminf: false, crmdig: false, crmsci: false };
 
 function ontologyOf(code){
     if(cidoc[code] && cidoc[code].ontology) return cidoc[code].ontology;
@@ -1377,7 +1383,7 @@ function cellClick(elem, simulated=false){
                 let ontClass = ONTOLOGIES[ontologyOf(v)] ? ONTOLOGIES[ontologyOf(v)].cssClass : "";
                 superhtml += "<a class='descsuperclass " + ontClass + "' code='"+v+"'>" + v + " - " + label + "</a>";
             });
-            //Superclasses living in models not included in this app (e.g. CRMsci)
+            //Superclasses living in models not included in this app (e.g. CRMgeo)
             $.each(cidoc[keycode]["externalSuperclasses"] || [], function(k,v){
                 superhtml += "<a class='descsuperclass externalRef' title='Defined in an external CRM extension not included here'>" + escapeAttr(v) + "</a>";
             });
@@ -2027,7 +2033,7 @@ function takeDataFromEntry(entry, ont="crm"){
         cidoc[currentcode]["superclasses"] = superclasses.filter(function(code){ return !!code; });
     }
 
-    /* SUPERCLASSES living in ontologies that are not part of this app (e.g. CRMsci) */
+    /* SUPERCLASSES living in ontologies that are not part of this app (e.g. CRMgeo) */
     if("externalSuperclasses" in entry){
         cidoc[currentcode]["externalSuperclasses"] = entry["externalSuperclasses"];
     }
@@ -2107,7 +2113,7 @@ function classesLayout(code, experiment=false){
 
 function classesLineLayout(code){
     if(!cidoc[code]){
-        //Reference to a model that is not part of this app (e.g. CRMsci)
+        //Reference to a model that is not part of this app (e.g. CRMgeo)
         return "<div class='cidocline classline none externalRef' title='Defined in an external CRM extension not included here'><span class='cidoclineCode'>" + escapeAttr(code) + "</span></div>";
     }
     let color_code = getColorCode(code);

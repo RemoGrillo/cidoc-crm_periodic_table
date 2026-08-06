@@ -96,12 +96,14 @@
      "#text": "Digital Measurement Event"
     },
     "rdfs:comment": "This class comprises actions measuring physical properties using a digital device, that are determined by a systematic procedure and creates an instance of D9 Data Object, which is stored on an instance of D13 Digital Information Carrier. In contrast to instances of D10 Software Execution, environmental factors have an intended influence on the outcome of an instance of D11 Digital Measurement Event. Measurement devices may include running distinct software, such as the RAW to JPEG conversion in digital cameras, as an integral part of the overall process. If the respective software is configurable for the device, the event is regarded as an instance of both classes, D10 Software Execution and D11 Digital Measurement Event. The actual physical properties measured should be documented using the property O39 observed dimension (was observed in): E54 Dimension. Note that the property L20 has created (was created by): D9 Data Object constitutes a shortcut of the full path from D11 Digital Measurement Event through O39 observed dimension (was observed in), E54 Dimension, L61 contains value set of (has value set representation) , to D9 Data Object.",
-    "externalSuperclasses": [
-     "S21_Measurement (CRMsci)"
-    ],
-    "rdfs:subClassOf": {
-     "-rdf:resource": "D7_Digital_Machine_Event"
-    }
+    "rdfs:subClassOf": [
+     {
+      "-rdf:resource": "D7_Digital_Machine_Event"
+     },
+     {
+      "-rdf:resource": "S21_Measurement"
+     }
+    ]
    },
    {
     "-rdf:about": "D12_Data_Transfer_Event",
@@ -178,9 +180,9 @@
      "#text": "digitized"
     },
     "rdfs:comment": "This property associates an instance of D2 Digitization Process with an instance of E18 Physical Thing which is a material thing.",
-    "externalSuperclasses": [
-     "O24_measured (CRMsci)"
-    ],
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O24_measured"
+    },
     "rdfs:domain": {
      "-rdf:resource": "D2_Digitization_Process"
     },
@@ -194,9 +196,9 @@
      "-xml:lang": "en",
      "#text": "was digitized by"
     },
-    "externalSuperclasses": [
-     "O24i_was_measured_by (CRMsci)"
-    ],
+    "rdfs:subPropertyOf": {
+     "-rdf:resource": "O24i_was_measured_by"
+    },
     "rdfs:domain": {
      "-rdf:resource": "E18_Physical_Thing"
     },

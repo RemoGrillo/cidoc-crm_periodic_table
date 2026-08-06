@@ -7,7 +7,7 @@ Normalizations applied:
 - rdf:about / rdf:resource URIs of known CRM namespaces are stripped to local
   names ("http://www.cidoc-crm.org/cidoc-crm/E7_Activity" -> "E7_Activity"),
   so the app can resolve references by code across ontologies.
-- References into CRM-family models NOT shipped with the app (CRMsci, ...) are
+- References into CRM-family models NOT shipped with the app (CRMgeo, ...) are
   moved from rdfs:subClassOf to a display-only "externalSuperclasses" list.
 - rdfs:comment is flattened to a plain string (English preferred).
 
@@ -29,14 +29,14 @@ STRIP_NAMESPACES = [
     "http://www.cidoc-crm.org/cidoc-crm/",
     "http://www.cidoc-crm.org/extensions/crminf/",
     "http://www.cidoc-crm.org/extensions/crmdig/",
+    "http://www.cidoc-crm.org/extensions/crmsci/",
     "http://www.ics.forth.gr/isl/CRMinf/",
     "http://www.ics.forth.gr/isl/CRMdig/",
+    "http://www.ics.forth.gr/isl/CRMsci/",
 ]
 
 # CRM-family models the app does NOT load: references become inert labels
 EXTERNAL_NAMESPACES = {
-    "http://www.cidoc-crm.org/extensions/crmsci/": "CRMsci",
-    "http://www.ics.forth.gr/isl/CRMsci/": "CRMsci",
     "http://www.cidoc-crm.org/extensions/crmgeo/": "CRMgeo",
     "http://www.cidoc-crm.org/extensions/crmarchaeo/": "CRMarchaeo",
     "http://www.cidoc-crm.org/extensions/crmba/": "CRMba",
