@@ -1,0 +1,65 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Cidoc-CRM Periodic Table
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Remo
+    family-names: Grillo
+    email: remo.grillo@unibo.it
+    affiliation: Alma Mater Studiorum - Università di Bologna
+    orcid: 'https://orcid.org/0000-0003-3585-0198'
+repository-code: 'https://github.com/RemoGrillo/cidoc-crm_periodic_table/'
+url: 'https://remogrillo.github.io/cidoc-crm_periodic_table/'
+abstract: >-
+  The CIDOC CRM Periodic Table is a browser-based interface
+  for reading and applying the CIDOC Conceptual Reference
+  Model together with three of its extensions: CRMsci 3.2
+  (scientific observation and measurement), CRMdig 5.0
+  (provenance of digital processes) and CRMinf 1.2.1
+  (inference and belief). It renders 131 classes and 480
+  property entries as a single navigable surface, coloured
+  by class family and filterable per model, so that a
+  modeller can see a whole model at once instead of paging
+  through four separate specification documents.
+
+
+  Beyond browsing, it offers two forms of modelling support.
+  A one-step triple builder admits only the class and
+  property combinations licensed by the declared domains,
+  ranges and the transitive subclass closure, and reads the
+  result back as an English sentence and as instance-level
+  Turtle. A multi-step path finder enumerates property
+  chains between two chosen classes, ranks them by
+  specificity, and marks those that hold only for a more
+  specific intermediate class. Because all loaded models are
+  merged into one dictionary keyed by code before the
+  hierarchy closures are computed, both facilities resolve
+  chains that cross model boundaries — for instance that
+  CRMdig's D11 Digital Measurement Event is a CRMsci S21
+  Measurement, or that a CRMinf property applies to CRMsci's
+  S5 Inference Making.
+
+
+  The interface state is carried in the URL, so any class,
+  filter combination or path query is a citable link.
+  Everything runs client-side, with no server component.
+keywords:
+  - CIDOC CRM
+  - CRMsci
+  - CRMdig
+  - CRMinf
+  - ontology documentation
+  - conceptual modelling
+  - cultural heritage informatics
+  - research data
+  - RDFS entailment
+  - semantic web
+license: MIT
+commit: 64d1a37d204dbbd6f45a14b4cfe6c55ac7da010f
+version: 1.0.0
+date-released: '2026-08-06'
