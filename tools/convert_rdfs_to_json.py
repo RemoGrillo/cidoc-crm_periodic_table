@@ -18,7 +18,7 @@ Usage:
 import argparse
 import json
 import sys
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 
 RDF = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}"
 RDFS = "{http://www.w3.org/2000/01/rdf-schema#}"
@@ -141,6 +141,7 @@ def main():
     parser.add_argument("-o", "--output", required=True, help="output JSON path")
     args = parser.parse_args()
 
+    # defusedxml.ElementTree.parse (imported as ET) rejects external entities/DTDs.
     root = ET.parse(args.input).getroot()
     report = {"skipped": [], "external": [], "unexpected": [], "referenced": set()}
 
