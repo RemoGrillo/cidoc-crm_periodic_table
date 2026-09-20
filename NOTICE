@@ -1,0 +1,41 @@
+The CIDOC CRM Periodic Table
+Copyright (c) 2020-2026 Remo Grillo — MIT License (see LICENSE)
+https://github.com/RemoGrillo/cidoc-crm_periodic_table
+
+
+DERIVED ONTOLOGY DATA
+
+The files cidoc7.1.json, cidoc6.2.1.json, crmsci3.2.json, crmdig5.0.json and
+crminf1.2.1.json were produced by tools/convert_rdfs_to_json.py from the official
+machine-readable encodings published by the CIDOC CRM Special Interest Group and
+created by FORTH-ICS:
+
+  CIDOC CRM 7.1.3  https://cidoc-crm.org/rdfs/7.1.3/CIDOC_CRM_v7.1.3.rdfs
+  CIDOC CRM 6.2.1  https://cidoc-crm.org/versions-of-the-cidoc-crm
+  CRMsci 3.2       https://cidoc-crm.org/extensions/crmsci/rdfs/3.2/CRMsci_v3.2.rdf
+  CRMdig 5.0       https://cidoc-crm.org/extensions/crmdig/rdfs/5.0/CRMdig_v5.0.rdf
+  CRMinf 1.2.1     https://cidoc-crm.org/extensions/crminf/rdfs/1.2.1/CRMinf_v1.2.1.rdf
+
+Each of those encodings states the licence CC BY 4.0 in its header
+(https://creativecommons.org/licenses/by/4.0/).
+
+The JSON files are modified versions of that material. The modifications are:
+RDF/XML converted to JSON; URIs of known CRM namespaces reduced to local names;
+rdfs:comment flattened to plain strings; references into CRM-family models not
+loaded by this application moved to a display-only "externalSuperclasses" list.
+Class and property declarations and scope notes are reproduced from the source.
+
+Attribution to the CIDOC CRM Special Interest Group and to FORTH-ICS is required
+when these files, or the definitions and scope notes they contain, are reused.
+
+
+THIRD-PARTY COMPONENTS
+
+src/jquery.flip.js
+  flip v1.1.2 — Copyright (c) 2016 Nattawat Nonsung — MIT License
+  https://github.com/nnattawat/flip
+
+src/TreeModel-min.js
+  tree-model — Copyright (c) João Nuno Silva — MIT License
+  https://github.com/joaonuno/tree-model-js
+  (the minified file carries no licence banner; recorded here instead)

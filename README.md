@@ -14,6 +14,28 @@ You can find complete information in the official Cidoc-CRM documentation. Howev
 The interface content is dinamically generated from the Cidoc-CRM implementation in RDF.
 There is no server-side computation, all the data processing and reasoning is done client side, entirely in javascript.
 
+### Running it locally
+
+The interface is a static page: no build step, no server-side code, no dependencies.
+Clone the repository and serve the folder over HTTP.
+
+```sh
+git clone https://github.com/RemoGrillo/cidoc-crm_periodic_table.git
+cd cidoc-crm_periodic_table
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>. Any static web server will do, and the GitHub Pages
+deployment above is the same files served the same way. Opening `index.html` straight
+from the filesystem does *not* work: the ontology data is fetched over XHR, which
+browsers block on `file://` URLs.
+
+The ontology data (`cidoc7.1.json`, `crmsci3.2.json`, `crmdig5.0.json`,
+`crminf1.2.1.json`, `cidoc6.2.1.json`) is committed, so nothing has to be generated in
+order to run the interface. To rebuild it from the official RDFS sources, see
+[tools/README.md](tools/README.md); `tools/convert_rdfs_to_json.py` needs Python 3 and
+the standard library, nothing else.
+
 ### Functions
 
 * One page visualization of the entire Conceptual Reference Model
